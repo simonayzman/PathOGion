@@ -15,6 +15,8 @@
 		028DFD9E1A86F47C00C201DE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 028DFD9D1A86F47C00C201DE /* Images.xcassets */; };
 		028DFDA11A86F47C00C201DE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 028DFD9F1A86F47C00C201DE /* LaunchScreen.xib */; };
 		028DFDAD1A86F47C00C201DE /* PathOGionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 028DFDAC1A86F47C00C201DE /* PathOGionTests.m */; };
+		028DFDB71A86F49C00C201DE /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 028DFDB61A86F49C00C201DE /* MapKit.framework */; };
+		028DFDB91A86F4C600C201DE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 028DFDB81A86F4C600C201DE /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +44,8 @@
 		028DFDA61A86F47C00C201DE /* PathOGionTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PathOGionTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		028DFDAB1A86F47C00C201DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		028DFDAC1A86F47C00C201DE /* PathOGionTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PathOGionTests.m; sourceTree = "<group>"; };
+		028DFDB61A86F49C00C201DE /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		028DFDB81A86F4C600C201DE /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +53,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				028DFDB91A86F4C600C201DE /* CoreLocation.framework in Frameworks */,
+				028DFDB71A86F49C00C201DE /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +71,8 @@
 		028DFD811A86F47C00C201DE = {
 			isa = PBXGroup;
 			children = (
+				028DFDB81A86F4C600C201DE /* CoreLocation.framework */,
+				028DFDB61A86F49C00C201DE /* MapKit.framework */,
 				028DFD8C1A86F47C00C201DE /* PathOGion */,
 				028DFDA91A86F47C00C201DE /* PathOGionTests */,
 				028DFD8B1A86F47C00C201DE /* Products */,
@@ -171,6 +179,14 @@
 				TargetAttributes = {
 					028DFD891A86F47C00C201DE = {
 						CreatedOnToolsVersion = 6.1.1;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					028DFDA51A86F47C00C201DE = {
 						CreatedOnToolsVersion = 6.1.1;
