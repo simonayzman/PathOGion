@@ -3,8 +3,10 @@
 //  Location
 //
 //  Created by Ricky Chea
-//  Copyright (c) 2014 Location All rights reserved.
+//  Copyright (c) 2014 Location. All rights reserved.
 //
+//  Edited by Simon Ayzman
+//  Copyright (c) 2015 PathOGion. All rights reserved.
 
 #import "LocationTracker.h"
 
