@@ -23,7 +23,7 @@
     {
         
         alert = [[UIAlertView alloc]initWithTitle:@""
-                                          message:@"The app does not work without the Background App Refresh enabled. To turn it on, go to Settings > General > Background App Refresh"
+                                          message:@"This app does not work without the Background App Refresh enabled. To turn it on, go to Settings > General > Background App Refresh"
                                          delegate:nil
                                 cancelButtonTitle:@"Ok"
                                 otherButtonTitles:nil, nil];
@@ -33,7 +33,7 @@
     else if([[UIApplication sharedApplication] backgroundRefreshStatus] == UIBackgroundRefreshStatusRestricted)
     {
         alert = [[UIAlertView alloc]initWithTitle:@""
-                                          message:@"The functions of this app are limited because the Background App Refresh is disable."
+                                          message:@"The functions of this app are limited because the Background App Refresh is disabled."
                                          delegate:nil
                                 cancelButtonTitle:@"Ok"
                                 otherButtonTitles:nil, nil];
@@ -57,6 +57,7 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    [self saveContext];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {

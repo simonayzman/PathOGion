@@ -9,6 +9,8 @@
 //  Copyright (c) 2015 PathOGion. All rights reserved.
 
 #import "LocationTracker.h"
+#import "UserLocationPoint.h"
+#import "AppDelegate.h"
 
 #define COORDINATE @"user_coordinate"
 #define LATITUDE @"user_latitude"
@@ -210,14 +212,13 @@
                                                                          selector:@selector(stopLocationUpdates)
                                                                          userInfo:nil
                                                                           repeats:NO];
-
 }
 
-//Stop the locationManager
 - (void) stopLocationUpdates
 {
     NSLog(@"locationManager stopLocationUpdates");
     [self.locationManager stopUpdatingLocation];
+    [self saveLocation];
 }
 
 
@@ -248,9 +249,7 @@
 // Send the location to Server
 - (void) saveLocation
 {
-    
     NSLog(@"savingLocation");
-    
     // Find the most accurate location from the array based on accuracy
     NSMutableDictionary *mostAccurateLocation = [[NSMutableDictionary alloc]init];
     
@@ -284,8 +283,36 @@
           self.currentLocationAccuracy);
     
     //TODO: Your code to send the self.myLocation and self.myLocationAccuracy to your server
+
+    AppDelegate *app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *managedObjectContext = app.managedObjectContext;
+
+    UserLocationPoint *userLocationPoint = [NSEntityDescription insertNewObjectForEntityForName:@"UserLocationPoint"
+                                                                         inManagedObjectContext:managedObjectContext];
+    userLocationPoint.latitude = self.currentLocation.latitude;
+    userLocationPoint.longitude = self.currentLocation.longitude;
+    userLocationPoint.accuracy = self.currentLocationAccuracy;
+    userLocationPoint.timestamp = [NSDate date];
+    [app saveContext];
     
-    //After sending the location to the server successful, remember to clear the current array with the following code. It is to make sure that you clear up old location in the array and add the new locations from locationManager
+    // Testing
+    
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"UserLocationPoint"];
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES]];
+    NSError *error;
+    NSArray *userLocationPoints = [managedObjectContext executeFetchRequest:request error:&error];
+    if (error)
+    {
+        // Replace this implementation with code to handle the error appropriately.
+        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
+    }
+    else
+        NSLog(@"Locations thus far %@", userLocationPoints);
+
+    
+    // After saving the location data, the array is cleared to make way for new location data
     [self.savedLocationsArray removeAllObjects];
     self.savedLocationsArray = nil;
 }

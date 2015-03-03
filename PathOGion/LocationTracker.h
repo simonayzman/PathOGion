@@ -27,5 +27,4 @@
 - (void) stopLocationTracking;
 - (void) saveLocation;
 
-
 @end
