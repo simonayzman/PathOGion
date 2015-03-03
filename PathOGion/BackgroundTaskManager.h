@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIApplication.h>
 
 @interface BackgroundTaskManager : NSObject
 
