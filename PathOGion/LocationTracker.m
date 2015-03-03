@@ -142,7 +142,6 @@
         self.beginUpdateLocationEveryNSecondsTimer = nil;
     }
     [self.locationManager stopUpdatingLocation];
-    [self saveLocation];
 }
 
 #pragma mark - CLLocationManagerDelegate Methods
@@ -218,6 +217,7 @@
 {
     NSLog(@"locationManager stopLocationUpdates");
     [self.locationManager stopUpdatingLocation];
+    [self saveLocation];
 }
 
 
@@ -296,7 +296,8 @@
     // Testing
     
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"UserLocationPoint"];
-    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES]];
+    [request setReturnsObjectsAsFaults:NO];
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:YES]];
     NSError *error;
     NSArray *userLocationPoints = [managedObjectContext executeFetchRequest:request error:&error];
     if (error)
