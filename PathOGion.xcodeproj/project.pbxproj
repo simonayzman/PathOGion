@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		028343741AA547C8007F33DD /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 028343731AA547C8007F33DD /* CoreData.framework */; };
 		028DFD901A86F47C00C201DE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 028DFD8F1A86F47C00C201DE /* main.m */; };
 		028DFD931A86F47C00C201DE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 028DFD921A86F47C00C201DE /* AppDelegate.m */; };
 		028DFD961A86F47C00C201DE /* PathOGion.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 028DFD941A86F47C00C201DE /* PathOGion.xcdatamodeld */; };
@@ -33,6 +34,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		028343731AA547C8007F33DD /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		028DFD8A1A86F47C00C201DE /* PathOGion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PathOGion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		028DFD8E1A86F47C00C201DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		028DFD8F1A86F47C00C201DE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -62,6 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				028343741AA547C8007F33DD /* CoreData.framework in Frameworks */,
 				028DFDB91A86F4C600C201DE /* CoreLocation.framework in Frameworks */,
 				028DFDB71A86F49C00C201DE /* MapKit.framework in Frameworks */,
 			);
@@ -80,6 +83,7 @@
 		02881BB41AA1715400C34C34 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				028343731AA547C8007F33DD /* CoreData.framework */,
 				028DFDB81A86F4C600C201DE /* CoreLocation.framework */,
 				028DFDB61A86F49C00C201DE /* MapKit.framework */,
 			);

@@ -141,8 +141,8 @@
         [self.beginUpdateLocationEveryNSecondsTimer invalidate];
         self.beginUpdateLocationEveryNSecondsTimer = nil;
     }
-    
     [self.locationManager stopUpdatingLocation];
+    [self saveLocation];
 }
 
 #pragma mark - CLLocationManagerDelegate Methods
@@ -218,14 +218,12 @@
 {
     NSLog(@"locationManager stopLocationUpdates");
     [self.locationManager stopUpdatingLocation];
-    [self saveLocation];
 }
 
 
 - (void) locationManager: (CLLocationManager *)manager didFailWithError: (NSError *)error
 {
-   // NSLog(@"locationManager error:%@",error);
-    
+    NSLog(@"locationManager error:%@",error);
     switch([error code])
     {
         case kCLErrorNetwork: // general, network-related error

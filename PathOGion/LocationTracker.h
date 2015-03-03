@@ -11,6 +11,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 #import "BackgroundTaskManager.h"
+
 #define ACCURACY_TOLERANCE 100.0
 
 #define BEGIN_UPDATE_LOCATION_EVERY_N_SECONDS 15.0
