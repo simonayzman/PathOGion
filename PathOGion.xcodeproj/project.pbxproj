@@ -21,6 +21,7 @@
 		02952B291AA52CCD009EF8FC /* BackgroundTaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 02952B261AA52CCD009EF8FC /* BackgroundTaskManager.m */; };
 		02952B2A1AA52CCD009EF8FC /* LocationTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 02952B281AA52CCD009EF8FC /* LocationTracker.m */; };
 		02952B2D1AA52EF5009EF8FC /* UserLocationPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 02952B2C1AA52EF5009EF8FC /* UserLocationPoint.m */; };
+		02DAFD3B1AB8ECA600990298 /* patient.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 02DAFD3A1AB8ECA600990298 /* patient.geojson */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		02952B281AA52CCD009EF8FC /* LocationTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationTracker.m; sourceTree = "<group>"; };
 		02952B2B1AA52EF5009EF8FC /* UserLocationPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserLocationPoint.h; sourceTree = "<group>"; };
 		02952B2C1AA52EF5009EF8FC /* UserLocationPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserLocationPoint.m; sourceTree = "<group>"; };
+		02DAFD3A1AB8ECA600990298 /* patient.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = patient.geojson; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				028DFD8E1A86F47C00C201DE /* Info.plist */,
+				02DAFD3A1AB8ECA600990298 /* patient.geojson */,
 				028DFD8F1A86F47C00C201DE /* main.m */,
 			);
 			name = "Supporting Files";
@@ -248,6 +251,7 @@
 				028DFD9C1A86F47C00C201DE /* Main.storyboard in Resources */,
 				028DFDA11A86F47C00C201DE /* LaunchScreen.xib in Resources */,
 				028DFD9E1A86F47C00C201DE /* Images.xcassets in Resources */,
+				02DAFD3B1AB8ECA600990298 /* patient.geojson in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

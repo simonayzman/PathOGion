@@ -47,6 +47,8 @@
 	</array>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Must always track user's location.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Must always track user's location.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
