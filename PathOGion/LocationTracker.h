@@ -12,21 +12,20 @@
 #import <CoreLocation/CoreLocation.h>
 #import "BackgroundTaskManager.h"
 
-#define DISTANCE_FILTER 5000.0
-#define ACCURACY_TOLERANCE 100.0
+#define DISTANCE_FILTER 10.0
+#define ACCURACY_TOLERANCE 50.0
 
 #define BEGIN_UPDATE_LOCATION_EVERY_N_SECONDS 10.0
 #define UPDATE_LOCATION_FOR_N_SECONDS 1.0
 
 @interface LocationTracker : NSObject <CLLocationManagerDelegate>
 
-@property (nonatomic) CLLocationCoordinate2D currentLocation;
-@property (nonatomic) CLLocationAccuracy currentLocationAccuracy;
+@property (strong, nonatomic) NSDictionary *currentLocation;
 
 + (instancetype) sharedLocationTracker;
 
 - (void) startLocationTracking;
 - (void) stopLocationTracking;
-- (void) saveLocation;
+- (void) saveLocation: (NSDictionary *) location;
 
 @end
