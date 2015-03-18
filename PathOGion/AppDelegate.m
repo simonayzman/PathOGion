@@ -14,6 +14,7 @@
 
 @implementation AppDelegate
 
+#pragma mark - UIApplication Delegate Methods
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -94,6 +95,7 @@
     return false;
 }
 
+#pragma mark - Relevant Methods
 #pragma mark - Core Data stack
 
 @synthesize managedObjectContext = _managedObjectContext;
