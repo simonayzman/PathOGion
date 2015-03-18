@@ -199,7 +199,7 @@
 
 - (void) locationManager: (CLLocationManager *)manager didFailWithError: (NSError *)error
 {
-    NSLog(@"locationManager error:%@",error);
+    NSLog(@"locationManager didFailWithError:%@",error);
     switch([error code])
     {
         case kCLErrorNetwork: // general, network-related error
@@ -299,7 +299,7 @@
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
 {
-    // TO DO
+    NSLog(@"locationManager didChangeAuthorizationStatus:%d", status);
 }
 
 
