@@ -22,6 +22,7 @@
 		02952B2A1AA52CCD009EF8FC /* LocationTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 02952B281AA52CCD009EF8FC /* LocationTracker.m */; };
 		02952B2D1AA52EF5009EF8FC /* UserLocationPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 02952B2C1AA52EF5009EF8FC /* UserLocationPoint.m */; };
 		02DAFD3B1AB8ECA600990298 /* patient.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 02DAFD3A1AB8ECA600990298 /* patient.geojson */; };
+		02DAFD3E1AB9ED9100990298 /* GeojsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 02DAFD3D1AB9ED9100990298 /* GeojsonParser.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,8 @@
 		02952B2B1AA52EF5009EF8FC /* UserLocationPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserLocationPoint.h; sourceTree = "<group>"; };
 		02952B2C1AA52EF5009EF8FC /* UserLocationPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserLocationPoint.m; sourceTree = "<group>"; };
 		02DAFD3A1AB8ECA600990298 /* patient.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = patient.geojson; sourceTree = "<group>"; };
+		02DAFD3C1AB9ED9100990298 /* GeojsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeojsonParser.h; sourceTree = "<group>"; };
+		02DAFD3D1AB9ED9100990298 /* GeojsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeojsonParser.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +131,8 @@
 				028DFD941A86F47C00C201DE /* PathOGion.xcdatamodeld */,
 				02952B2B1AA52EF5009EF8FC /* UserLocationPoint.h */,
 				02952B2C1AA52EF5009EF8FC /* UserLocationPoint.m */,
+				02DAFD3C1AB9ED9100990298 /* GeojsonParser.h */,
+				02DAFD3D1AB9ED9100990298 /* GeojsonParser.m */,
 				028DFD8D1A86F47C00C201DE /* Supporting Files */,
 			);
 			path = PathOGion;
@@ -273,6 +278,7 @@
 				02952B291AA52CCD009EF8FC /* BackgroundTaskManager.m in Sources */,
 				028DFD961A86F47C00C201DE /* PathOGion.xcdatamodeld in Sources */,
 				028DFD931A86F47C00C201DE /* AppDelegate.m in Sources */,
+				02DAFD3E1AB9ED9100990298 /* GeojsonParser.m in Sources */,
 				028DFD991A86F47C00C201DE /* ViewController.m in Sources */,
 				028DFD901A86F47C00C201DE /* main.m in Sources */,
 				02952B2A1AA52CCD009EF8FC /* LocationTracker.m in Sources */,
