@@ -14,6 +14,18 @@
 				<string>com.apple.maps.directionsrequest</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeIconFiles</key>
+			<array/>
+			<key>CFBundleTypeName</key>
+			<string>GeoJSON</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>com.apple.dt.document.geojson</string>
+			</array>
+			<key>PathOGion</key>
+			<string>infected</string>
+		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
