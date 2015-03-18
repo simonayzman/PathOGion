@@ -43,6 +43,7 @@
     else
     {
         self.locationTracker = [LocationTracker sharedLocationTracker];
+        [self.locationTracker deleteLocations];
         [self.locationTracker startLocationTracking];
     }
     

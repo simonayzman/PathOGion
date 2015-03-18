@@ -225,14 +225,14 @@
     NSLog(@"savingLocation");
     
     
-    NSLog(@"Saving: (%f, %f) within %f meters. Timestamp: %@.",
+    NSLog(@"Saving: (%f, %f) within %+.2f meters. Timestamp: %@.",
           [location[COORDINATE][LATITUDE] doubleValue],
           [location[COORDINATE][LONGITUDE] doubleValue],
           [location[ACCURACY] doubleValue],
           location[TIMESTAMP]);
 
     
-    //TODO: Your code to send the self.myLocation and self.myLocationAccuracy to your server
+    // Saving to Core Data
 
     AppDelegate *app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *managedObjectContext = app.managedObjectContext;
@@ -245,8 +245,12 @@
     userLocationPoint.timestamp = location[TIMESTAMP];
     [app saveContext];
     
-    // Testing
-    
+}
+
+- (void) showAllSavedLocation
+{
+    AppDelegate *app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *managedObjectContext = app.managedObjectContext;
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"UserLocationPoint"];
     [request setReturnsObjectsAsFaults:NO];
     request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:NO]];
@@ -260,8 +264,37 @@
         abort();
     }
     else
-        NSLog(@"Locations thus far %@", userLocationPoints);
+    {
+        for (UserLocationPoint *location in userLocationPoints)
+            NSLog(@"[%@]: (%f, %f) within %.2f meters.", location.timestamp, location.latitude, location.longitude, location.accuracy);
+    }
+}
 
+- (void) deleteLocations
+{
+    NSLog(@"deleteLocations");
+
+    AppDelegate *app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *managedObjectContext = app.managedObjectContext;
+
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"UserLocationPoint"];
+    [request setReturnsObjectsAsFaults:NO];
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:NO]];
+    NSError *error;
+    NSArray *userLocationPoints = [managedObjectContext executeFetchRequest:request error:&error];
+    if (error)
+    {
+        // Replace this implementation with code to handle the error appropriately.
+        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
+    }
+    else
+    {
+        for (UserLocationPoint *location in userLocationPoints)
+             [managedObjectContext deleteObject:location];
+    }
+    [app saveContext];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status

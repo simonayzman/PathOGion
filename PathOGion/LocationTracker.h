@@ -27,5 +27,6 @@
 - (void) startLocationTracking;
 - (void) stopLocationTracking;
 - (void) saveLocation: (NSDictionary *) location;
+- (void) deleteLocations;
 
 @end
