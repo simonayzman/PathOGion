@@ -75,6 +75,25 @@
     [self saveContext];
 }
 
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    NSLog(@"application openURL sourceApplication annotation");
+
+    /*
+     
+     Code to retrive file paths
+     
+     NSFileManager *filemgr = [NSFileManager defaultManager];
+     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+     NSString *documentsDirectory = [paths objectAtIndex:0];
+     NSString* inboxPath = [documentsDirectory stringByAppendingPathComponent:@"Inbox"];
+     NSArray *dirFiles = [filemgr contentsOfDirectoryAtPath:inboxPath error:nil];
+ 
+    */
+    
+    return false;
+}
+
 #pragma mark - Core Data stack
 
 @synthesize managedObjectContext = _managedObjectContext;
