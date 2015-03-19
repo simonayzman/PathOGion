@@ -9,7 +9,7 @@
 //  Copyright (c) 2015 PathOGion. All rights reserved.
 
 #import "LocationTracker.h"
-#import "UserLocationPoint.h"
+#import "CoreDataLocationPoint.h"
 #import "AppDelegate.h"
 
 #define COORDINATE @"user_coordinate"
@@ -239,12 +239,12 @@
     AppDelegate *app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *managedObjectContext = app.managedObjectContext;
 
-    UserLocationPoint *userLocationPoint = [NSEntityDescription insertNewObjectForEntityForName:@"UserLocationPoint"
+    CoreDataLocationPoint *coreDataLocationPoint = [NSEntityDescription insertNewObjectForEntityForName:@"CoreDataLocationPoint"
                                                                          inManagedObjectContext:managedObjectContext];
-    userLocationPoint.latitude = [location[COORDINATE][LATITUDE] doubleValue];
-    userLocationPoint.longitude = [location[COORDINATE][LONGITUDE] doubleValue];
-    userLocationPoint.accuracy = [location[ACCURACY] doubleValue];
-    userLocationPoint.timestamp = location[TIMESTAMP];
+    coreDataLocationPoint.latitude = [location[COORDINATE][LATITUDE] doubleValue];
+    coreDataLocationPoint.longitude = [location[COORDINATE][LONGITUDE] doubleValue];
+    coreDataLocationPoint.accuracy = [location[ACCURACY] doubleValue];
+    coreDataLocationPoint.timestamp = location[TIMESTAMP];
     [app saveContext];
     
 }
@@ -253,11 +253,11 @@
 {
     AppDelegate *app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *managedObjectContext = app.managedObjectContext;
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"UserLocationPoint"];
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"CoreDataLocationPoint"];
     [request setReturnsObjectsAsFaults:NO];
     request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:NO]];
     NSError *error;
-    NSArray *userLocationPoints = [managedObjectContext executeFetchRequest:request error:&error];
+    NSArray *coreDataLocationPoints = [managedObjectContext executeFetchRequest:request error:&error];
     if (error)
     {
         // Replace this implementation with code to handle the error appropriately.
@@ -267,7 +267,7 @@
     }
     else
     {
-        for (UserLocationPoint *location in userLocationPoints)
+        for (CoreDataLocationPoint *location in coreDataLocationPoints)
             NSLog(@"[%@]: (%f, %f) within %.2f meters.", location.timestamp, location.latitude, location.longitude, location.accuracy);
     }
 }
@@ -279,11 +279,11 @@
     AppDelegate *app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *managedObjectContext = app.managedObjectContext;
 
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"UserLocationPoint"];
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"CoreDataLocationPoint"];
     [request setReturnsObjectsAsFaults:NO];
     request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:NO]];
     NSError *error;
-    NSArray *userLocationPoints = [managedObjectContext executeFetchRequest:request error:&error];
+    NSArray *coreDataLocationPoints = [managedObjectContext executeFetchRequest:request error:&error];
     if (error)
     {
         // Replace this implementation with code to handle the error appropriately.
@@ -293,7 +293,7 @@
     }
     else
     {
-        for (UserLocationPoint *location in userLocationPoints)
+        for (CoreDataLocationPoint *location in coreDataLocationPoints)
              [managedObjectContext deleteObject:location];
     }
     [app saveContext];
