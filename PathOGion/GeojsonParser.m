@@ -1,0 +1,74 @@
+//
+//  GeojsonParser.m
+//  PathOGion
+//
+//  Created by Simon Ayzman on 3/18/15.
+//  Copyright (c) 2015 CARSI Lab. All rights reserved.
+//
+
+#import "GeojsonParser.h"
+#import "LocationPoint.h"
+
+@implementation GeojsonParser
+
+- (NSArray *) getLocationPathFromGeoJsonFile:(NSString *)patientFilePath
+{
+    NSMutableArray *path = [NSMutableArray array];
+
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *fullPatientFilePath = [[NSBundle mainBundle] pathForResource:patientFilePath ofType:@"geojson"];
+
+    if ([fileManager fileExistsAtPath:fullPatientFilePath])
+    {
+        NSData *jsonData = [fileManager contentsAtPath:fullPatientFilePath];
+        NSDictionary *unparsedPatientPathDictionary = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
+        NSArray *unparsedPatientPathArray =  unparsedPatientPathDictionary[@"features"];
+        //NSLog(@"Parsed file %@", unparsedPatientPathArray);
+        for (NSDictionary *feature in unparsedPatientPathArray)
+        {
+            LocationPoint *point = [self locationPointFromFeature:feature];
+            [path addObject:point];
+        }
+    }
+    else
+    {
+        NSLog(@"Could not find %@", fullPatientFilePath);
+
+    }
+    return [path copy];
+}
+
+- (LocationPoint *) locationPointFromFeature:(NSDictionary *)feature
+{
+    LocationPoint *point = [[LocationPoint alloc] init];
+    point.latitude = [self getLatitudeFromFeature:feature];
+    point.longitude = [self getLongitudeFromFeature:feature];
+    point.timestamp = [self getTimestampFromFeature:feature];
+    point.accuracy = 0;
+    return point;
+}
+
+- (double) getLatitudeFromFeature:(NSDictionary *)feature
+{
+    return [feature[@"geometry"][@"coordinates"][0] doubleValue];
+}
+
+- (double) getLongitudeFromFeature:(NSDictionary *)feature
+{
+    return [feature[@"geometry"][@"coordinates"][1] doubleValue];
+}
+
+- (NSDate *) getTimestampFromFeature:(NSDictionary *)feature
+{
+    NSDate *timestamp;
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    NSLocale *enUSPOSIXLocale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
+    [dateFormatter setLocale:enUSPOSIXLocale];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZZZ"];
+    
+    NSDate *now = [NSDate date];
+    //NSString *iso8601String = [dateFormatter stringFromDate:now];
+    return timestamp;
+}
+
+@end

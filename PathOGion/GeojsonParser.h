@@ -10,6 +10,6 @@
 
 @interface GeojsonParser : NSObject
 
-
+- (NSArray *) getLocationPathFromGeoJsonFile:(NSString *) file;
 
 @end
