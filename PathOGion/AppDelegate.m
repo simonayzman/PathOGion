@@ -19,6 +19,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [self initializeLocationServices];
+    [self initializeLocalNotificationScheduler];
     
     return YES;
 }
@@ -111,6 +112,65 @@
         [self.locationTracker startLocationTracking];
     }
 }
+
+- (void) initializeLocalNotificationScheduler
+{
+    NSLog(@"initializeLocalNotificationScheduler");
+    
+    if ([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)])
+    {
+        [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:nil]];
+    }
+    
+    NSArray *localNotifications = [UIApplication sharedApplication].scheduledLocalNotifications;
+    NSCalendar *calendar = [NSCalendar autoupdatingCurrentCalendar];
+    NSDate *nextMidnight = [calendar nextDateAfterDate:[NSDate date]
+                                          matchingHour:0
+                                                minute:0
+                                                second:0
+                                               options:NSCalendarMatchNextTime];
+    /*
+     NSDate *nextMidnight = [calendar nextDateAfterDate:[NSDate date]
+     matchingHour:0
+     minute:0
+     second:0
+     options:kNilOptions];
+     */
+    if(localNotifications.count > 0)
+    {
+        NSLog(@"Local notifications currently scheduled:");
+        int counter = 1;
+        for (UILocalNotification *localNotification in localNotifications)
+        {
+            NSLog(@"Notification %d fire date: %@", counter, localNotification.fireDate);
+            NSComparisonResult result = [calendar compareDate:localNotification.fireDate toDate:nextMidnight toUnitGranularity:NSCalendarUnitSecond];
+            if (result != NSOrderedSame)
+            {
+                NSLog(@"Deleting incorrect recurring location notification.");
+                [[UIApplication sharedApplication] cancelLocalNotification:localNotification];
+            }
+            else
+            {
+                NSLog(@"Recurring local notification already exists.");
+            }
+            counter++;
+        }
+    }
+    if (localNotifications.count == 0)
+    {
+        NSLog(@"Registering recurring local notification.");
+        UILocalNotification *notification = [[UILocalNotification alloc] init];
+        notification.fireDate = nextMidnight;
+        notification.timeZone = [NSTimeZone localTimeZone];
+        notification.alertBody = @"Don't forget to turn on PathOGion to keep track of your location!";
+        notification.alertAction = @"go to application";
+        notification.repeatInterval= NSCalendarUnitDay;
+        notification.soundName = UILocalNotificationDefaultSoundName;
+        notification.applicationIconBadgeNumber = 1;
+        [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+    }
+}
+
 #pragma mark - Core Data stack
 
 @synthesize managedObjectContext = _managedObjectContext;
