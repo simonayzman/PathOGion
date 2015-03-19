@@ -7,12 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+@class CoreDataLocationPoint;
 
 @interface LocationPoint : NSObject
 
-@property (nonatomic) double latitude;
-@property (nonatomic) double longitude;
-@property (nonatomic) double accuracy;
-@property (nonatomic) NSDate *timestamp;
+@property (assign, nonatomic) double latitude;
+@property (assign, nonatomic) double longitude;
+@property (assign, nonatomic) double accuracy;
+@property (strong, nonatomic) NSDate *timestamp;
+
+- (instancetype) initWithCoreDataLocationPoint:(CoreDataLocationPoint *)coreDataLocationPoint;
 
 @end
