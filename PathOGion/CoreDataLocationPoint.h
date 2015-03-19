@@ -1,5 +1,5 @@
 //
-//  UserLocationPoint.h
+//  CoreDataLocationPoint.h
 //  PathOGion
 //
 //  Created by Simon Ayzman on 3/2/15.
@@ -10,7 +10,7 @@
 #import <CoreData/CoreData.h>
 
 
-@interface UserLocationPoint : NSManagedObject
+@interface CoreDataLocationPoint : NSManagedObject
 
 @property (nonatomic) double latitude;
 @property (nonatomic) double longitude;

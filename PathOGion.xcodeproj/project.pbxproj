@@ -20,9 +20,10 @@
 		028DFDB91A86F4C600C201DE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 028DFDB81A86F4C600C201DE /* CoreLocation.framework */; };
 		02952B291AA52CCD009EF8FC /* BackgroundTaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 02952B261AA52CCD009EF8FC /* BackgroundTaskManager.m */; };
 		02952B2A1AA52CCD009EF8FC /* LocationTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 02952B281AA52CCD009EF8FC /* LocationTracker.m */; };
-		02952B2D1AA52EF5009EF8FC /* UserLocationPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 02952B2C1AA52EF5009EF8FC /* UserLocationPoint.m */; };
+		02952B2D1AA52EF5009EF8FC /* CoreDataLocationPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 02952B2C1AA52EF5009EF8FC /* CoreDataLocationPoint.m */; };
 		02DAFD3B1AB8ECA600990298 /* patient.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 02DAFD3A1AB8ECA600990298 /* patient.geojson */; };
 		02DAFD3E1AB9ED9100990298 /* GeojsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 02DAFD3D1AB9ED9100990298 /* GeojsonParser.m */; };
+		02F297ED1ABB7A9000386F78 /* LocationPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F297EC1ABB7A8F00386F78 /* LocationPoint.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,12 +57,14 @@
 		02952B251AA52CCD009EF8FC /* BackgroundTaskManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackgroundTaskManager.h; sourceTree = "<group>"; };
 		02952B261AA52CCD009EF8FC /* BackgroundTaskManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackgroundTaskManager.m; sourceTree = "<group>"; };
 		02952B271AA52CCD009EF8FC /* LocationTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationTracker.h; sourceTree = "<group>"; };
-		02952B281AA52CCD009EF8FC /* LocationTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationTracker.m; sourceTree = "<group>"; };
-		02952B2B1AA52EF5009EF8FC /* UserLocationPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserLocationPoint.h; sourceTree = "<group>"; };
-		02952B2C1AA52EF5009EF8FC /* UserLocationPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserLocationPoint.m; sourceTree = "<group>"; };
+		02952B281AA52CCD009EF8FC /* LocationTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = LocationTracker.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		02952B2B1AA52EF5009EF8FC /* CoreDataLocationPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CoreDataLocationPoint.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		02952B2C1AA52EF5009EF8FC /* CoreDataLocationPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CoreDataLocationPoint.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		02DAFD3A1AB8ECA600990298 /* patient.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = patient.geojson; sourceTree = "<group>"; };
 		02DAFD3C1AB9ED9100990298 /* GeojsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeojsonParser.h; sourceTree = "<group>"; };
-		02DAFD3D1AB9ED9100990298 /* GeojsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeojsonParser.m; sourceTree = "<group>"; };
+		02DAFD3D1AB9ED9100990298 /* GeojsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GeojsonParser.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		02F297EB1ABB7A8F00386F78 /* LocationPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationPoint.h; sourceTree = "<group>"; };
+		02F297EC1ABB7A8F00386F78 /* LocationPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = LocationPoint.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,8 +132,10 @@
 				02952B261AA52CCD009EF8FC /* BackgroundTaskManager.m */,
 				028DFD9D1A86F47C00C201DE /* Images.xcassets */,
 				028DFD941A86F47C00C201DE /* PathOGion.xcdatamodeld */,
-				02952B2B1AA52EF5009EF8FC /* UserLocationPoint.h */,
-				02952B2C1AA52EF5009EF8FC /* UserLocationPoint.m */,
+				02952B2B1AA52EF5009EF8FC /* CoreDataLocationPoint.h */,
+				02952B2C1AA52EF5009EF8FC /* CoreDataLocationPoint.m */,
+				02F297EB1ABB7A8F00386F78 /* LocationPoint.h */,
+				02F297EC1ABB7A8F00386F78 /* LocationPoint.m */,
 				02DAFD3C1AB9ED9100990298 /* GeojsonParser.h */,
 				02DAFD3D1AB9ED9100990298 /* GeojsonParser.m */,
 				028DFD8D1A86F47C00C201DE /* Supporting Files */,
@@ -274,7 +279,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				02952B2D1AA52EF5009EF8FC /* UserLocationPoint.m in Sources */,
+				02F297ED1ABB7A9000386F78 /* LocationPoint.m in Sources */,
+				02952B2D1AA52EF5009EF8FC /* CoreDataLocationPoint.m in Sources */,
 				02952B291AA52CCD009EF8FC /* BackgroundTaskManager.m in Sources */,
 				028DFD961A86F47C00C201DE /* PathOGion.xcdatamodeld in Sources */,
 				028DFD931A86F47C00C201DE /* AppDelegate.m in Sources */,
