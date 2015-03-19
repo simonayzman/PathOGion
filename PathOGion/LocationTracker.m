@@ -16,19 +16,15 @@
 #define LATITUDE @"user_latitude"
 #define LONGITUDE @"user_longitude"
 #define ACCURACY @"user_location_accuracy"
+#define TIMESTAMP @"user_location_timestamp"
 
 #define IS_OS_8_OR_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
 
 @interface LocationTracker()
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
-@property (strong, nonatomic) NSMutableArray *savedLocationsArray; // Temporary array to figure out best location
-@property (nonatomic) CLLocationCoordinate2D lastLocationCoordinate;
-@property (nonatomic) CLLocationAccuracy lastLocationAccuracy;
-
-@property (nonatomic) NSTimer *beginUpdateLocationEveryNSecondsTimer;
-@property (nonatomic) NSTimer *updateLocationForNSecondsTimer;
-
+@property (strong, nonatomic) NSDictionary *lastLocation;
+@property (nonatomic) NSTimer *refreshBackgroundTimer;
 @property (nonatomic) BackgroundTaskManager *bgTask;
 
 @end
@@ -53,6 +49,10 @@
                                                  selector:@selector(applicationDidEnterBackground:)
                                                      name:UIApplicationDidEnterBackgroundNotification
                                                    object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(applicationDidFinishLaunching:)
+                                                     name:UIApplicationDidFinishLaunchingNotification
+                                                   object:nil];
     }
     return self;
 }
@@ -64,41 +64,63 @@
         _locationManager = [[CLLocationManager alloc] init];
         _locationManager.delegate = self;
         _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-        _locationManager.distanceFilter = DISTANCE_FILTER;
+        _locationManager.distanceFilter = kCLDistanceFilterNone;
+        //_locationManager.distanceFilter = DISTANCE_FILTER;
+        _locationManager.pausesLocationUpdatesAutomatically = YES;
     }
 	return _locationManager;
 }
 
-- (NSMutableArray *) savedLocationsArray
+- (NSDictionary *) currentLocation
 {
-    if (!_savedLocationsArray)
-        _savedLocationsArray = [[NSMutableArray alloc]init];
-    return _savedLocationsArray;
+    if (!_currentLocation)
+        _currentLocation = [[NSDictionary alloc]init];
+    return _currentLocation;
+}
+
+- (NSDictionary *) lastLocation
+{
+    if (!_lastLocation)
+        _lastLocation = [[NSDictionary alloc]init];
+    return _lastLocation;
 }
 
 // This function is called whenever LocationTracker receives a
 // notification that the application has gone into the background
 - (void) applicationDidEnterBackground: (NSNotification *) notification
 {
+    NSLog(@"applicationDidEnterBackground in LocationTracker");
+
     if(IS_OS_8_OR_LATER)
         [self.locationManager requestAlwaysAuthorization];
     
     [self.locationManager startUpdatingLocation];
     
-    //Use the BackgroundTaskManager to manage all the background Task
+    self.refreshBackgroundTimer = [NSTimer scheduledTimerWithTimeInterval:120
+                                                                   target:self
+                                                                 selector:@selector(remainInBackground)
+                                                                 userInfo:nil
+                                                                  repeats:YES];
+    
     self.bgTask = [BackgroundTaskManager sharedBackgroundTaskManager];
     [self.bgTask beginNewBackgroundTask];
 }
 
-- (void) restartLocationUpdates
+// This function is called whenever LocationTracker receives a
+// notification that the application has finished launching
+- (void) applicationDidFinishLaunching: (NSNotification *) notification
 {
-    NSLog(@"restartLocationUpdates");
-    
-    if (self.beginUpdateLocationEveryNSecondsTimer)
+    NSLog(@"applicationDidFinishLaunching in LocationTracker");
+    if (self.refreshBackgroundTimer)
     {
-        [self.beginUpdateLocationEveryNSecondsTimer invalidate];
-        self.beginUpdateLocationEveryNSecondsTimer = nil;
+        [self.refreshBackgroundTimer invalidate];
+        self.refreshBackgroundTimer = nil;
     }
+}
+
+- (void) remainInBackground
+{
+    NSLog(@"remainInBackground");
     
     if(IS_OS_8_OR_LATER)
         [self.locationManager requestAlwaysAuthorization];
@@ -136,11 +158,6 @@
 {
     NSLog(@"stopLocationTracking");
     
-    if (self.beginUpdateLocationEveryNSecondsTimer)
-    {
-        [self.beginUpdateLocationEveryNSecondsTimer invalidate];
-        self.beginUpdateLocationEveryNSecondsTimer = nil;
-    }
     [self.locationManager stopUpdatingLocation];
 }
 
@@ -155,12 +172,7 @@
         CLLocation *location = [locations objectAtIndex:i];
         CLLocationCoordinate2D locationCoordinate = location.coordinate;
         CLLocationAccuracy locationAccurary = location.horizontalAccuracy;
-        
-        /*
-        NSTimeInterval locationAge = -[location.timestamp timeIntervalSinceNow];
-        if (locationAge > 30.0)
-            continue;
-        */
+        NSDate *timestamp = location.timestamp;
         
         //Select only valid location with good accuracy
         if(location &&
@@ -168,62 +180,28 @@
            locationAccurary <= ACCURACY_TOLERANCE &&
            (!(locationCoordinate.latitude == 0.0 && locationCoordinate.longitude == 0.0)))
         {
-            self.lastLocationCoordinate = locationCoordinate;
-            self.lastLocationAccuracy= locationAccurary;
-            
             NSDictionary *locationDictionary = @{ COORDINATE : @{ LATITUDE : [NSNumber numberWithDouble:locationCoordinate.latitude],
                                                                   LONGITUDE : [NSNumber numberWithDouble:locationCoordinate.longitude]},
-                                                  ACCURACY : [NSNumber numberWithDouble:locationAccurary]};
+                                                  ACCURACY : [NSNumber numberWithDouble:locationAccurary],
+                                                  TIMESTAMP : timestamp};
             
-            //Add the vallid location with good accuracy into an array
-            //Every 1 minute, I will select the best location based on accuracy and send to server
-            [self.savedLocationsArray addObject:locationDictionary];
+            self.lastLocation = self.currentLocation;
+            self.currentLocation = locationDictionary;
+            
+            [self saveLocation:locationDictionary];
         }
         else
             NSLog(@"Location is either not valid or it is not accurate enough");
 
     }
-    
-    // If the timer still valid, return it (Will not run the code below)
-    if (self.beginUpdateLocationEveryNSecondsTimer)
-        return;
-    
+
     self.bgTask = [BackgroundTaskManager sharedBackgroundTaskManager];
     [self.bgTask beginNewBackgroundTask];
-    
-    // Restart the locationManager after
-    self.beginUpdateLocationEveryNSecondsTimer = [NSTimer scheduledTimerWithTimeInterval:BEGIN_UPDATE_LOCATION_EVERY_N_SECONDS
-                                                                                              target:self
-                                                                                            selector:@selector(restartLocationUpdates)
-                                                                                            userInfo:nil
-                                                                                             repeats:NO];
-    
-    //Will only stop the locationManager after N seconds, so that we can get some accurate locations
-    //The location manager will only operate for N seconds to save battery
-    if (self.updateLocationForNSecondsTimer)
-    {
-        [self.updateLocationForNSecondsTimer invalidate];
-        self.updateLocationForNSecondsTimer = nil;
-    }
-    
-    self.updateLocationForNSecondsTimer = [NSTimer scheduledTimerWithTimeInterval:UPDATE_LOCATION_FOR_N_SECONDS
-                                                                           target:self
-                                                                         selector:@selector(stopLocationUpdates)
-                                                                         userInfo:nil
-                                                                          repeats:NO];
 }
-
-- (void) stopLocationUpdates
-{
-    NSLog(@"locationManager stopLocationUpdates");
-    [self.locationManager stopUpdatingLocation];
-    [self saveLocation];
-}
-
 
 - (void) locationManager: (CLLocationManager *)manager didFailWithError: (NSError *)error
 {
-    NSLog(@"locationManager error:%@",error);
+    NSLog(@"locationManager didFailWithError:%@",error);
     switch([error code])
     {
         case kCLErrorNetwork: // general, network-related error
@@ -243,61 +221,41 @@
     }
 }
 
-
 // Send the location to Server
-- (void) saveLocation
+- (void) saveLocation: (NSDictionary *) location
 {
     NSLog(@"savingLocation");
-    // Find the most accurate location from the array based on accuracy
-    NSMutableDictionary *mostAccurateLocation = [[NSMutableDictionary alloc]init];
     
-    for(int i=0; i<self.savedLocationsArray.count; i++)
-    {
-        NSMutableDictionary *currentLocation = self.savedLocationsArray[i];
-        if (i==0) // First is the best initially
-            mostAccurateLocation = currentLocation;
-        else if ( [currentLocation[ACCURACY] floatValue] <= [mostAccurateLocation[ACCURACY] floatValue])
-            mostAccurateLocation = currentLocation;
-    }
     
-    // If the array's size is 0, get the last know location; sometimes due to network issues or unknown reasons, you cannot
-    // get the location during the previous period, so the best you can do is send the last known location to the server
-    if(self.savedLocationsArray.count == 0)
-    {
-        NSLog(@"Unable to get location. Using the last known location.");
-        self.currentLocation = self.lastLocationCoordinate;
-        self.currentLocationAccuracy = self.lastLocationAccuracy;
-    }
-    else
-    {
-        self.currentLocation = CLLocationCoordinate2DMake([mostAccurateLocation[COORDINATE][LATITUDE] doubleValue],
-                                                          [mostAccurateLocation[COORDINATE][LATITUDE] doubleValue]);
-        self.currentLocationAccuracy = [mostAccurateLocation[ACCURACY] doubleValue];
-    }
+    NSLog(@"Saving: (%f, %f) within %+.2f meters. Timestamp: %@.",
+          [location[COORDINATE][LATITUDE] doubleValue],
+          [location[COORDINATE][LONGITUDE] doubleValue],
+          [location[ACCURACY] doubleValue],
+          location[TIMESTAMP]);
+
     
-    NSLog(@"Saving to CoreData: Latitude(%f) Longitude(%f) Accuracy(%f)",
-          self.currentLocation.latitude,
-          self.currentLocation.longitude,
-          self.currentLocationAccuracy);
-    
-    //TODO: Your code to send the self.myLocation and self.myLocationAccuracy to your server
+    // Saving to Core Data
 
     AppDelegate *app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *managedObjectContext = app.managedObjectContext;
 
     UserLocationPoint *userLocationPoint = [NSEntityDescription insertNewObjectForEntityForName:@"UserLocationPoint"
                                                                          inManagedObjectContext:managedObjectContext];
-    userLocationPoint.latitude = self.currentLocation.latitude;
-    userLocationPoint.longitude = self.currentLocation.longitude;
-    userLocationPoint.accuracy = self.currentLocationAccuracy;
-    userLocationPoint.timestamp = [NSDate date];
+    userLocationPoint.latitude = [location[COORDINATE][LATITUDE] doubleValue];
+    userLocationPoint.longitude = [location[COORDINATE][LONGITUDE] doubleValue];
+    userLocationPoint.accuracy = [location[ACCURACY] doubleValue];
+    userLocationPoint.timestamp = location[TIMESTAMP];
     [app saveContext];
     
-    // Testing
-    
+}
+
+- (void) showAllSavedLocation
+{
+    AppDelegate *app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *managedObjectContext = app.managedObjectContext;
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"UserLocationPoint"];
     [request setReturnsObjectsAsFaults:NO];
-    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:YES]];
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:NO]];
     NSError *error;
     NSArray *userLocationPoints = [managedObjectContext executeFetchRequest:request error:&error];
     if (error)
@@ -308,17 +266,42 @@
         abort();
     }
     else
-        NSLog(@"Locations thus far %@", userLocationPoints);
+    {
+        for (UserLocationPoint *location in userLocationPoints)
+            NSLog(@"[%@]: (%f, %f) within %.2f meters.", location.timestamp, location.latitude, location.longitude, location.accuracy);
+    }
+}
 
-    
-    // After saving the location data, the array is cleared to make way for new location data
-    [self.savedLocationsArray removeAllObjects];
-    self.savedLocationsArray = nil;
+- (void) deleteLocations
+{
+    NSLog(@"deleteLocations");
+
+    AppDelegate *app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *managedObjectContext = app.managedObjectContext;
+
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"UserLocationPoint"];
+    [request setReturnsObjectsAsFaults:NO];
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:NO]];
+    NSError *error;
+    NSArray *userLocationPoints = [managedObjectContext executeFetchRequest:request error:&error];
+    if (error)
+    {
+        // Replace this implementation with code to handle the error appropriately.
+        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
+    }
+    else
+    {
+        for (UserLocationPoint *location in userLocationPoints)
+             [managedObjectContext deleteObject:location];
+    }
+    [app saveContext];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
 {
-    // TO DO
+    NSLog(@"locationManager didChangeAuthorizationStatus:%d", status);
 }
 
 
