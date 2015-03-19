@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		028343741AA547C8007F33DD /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 028343731AA547C8007F33DD /* CoreData.framework */; };
 		028DFD901A86F47C00C201DE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 028DFD8F1A86F47C00C201DE /* main.m */; };
 		028DFD931A86F47C00C201DE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 028DFD921A86F47C00C201DE /* AppDelegate.m */; };
 		028DFD961A86F47C00C201DE /* PathOGion.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 028DFD941A86F47C00C201DE /* PathOGion.xcdatamodeld */; };
@@ -17,6 +18,11 @@
 		028DFDAD1A86F47C00C201DE /* PathOGionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 028DFDAC1A86F47C00C201DE /* PathOGionTests.m */; };
 		028DFDB71A86F49C00C201DE /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 028DFDB61A86F49C00C201DE /* MapKit.framework */; };
 		028DFDB91A86F4C600C201DE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 028DFDB81A86F4C600C201DE /* CoreLocation.framework */; };
+		02952B291AA52CCD009EF8FC /* BackgroundTaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 02952B261AA52CCD009EF8FC /* BackgroundTaskManager.m */; };
+		02952B2A1AA52CCD009EF8FC /* LocationTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 02952B281AA52CCD009EF8FC /* LocationTracker.m */; };
+		02952B2D1AA52EF5009EF8FC /* UserLocationPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 02952B2C1AA52EF5009EF8FC /* UserLocationPoint.m */; };
+		02DAFD3B1AB8ECA600990298 /* patient.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 02DAFD3A1AB8ECA600990298 /* patient.geojson */; };
+		02DAFD3E1AB9ED9100990298 /* GeojsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 02DAFD3D1AB9ED9100990298 /* GeojsonParser.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		028343731AA547C8007F33DD /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		028DFD8A1A86F47C00C201DE /* PathOGion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PathOGion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		028DFD8E1A86F47C00C201DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		028DFD8F1A86F47C00C201DE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -46,6 +53,15 @@
 		028DFDAC1A86F47C00C201DE /* PathOGionTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PathOGionTests.m; sourceTree = "<group>"; };
 		028DFDB61A86F49C00C201DE /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		028DFDB81A86F4C600C201DE /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		02952B251AA52CCD009EF8FC /* BackgroundTaskManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackgroundTaskManager.h; sourceTree = "<group>"; };
+		02952B261AA52CCD009EF8FC /* BackgroundTaskManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackgroundTaskManager.m; sourceTree = "<group>"; };
+		02952B271AA52CCD009EF8FC /* LocationTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationTracker.h; sourceTree = "<group>"; };
+		02952B281AA52CCD009EF8FC /* LocationTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationTracker.m; sourceTree = "<group>"; };
+		02952B2B1AA52EF5009EF8FC /* UserLocationPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserLocationPoint.h; sourceTree = "<group>"; };
+		02952B2C1AA52EF5009EF8FC /* UserLocationPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserLocationPoint.m; sourceTree = "<group>"; };
+		02DAFD3A1AB8ECA600990298 /* patient.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = patient.geojson; sourceTree = "<group>"; };
+		02DAFD3C1AB9ED9100990298 /* GeojsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeojsonParser.h; sourceTree = "<group>"; };
+		02DAFD3D1AB9ED9100990298 /* GeojsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeojsonParser.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				028343741AA547C8007F33DD /* CoreData.framework in Frameworks */,
 				028DFDB91A86F4C600C201DE /* CoreLocation.framework in Frameworks */,
 				028DFDB71A86F49C00C201DE /* MapKit.framework in Frameworks */,
 			);
@@ -68,14 +85,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		02881BB41AA1715400C34C34 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				028343731AA547C8007F33DD /* CoreData.framework */,
+				028DFDB81A86F4C600C201DE /* CoreLocation.framework */,
+				028DFDB61A86F49C00C201DE /* MapKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		028DFD811A86F47C00C201DE = {
 			isa = PBXGroup;
 			children = (
-				028DFDB81A86F4C600C201DE /* CoreLocation.framework */,
-				028DFDB61A86F49C00C201DE /* MapKit.framework */,
 				028DFD8C1A86F47C00C201DE /* PathOGion */,
 				028DFDA91A86F47C00C201DE /* PathOGionTests */,
 				028DFD8B1A86F47C00C201DE /* Products */,
+				02881BB41AA1715400C34C34 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -95,10 +121,18 @@
 				028DFD921A86F47C00C201DE /* AppDelegate.m */,
 				028DFD971A86F47C00C201DE /* ViewController.h */,
 				028DFD981A86F47C00C201DE /* ViewController.m */,
-				028DFD9A1A86F47C00C201DE /* Main.storyboard */,
-				028DFD9D1A86F47C00C201DE /* Images.xcassets */,
 				028DFD9F1A86F47C00C201DE /* LaunchScreen.xib */,
+				028DFD9A1A86F47C00C201DE /* Main.storyboard */,
+				02952B271AA52CCD009EF8FC /* LocationTracker.h */,
+				02952B281AA52CCD009EF8FC /* LocationTracker.m */,
+				02952B251AA52CCD009EF8FC /* BackgroundTaskManager.h */,
+				02952B261AA52CCD009EF8FC /* BackgroundTaskManager.m */,
+				028DFD9D1A86F47C00C201DE /* Images.xcassets */,
 				028DFD941A86F47C00C201DE /* PathOGion.xcdatamodeld */,
+				02952B2B1AA52EF5009EF8FC /* UserLocationPoint.h */,
+				02952B2C1AA52EF5009EF8FC /* UserLocationPoint.m */,
+				02DAFD3C1AB9ED9100990298 /* GeojsonParser.h */,
+				02DAFD3D1AB9ED9100990298 /* GeojsonParser.m */,
 				028DFD8D1A86F47C00C201DE /* Supporting Files */,
 			);
 			path = PathOGion;
@@ -108,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				028DFD8E1A86F47C00C201DE /* Info.plist */,
+				02DAFD3A1AB8ECA600990298 /* patient.geojson */,
 				028DFD8F1A86F47C00C201DE /* main.m */,
 			);
 			name = "Supporting Files";
@@ -221,6 +256,7 @@
 				028DFD9C1A86F47C00C201DE /* Main.storyboard in Resources */,
 				028DFDA11A86F47C00C201DE /* LaunchScreen.xib in Resources */,
 				028DFD9E1A86F47C00C201DE /* Images.xcassets in Resources */,
+				02DAFD3B1AB8ECA600990298 /* patient.geojson in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -238,10 +274,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02952B2D1AA52EF5009EF8FC /* UserLocationPoint.m in Sources */,
+				02952B291AA52CCD009EF8FC /* BackgroundTaskManager.m in Sources */,
 				028DFD961A86F47C00C201DE /* PathOGion.xcdatamodeld in Sources */,
 				028DFD931A86F47C00C201DE /* AppDelegate.m in Sources */,
+				02DAFD3E1AB9ED9100990298 /* GeojsonParser.m in Sources */,
 				028DFD991A86F47C00C201DE /* ViewController.m in Sources */,
 				028DFD901A86F47C00C201DE /* main.m in Sources */,
+				02952B2A1AA52CCD009EF8FC /* LocationTracker.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -432,6 +472,7 @@
 				028DFDB21A86F47C00C201DE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		028DFDB31A86F47C00C201DE /* Build configuration list for PBXNativeTarget "PathOGionTests" */ = {
 			isa = XCConfigurationList;
@@ -440,6 +481,7 @@
 				028DFDB51A86F47C00C201DE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
