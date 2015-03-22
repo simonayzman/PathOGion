@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "GeojsonParser.h"
 
 @interface AppDelegate ()
 
@@ -19,12 +18,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    GeojsonParser *parser = [[GeojsonParser alloc] init];
-    NSArray *path = [parser getLocationPathFromGeoJsonFile:@"patient"];
-    /*
     [self initializeLocationServices];
     [self initializeLocalNotificationScheduler];
-    */
     return YES;
 }
 
