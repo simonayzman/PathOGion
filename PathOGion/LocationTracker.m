@@ -227,6 +227,11 @@
     }
 }
 
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
+{
+    NSLog(@"locationManager didChangeAuthorizationStatus:%d", status);
+}
+
 // Send the location to Server
 - (void) saveLocation: (LocationPoint *) location
 {
@@ -249,7 +254,7 @@
     
 }
 
-- (void) showAllSavedLocation
+- (void) printAllSavedLocations
 {
     AppDelegate *app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *managedObjectContext = app.managedObjectContext;
@@ -272,7 +277,7 @@
     }
 }
 
-- (void) deleteLocations
+- (void) deleteAllSavedLocations
 {
     NSLog(@"deleteLocations");
 
@@ -298,11 +303,5 @@
     }
     [app saveContext];
 }
-
-- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
-{
-    NSLog(@"locationManager didChangeAuthorizationStatus:%d", status);
-}
-
 
 @end

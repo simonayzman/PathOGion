@@ -24,8 +24,9 @@
 
 - (void) startLocationTracking;
 - (void) stopLocationTracking;
-- (void) deleteLocations;
 
 - (void) saveLocation: (LocationPoint *) location;
+- (void) printAllSavedLocations;
+- (void) deleteAllSavedLocations;
 
 @end
