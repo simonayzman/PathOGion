@@ -13,7 +13,7 @@
 #import "BackgroundTaskManager.h"
 
 #define DISTANCE_FILTER 10.0
-#define ACCURACY_TOLERANCE 50.0
+#define ACCURACY_TOLERANCE 100.0
 
 @interface LocationTracker : NSObject <CLLocationManagerDelegate>
 
