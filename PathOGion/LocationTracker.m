@@ -175,10 +175,15 @@
         NSDate *timestamp = location.timestamp;
         
         //Select only valid location with good accuracy
-        if(location &&
-           locationAccurary >= 0 &&
-           locationAccurary <= ACCURACY_TOLERANCE &&
-           (!(locationCoordinate.latitude == 0.0 && locationCoordinate.longitude == 0.0)))
+        if(!location)
+            NSLog(@"Location is not valid.");
+        else if (locationCoordinate.latitude == 0.0 && locationCoordinate.longitude == 0.0)
+            NSLog(@"Location may not be valid.");
+        else if (locationAccurary <= 0)
+            NSLog(@"Location accuracy is not valid.");
+        else if (locationAccurary > ACCURACY_TOLERANCE)
+            NSLog(@"Location accuracy is too low.");
+        else
         {
             NSDictionary *locationDictionary = @{ COORDINATE : @{ LATITUDE : [NSNumber numberWithDouble:locationCoordinate.latitude],
                                                                   LONGITUDE : [NSNumber numberWithDouble:locationCoordinate.longitude]},
@@ -190,9 +195,6 @@
             
             [self saveLocation:locationDictionary];
         }
-        else
-            NSLog(@"Location is either not valid or it is not accurate enough");
-
     }
 
     self.bgTask = [BackgroundTaskManager sharedBackgroundTaskManager];
