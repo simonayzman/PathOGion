@@ -11,6 +11,8 @@
 #import "LocationTracker.h"
 #import "CoreDataLocationPoint.h"
 #import "AppDelegate.h"
+#import "BackgroundTaskManager.h"
+#import "LocationPoint.h"
 
 #define COORDINATE @"user_coordinate"
 #define LATITUDE @"user_latitude"
@@ -23,7 +25,7 @@
 @interface LocationTracker()
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
-@property (strong, nonatomic) NSDictionary *lastLocation;
+@property (strong, nonatomic) LocationPoint *lastLocation;
 @property (nonatomic) NSTimer *refreshBackgroundTimer;
 @property (nonatomic) BackgroundTaskManager *bgTask;
 
@@ -71,17 +73,17 @@
 	return _locationManager;
 }
 
-- (NSDictionary *) currentLocation
+- (LocationPoint *) currentLocation
 {
     if (!_currentLocation)
-        _currentLocation = [[NSDictionary alloc]init];
+        _currentLocation = [[LocationPoint alloc]init];
     return _currentLocation;
 }
 
-- (NSDictionary *) lastLocation
+- (LocationPoint *) lastLocation
 {
     if (!_lastLocation)
-        _lastLocation = [[NSDictionary alloc]init];
+        _lastLocation = [[LocationPoint alloc]init];
     return _lastLocation;
 }
 
@@ -170,9 +172,9 @@
     for (int i=0; i<locations.count; i++)
     {
         CLLocation *location = [locations objectAtIndex:i];
+        
         CLLocationCoordinate2D locationCoordinate = location.coordinate;
         CLLocationAccuracy locationAccurary = location.horizontalAccuracy;
-        NSDate *timestamp = location.timestamp;
         
         //Select only valid location with good accuracy
         if(!location)
@@ -185,15 +187,17 @@
             NSLog(@"Location accuracy is too low.");
         else
         {
-            NSDictionary *locationDictionary = @{ COORDINATE : @{ LATITUDE : [NSNumber numberWithDouble:locationCoordinate.latitude],
-                                                                  LONGITUDE : [NSNumber numberWithDouble:locationCoordinate.longitude]},
-                                                  ACCURACY : [NSNumber numberWithDouble:locationAccurary],
-                                                  TIMESTAMP : timestamp};
-            
-            self.lastLocation = self.currentLocation;
-            self.currentLocation = locationDictionary;
-            
-            [self saveLocation:locationDictionary];
+            self.lastLocation.latitude = self.currentLocation.latitude;
+            self.lastLocation.longitude = self.currentLocation.longitude;
+            self.lastLocation.accuracy = self.currentLocation.accuracy;
+            self.lastLocation.timestamp = self.currentLocation.timestamp;
+
+            self.currentLocation.latitude = locationCoordinate.latitude;
+            self.currentLocation.longitude = locationCoordinate.longitude;
+            self.currentLocation.accuracy = locationAccurary;
+            self.currentLocation.timestamp = location.timestamp;
+
+            [self saveLocation:self.currentLocation];
         }
     }
 
@@ -224,18 +228,12 @@
 }
 
 // Send the location to Server
-- (void) saveLocation: (NSDictionary *) location
+- (void) saveLocation: (LocationPoint *) location
 {
     NSLog(@"savingLocation");
     
-    
-    NSLog(@"Saving: (%f, %f) within %+.2f meters. Timestamp: %@.",
-          [location[COORDINATE][LATITUDE] doubleValue],
-          [location[COORDINATE][LONGITUDE] doubleValue],
-          [location[ACCURACY] doubleValue],
-          location[TIMESTAMP]);
+    NSLog(@"Saving: (%f, %f) within %+.2f meters. Timestamp: %@.", location.latitude, location.longitude, location.accuracy, location.timestamp);
 
-    
     // Saving to Core Data
 
     AppDelegate *app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
@@ -243,10 +241,10 @@
 
     CoreDataLocationPoint *coreDataLocationPoint = [NSEntityDescription insertNewObjectForEntityForName:@"CoreDataLocationPoint"
                                                                          inManagedObjectContext:managedObjectContext];
-    coreDataLocationPoint.latitude = [location[COORDINATE][LATITUDE] doubleValue];
-    coreDataLocationPoint.longitude = [location[COORDINATE][LONGITUDE] doubleValue];
-    coreDataLocationPoint.accuracy = [location[ACCURACY] doubleValue];
-    coreDataLocationPoint.timestamp = location[TIMESTAMP];
+    coreDataLocationPoint.latitude = location.latitude;
+    coreDataLocationPoint.longitude = location.longitude;
+    coreDataLocationPoint.accuracy = location.accuracy;
+    coreDataLocationPoint.timestamp = location.timestamp;
     [app saveContext];
     
 }

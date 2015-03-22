@@ -10,20 +10,22 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
-#import "BackgroundTaskManager.h"
+
+@class LocationPoint;
 
 #define DISTANCE_FILTER 10.0
 #define ACCURACY_TOLERANCE 100.0
 
 @interface LocationTracker : NSObject <CLLocationManagerDelegate>
 
-@property (strong, nonatomic) NSDictionary *currentLocation;
+@property (strong, nonatomic) LocationPoint *currentLocation;
 
 + (instancetype) sharedLocationTracker;
 
 - (void) startLocationTracking;
 - (void) stopLocationTracking;
-- (void) saveLocation: (NSDictionary *) location;
 - (void) deleteLocations;
+
+- (void) saveLocation: (LocationPoint *) location;
 
 @end
