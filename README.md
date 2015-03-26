@@ -18,7 +18,8 @@ Create LocationPath class
           return empty intersection
   
         If intersect
-  
+        [first check based on spatial distance
+        then filter based on if it was during the same time]
           Clip paths
   
       If points intersect with any other points, check timestamp accuracy specifically
