@@ -279,7 +279,7 @@
 
 - (void) deleteAllSavedLocations
 {
-    NSLog(@"deleteLocations");
+    NSLog(@"deleteAllSavedLocations");
 
     AppDelegate *app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *managedObjectContext = app.managedObjectContext;
