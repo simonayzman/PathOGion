@@ -13,7 +13,7 @@
 
 @class LocationPoint;
 
-#define DISTANCE_FILTER 10.0
+#define DISTANCE_FILTER 100.0
 #define ACCURACY_TOLERANCE 100.0
 
 @interface LocationTracker : NSObject <CLLocationManagerDelegate>
