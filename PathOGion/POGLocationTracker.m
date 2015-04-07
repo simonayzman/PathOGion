@@ -1,6 +1,6 @@
 //
-//  LocationTracker.m
-//  Location
+//  POGLocationTracker.m
+//  PathOGion
 //
 //  Created by Ricky Chea
 //  Copyright (c) 2014 Location. All rights reserved.
@@ -8,7 +8,7 @@
 //  Edited by Simon Ayzman
 //  Copyright (c) 2015 PathOGion. All rights reserved.
 
-#import "LocationTracker.h"
+#import "POGLocationTracker.h"
 #import "CoreDataLocationPoint.h"
 #import "AppDelegate.h"
 #import "POGBackgroundTaskManager.h"
@@ -22,7 +22,7 @@
 
 #define IS_OS_8_OR_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
 
-@interface LocationTracker()
+@interface POGLocationTracker()
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) POGLocationPoint *lastLocation;
@@ -31,7 +31,7 @@
 
 @end
 
-@implementation LocationTracker
+@implementation POGLocationTracker
 
 + (instancetype) sharedLocationTracker
 {

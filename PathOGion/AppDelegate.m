@@ -107,7 +107,7 @@
     }
     else
     {
-        self.locationTracker = [LocationTracker sharedLocationTracker];
+        self.locationTracker = [POGLocationTracker sharedLocationTracker];
         //[self.locationTracker deleteAllSavedLocations];
         [self.locationTracker startLocationTracking];
     }

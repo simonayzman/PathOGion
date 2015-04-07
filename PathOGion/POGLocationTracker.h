@@ -1,6 +1,6 @@
 //
-//  LocationTracker.h
-//  Location
+//  POGLocationTracker.h
+//  PathOGion
 //
 //  Created by Ricky Chea
 //  Copyright (c) 2014 Location. All rights reserved.
@@ -16,7 +16,7 @@
 #define DISTANCE_FILTER 100.0
 #define ACCURACY_TOLERANCE 100.0
 
-@interface LocationTracker : NSObject <CLLocationManagerDelegate>
+@interface POGLocationTracker : NSObject <CLLocationManagerDelegate>
 
 @property (strong, nonatomic) POGLocationPoint *currentLocation;
 
