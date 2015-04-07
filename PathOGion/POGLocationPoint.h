@@ -1,5 +1,5 @@
 //
-//  LocationPoint.h
+//  POGLocationPoint.h
 //  PathOGion
 //
 //  Created by Simon Ayzman on 3/19/15.
