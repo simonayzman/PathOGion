@@ -9,7 +9,7 @@
 //  Copyright (c) 2015 PathOGion. All rights reserved.
 
 #import "POGLocationTracker.h"
-#import "CoreDataLocationPoint.h"
+#import "POGCoreDataLocationPoint.h"
 #import "AppDelegate.h"
 #import "POGBackgroundTaskManager.h"
 #import "POGLocationPoint.h"
@@ -244,7 +244,7 @@
     AppDelegate *app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *managedObjectContext = app.managedObjectContext;
 
-    CoreDataLocationPoint *coreDataLocationPoint = [NSEntityDescription insertNewObjectForEntityForName:@"CoreDataLocationPoint"
+    POGCoreDataLocationPoint *coreDataLocationPoint = [NSEntityDescription insertNewObjectForEntityForName:@"CoreDataLocationPoint"
                                                                          inManagedObjectContext:managedObjectContext];
     coreDataLocationPoint.latitude = location.latitude;
     coreDataLocationPoint.longitude = location.longitude;
@@ -272,7 +272,7 @@
     }
     else
     {
-        for (CoreDataLocationPoint *location in coreDataLocationPoints)
+        for (POGCoreDataLocationPoint *location in coreDataLocationPoints)
             NSLog(@"[%@]: (%f, %f) within %.2f meters.", location.timestamp, location.latitude, location.longitude, location.accuracy);
     }
 }
@@ -298,7 +298,7 @@
     }
     else
     {
-        for (CoreDataLocationPoint *location in coreDataLocationPoints)
+        for (POGCoreDataLocationPoint *location in coreDataLocationPoints)
              [managedObjectContext deleteObject:location];
     }
     [app saveContext];

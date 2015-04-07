@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-@class CoreDataLocationPoint;
+@class POGCoreDataLocationPoint;
 
 @interface POGLocationPoint : NSObject
 
@@ -16,6 +16,6 @@
 @property (assign, nonatomic) double accuracy;
 @property (strong, nonatomic) NSDate *timestamp;
 
-- (instancetype) initWithCoreDataLocationPoint:(CoreDataLocationPoint *)coreDataLocationPoint;
+- (instancetype) initWithCoreDataLocationPoint:(POGCoreDataLocationPoint *)coreDataLocationPoint;
 
 @end

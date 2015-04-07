@@ -10,7 +10,7 @@
 #import <CoreData/CoreData.h>
 
 
-@interface CoreDataLocationPoint : NSManagedObject
+@interface POGCoreDataLocationPoint : NSManagedObject
 
 @property (nonatomic) double latitude;
 @property (nonatomic) double longitude;

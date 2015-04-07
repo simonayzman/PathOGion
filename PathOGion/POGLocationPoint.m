@@ -7,7 +7,7 @@
 //
 
 #import "POGLocationPoint.h"
-#import "CoreDataLocationPoint.h"
+#import "POGCoreDataLocationPoint.h"
 
 @implementation POGLocationPoint
 
@@ -23,7 +23,7 @@
     return self;
 }
 
-- (instancetype) initWithCoreDataLocationPoint:(CoreDataLocationPoint *)coreDataLocationPoint
+- (instancetype) initWithCoreDataLocationPoint:(POGCoreDataLocationPoint *)coreDataLocationPoint
 {
     if (self = [super init])
     {

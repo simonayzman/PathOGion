@@ -6,10 +6,10 @@
 //  Copyright (c) 2015 CARSI Lab. All rights reserved.
 //
 
-#import "CoreDataLocationPoint.h"
+#import "POGCoreDataLocationPoint.h"
 
 
-@implementation CoreDataLocationPoint
+@implementation POGCoreDataLocationPoint
 
 @dynamic latitude;
 @dynamic longitude;
