@@ -11,7 +11,7 @@
 #import "LocationTracker.h"
 #import "CoreDataLocationPoint.h"
 #import "AppDelegate.h"
-#import "BackgroundTaskManager.h"
+#import "POGBackgroundTaskManager.h"
 #import "POGLocationPoint.h"
 
 #define COORDINATE @"user_coordinate"
@@ -27,7 +27,7 @@
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) POGLocationPoint *lastLocation;
 @property (nonatomic) NSTimer *refreshBackgroundTimer;
-@property (nonatomic) BackgroundTaskManager *bgTask;
+@property (nonatomic) POGBackgroundTaskManager *bgTask;
 
 @end
 
@@ -104,7 +104,7 @@
                                                                  userInfo:nil
                                                                   repeats:YES];
     
-    self.bgTask = [BackgroundTaskManager sharedBackgroundTaskManager];
+    self.bgTask = [POGBackgroundTaskManager sharedBackgroundTaskManager];
     [self.bgTask beginNewBackgroundTask];
 }
 
@@ -201,7 +201,7 @@
         }
     }
 
-    self.bgTask = [BackgroundTaskManager sharedBackgroundTaskManager];
+    self.bgTask = [POGBackgroundTaskManager sharedBackgroundTaskManager];
     [self.bgTask beginNewBackgroundTask];
 }
 

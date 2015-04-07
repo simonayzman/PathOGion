@@ -1,24 +1,24 @@
 //
-//  BackgroundTaskManager.m
+//  POGBackgroundTaskManager.m
 //
 //  Created by Puru Shukla on 20/02/13.
 //  Copyright (c) 2013 Puru Shukla. All rights reserved.
 //
 
-#import "BackgroundTaskManager.h"
+#import "POGBackgroundTaskManager.h"
 
-@interface BackgroundTaskManager()
+@interface POGBackgroundTaskManager()
 @property (nonatomic, strong)NSMutableArray* bgTaskIdList;
 @property (assign) UIBackgroundTaskIdentifier masterTaskId;
 @end
 
-@implementation BackgroundTaskManager
+@implementation POGBackgroundTaskManager
 
 +(instancetype)sharedBackgroundTaskManager{
-    static BackgroundTaskManager* sharedBGTaskManager;
+    static POGBackgroundTaskManager* sharedBGTaskManager;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sharedBGTaskManager = [[BackgroundTaskManager alloc] init];
+        sharedBGTaskManager = [[POGBackgroundTaskManager alloc] init];
     });
     
     return sharedBGTaskManager;
