@@ -1,5 +1,5 @@
 //
-//  CoreDataLocationPoint.h
+//  POGCoreDataLocationPoint.h
 //  PathOGion
 //
 //  Created by Simon Ayzman on 3/2/15.

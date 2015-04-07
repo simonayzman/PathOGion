@@ -1,5 +1,5 @@
 //
-//  AppDelegate.m
+//  POGAppDelegate.m
 //  PathOGion
 //
 //  Created by Simon Ayzman on 2/7/15.

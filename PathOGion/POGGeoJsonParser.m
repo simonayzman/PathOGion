@@ -1,5 +1,5 @@
 //
-//  GeojsonParser.m
+//  POGGeoJsonParser.m
 //  PathOGion
 //
 //  Created by Simon Ayzman on 3/18/15.
