@@ -108,7 +108,7 @@
     else
     {
         self.locationTracker = [LocationTracker sharedLocationTracker];
-        [self.locationTracker deleteAllSavedLocations];
+        //[self.locationTracker deleteAllSavedLocations];
         [self.locationTracker startLocationTracking];
     }
 }
@@ -129,13 +129,6 @@
                                                 minute:0
                                                 second:0
                                                options:NSCalendarMatchNextTime];
-    /*
-     NSDate *nextMidnight = [calendar nextDateAfterDate:[NSDate date]
-     matchingHour:0
-     minute:0
-     second:0
-     options:kNilOptions];
-     */
     if(localNotifications.count > 0)
     {
         NSLog(@"Local notifications currently scheduled:");
