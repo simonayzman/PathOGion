@@ -23,7 +23,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="HUZ-hQ-lGu">
-                        <barButtonItem key="rightBarButtonItem" image="cog_02.png" id="rls-m1-L9t">
+                        <barButtonItem key="rightBarButtonItem" image="cog_02" id="rls-m1-L9t">
                             <connections>
                                 <segue destination="9jH-Ju-pBY" kind="show" id="yta-K1-PYq"/>
                             </connections>
@@ -48,12 +48,118 @@
                     <view key="view" contentMode="scaleToFill" id="JQy-tG-OoH">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yeh-GG-bK7">
+                                <rect key="frame" x="131" y="244" width="339" height="111"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="Delete your location data">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="1kl-65-k8r" kind="show" identifier="deleteUserLocationPathSettings" id="CXb-R8-zHG"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Crk-Wu-Zuu">
+                                <rect key="frame" x="131" y="84" width="339" height="111"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="Location data to show">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="XaY-2Z-yeN" kind="show" identifier="showUserLocationPathSettings" id="Ecy-l0-AUT"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wvN-Ox-IDr">
+                                <rect key="frame" x="131" y="404" width="339" height="111"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="Infected patient data">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="PRx-7M-vFi" kind="show" identifier="showInfectedPatientPaths" id="iBq-Ed-WvX"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tkc-cA-Ejg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2029" y="-364"/>
+        </scene>
+        <!--Delete User Location Path View Controller-->
+        <scene sceneID="2kc-dY-Gea">
+            <objects>
+                <viewController id="1kl-65-k8r" customClass="POGDeleteUserLocationPathViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Irh-No-jii"/>
+                        <viewControllerLayoutGuide type="bottom" id="CcX-ad-69X"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="kYM-Mi-wWL">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ovU-BY-aAP" customClass="CKCalendarView">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5UQ-EK-wHA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2815" y="-364"/>
+        </scene>
+        <!--Infected Patient Location Path Table View Controller-->
+        <scene sceneID="hJf-Lm-KdT">
+            <objects>
+                <tableViewController id="PRx-7M-vFi" customClass="POGInfectedPatientLocationPathTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="ei2-70-dKe">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="oN3-ca-She">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oN3-ca-She" id="WTu-q9-SOl">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="PRx-7M-vFi" id="RAv-ro-T2d"/>
+                            <outlet property="delegate" destination="PRx-7M-vFi" id="aV0-hf-Afd"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="waB-BO-q4A" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2815" y="383"/>
+        </scene>
+        <!--Select User Location Path View Controller-->
+        <scene sceneID="fZg-gZ-NFW">
+            <objects>
+                <viewController id="XaY-2Z-yeN" customClass="POGSelectUserLocationPathViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="t7X-ed-qbC"/>
+                        <viewControllerLayoutGuide type="bottom" id="oCJ-Ru-JEE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="eae-Ab-DMy">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6E1-ut-WTZ" customClass="CKCalendarView">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Fbi-n8-dMQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2815" y="-1044"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="XCb-aD-XYb">
@@ -75,6 +181,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="cog_02.png" width="26" height="26"/>
+        <image name="cog_02" width="26" height="26"/>
     </resources>
 </document>

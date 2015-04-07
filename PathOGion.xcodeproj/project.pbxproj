@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		020406BE1AC22156008DD0DA /* POGMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 020406BD1AC22156008DD0DA /* POGMapViewController.m */; };
 		020406C11AC22186008DD0DA /* POGSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 020406C01AC22186008DD0DA /* POGSettingsViewController.m */; };
+		021F676C1AD475C800E06CDF /* POGSelectUserLocationPathViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 021F676B1AD475C800E06CDF /* POGSelectUserLocationPathViewController.m */; };
+		021F676F1AD475E100E06CDF /* POGDeleteUserLocationPathViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 021F676E1AD475E100E06CDF /* POGDeleteUserLocationPathViewController.m */; };
+		021F67721AD4761100E06CDF /* POGInfectedPatientLocationPathTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 021F67711AD4761100E06CDF /* POGInfectedPatientLocationPathTableViewController.m */; };
 		022430C61AD43BD60092F279 /* patient_unsorted.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 022430C51AD43BD60092F279 /* patient_unsorted.geojson */; };
 		022430CF1AD43D6E0092F279 /* POGLocationPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 022430CD1AD43D6E0092F279 /* POGLocationPath.m */; };
 		022430D51AD444740092F279 /* PathOGion.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 022430D31AD444740092F279 /* PathOGion.xcdatamodeld */; };
@@ -45,6 +48,12 @@
 		020406BD1AC22156008DD0DA /* POGMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POGMapViewController.m; sourceTree = "<group>"; };
 		020406BF1AC22186008DD0DA /* POGSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POGSettingsViewController.h; sourceTree = "<group>"; };
 		020406C01AC22186008DD0DA /* POGSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POGSettingsViewController.m; sourceTree = "<group>"; };
+		021F676A1AD475C800E06CDF /* POGSelectUserLocationPathViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POGSelectUserLocationPathViewController.h; sourceTree = "<group>"; };
+		021F676B1AD475C800E06CDF /* POGSelectUserLocationPathViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POGSelectUserLocationPathViewController.m; sourceTree = "<group>"; };
+		021F676D1AD475E100E06CDF /* POGDeleteUserLocationPathViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POGDeleteUserLocationPathViewController.h; sourceTree = "<group>"; };
+		021F676E1AD475E100E06CDF /* POGDeleteUserLocationPathViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POGDeleteUserLocationPathViewController.m; sourceTree = "<group>"; };
+		021F67701AD4761100E06CDF /* POGInfectedPatientLocationPathTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POGInfectedPatientLocationPathTableViewController.h; sourceTree = "<group>"; };
+		021F67711AD4761100E06CDF /* POGInfectedPatientLocationPathTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POGInfectedPatientLocationPathTableViewController.m; sourceTree = "<group>"; };
 		022430C51AD43BD60092F279 /* patient_unsorted.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = patient_unsorted.geojson; sourceTree = "<group>"; };
 		022430CC1AD43D6E0092F279 /* POGLocationPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POGLocationPath.h; sourceTree = "<group>"; };
 		022430CD1AD43D6E0092F279 /* POGLocationPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POGLocationPath.m; sourceTree = "<group>"; };
@@ -218,6 +227,12 @@
 				020406BD1AC22156008DD0DA /* POGMapViewController.m */,
 				020406BF1AC22186008DD0DA /* POGSettingsViewController.h */,
 				020406C01AC22186008DD0DA /* POGSettingsViewController.m */,
+				021F676A1AD475C800E06CDF /* POGSelectUserLocationPathViewController.h */,
+				021F676B1AD475C800E06CDF /* POGSelectUserLocationPathViewController.m */,
+				021F676D1AD475E100E06CDF /* POGDeleteUserLocationPathViewController.h */,
+				021F676E1AD475E100E06CDF /* POGDeleteUserLocationPathViewController.m */,
+				021F67701AD4761100E06CDF /* POGInfectedPatientLocationPathTableViewController.h */,
+				021F67711AD4761100E06CDF /* POGInfectedPatientLocationPathTableViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -383,10 +398,13 @@
 				02952B291AA52CCD009EF8FC /* POGBackgroundTaskManager.m in Sources */,
 				020406BE1AC22156008DD0DA /* POGMapViewController.m in Sources */,
 				028DFD931A86F47C00C201DE /* POGAppDelegate.m in Sources */,
+				021F676C1AD475C800E06CDF /* POGSelectUserLocationPathViewController.m in Sources */,
 				02DAFD3E1AB9ED9100990298 /* POGGeoJsonParser.m in Sources */,
 				028DFD901A86F47C00C201DE /* main.m in Sources */,
 				022430CF1AD43D6E0092F279 /* POGLocationPath.m in Sources */,
+				021F67721AD4761100E06CDF /* POGInfectedPatientLocationPathTableViewController.m in Sources */,
 				022430D51AD444740092F279 /* PathOGion.xcdatamodeld in Sources */,
+				021F676F1AD475E100E06CDF /* POGDeleteUserLocationPathViewController.m in Sources */,
 				02952B2A1AA52CCD009EF8FC /* POGLocationTracker.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
