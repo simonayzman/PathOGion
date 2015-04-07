@@ -25,7 +25,7 @@
 		02952B2A1AA52CCD009EF8FC /* POGLocationTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 02952B281AA52CCD009EF8FC /* POGLocationTracker.m */; };
 		02952B2D1AA52EF5009EF8FC /* POGCoreDataLocationPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 02952B2C1AA52EF5009EF8FC /* POGCoreDataLocationPoint.m */; };
 		02DAFD3B1AB8ECA600990298 /* patient.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 02DAFD3A1AB8ECA600990298 /* patient.geojson */; };
-		02DAFD3E1AB9ED9100990298 /* GeojsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 02DAFD3D1AB9ED9100990298 /* GeojsonParser.m */; };
+		02DAFD3E1AB9ED9100990298 /* POGGeoJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 02DAFD3D1AB9ED9100990298 /* POGGeoJsonParser.m */; };
 		02F297F31ABB96C600386F78 /* POGLocationPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F297F21ABB96C600386F78 /* POGLocationPoint.m */; };
 /* End PBXBuildFile section */
 
@@ -69,8 +69,8 @@
 		02952B2B1AA52EF5009EF8FC /* POGCoreDataLocationPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = POGCoreDataLocationPoint.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		02952B2C1AA52EF5009EF8FC /* POGCoreDataLocationPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = POGCoreDataLocationPoint.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		02DAFD3A1AB8ECA600990298 /* patient.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = patient.geojson; sourceTree = "<group>"; };
-		02DAFD3C1AB9ED9100990298 /* GeojsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeojsonParser.h; sourceTree = "<group>"; };
-		02DAFD3D1AB9ED9100990298 /* GeojsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GeojsonParser.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		02DAFD3C1AB9ED9100990298 /* POGGeoJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POGGeoJsonParser.h; sourceTree = "<group>"; };
+		02DAFD3D1AB9ED9100990298 /* POGGeoJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = POGGeoJsonParser.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		02F297F11ABB96C600386F78 /* POGLocationPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POGLocationPoint.h; sourceTree = "<group>"; };
 		02F297F21ABB96C600386F78 /* POGLocationPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POGLocationPoint.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -107,8 +107,8 @@
 				022430CD1AD43D6E0092F279 /* POGLocationPath.m */,
 				02952B2B1AA52EF5009EF8FC /* POGCoreDataLocationPoint.h */,
 				02952B2C1AA52EF5009EF8FC /* POGCoreDataLocationPoint.m */,
-				02DAFD3C1AB9ED9100990298 /* GeojsonParser.h */,
-				02DAFD3D1AB9ED9100990298 /* GeojsonParser.m */,
+				02DAFD3C1AB9ED9100990298 /* POGGeoJsonParser.h */,
+				02DAFD3D1AB9ED9100990298 /* POGGeoJsonParser.m */,
 				02952B251AA52CCD009EF8FC /* POGBackgroundTaskManager.h */,
 				02952B261AA52CCD009EF8FC /* POGBackgroundTaskManager.m */,
 			);
@@ -332,7 +332,7 @@
 				02952B291AA52CCD009EF8FC /* POGBackgroundTaskManager.m in Sources */,
 				020406BE1AC22156008DD0DA /* POGMapViewController.m in Sources */,
 				028DFD931A86F47C00C201DE /* AppDelegate.m in Sources */,
-				02DAFD3E1AB9ED9100990298 /* GeojsonParser.m in Sources */,
+				02DAFD3E1AB9ED9100990298 /* POGGeoJsonParser.m in Sources */,
 				028DFD901A86F47C00C201DE /* main.m in Sources */,
 				022430CF1AD43D6E0092F279 /* POGLocationPath.m in Sources */,
 				022430D51AD444740092F279 /* PathOGion.xcdatamodeld in Sources */,

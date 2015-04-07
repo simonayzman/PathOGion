@@ -6,10 +6,10 @@
 //  Copyright (c) 2015 CARSI Lab. All rights reserved.
 //
 
-#import "GeojsonParser.h"
+#import "POGGeoJsonParser.h"
 #import "POGLocationPoint.h"
 
-@implementation GeojsonParser
+@implementation POGGeoJsonParser
 
 - (NSArray *) getLocationPathFromGeoJsonFile:(NSString *)patientFilePath
 {

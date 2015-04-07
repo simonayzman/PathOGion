@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface GeojsonParser : NSObject
+@interface POGGeoJsonParser : NSObject
 
 - (NSArray *) getLocationPathFromGeoJsonFile:(NSString *) file;
 
