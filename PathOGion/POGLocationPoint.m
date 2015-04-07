@@ -35,5 +35,27 @@
     return self;
 }
 
++ (NSSortDescriptor *) locationPointSortDescriptor
+{
+    NSSortDescriptor *sd = [NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:NO comparator:^(id loc1, id loc2) {
+        NSLog(@"Comparing two locationPoints \n%@\nand\n%@", loc1, loc2);
+        if (((POGLocationPoint *)loc1).timestamp > ((POGLocationPoint *)loc2).timestamp) {
+            return (NSComparisonResult)NSOrderedDescending;
+        }
+        
+        if (((POGLocationPoint *)loc1).timestamp < ((POGLocationPoint *)loc2).timestamp) {
+            return (NSComparisonResult)NSOrderedAscending;
+        }
+        return (NSComparisonResult)NSOrderedSame;
+    }];
+                            
+    return sd;
+}
+
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"(%f, %f) within %+.2f meters. Timestamp: %@.", self.latitude, self.longitude, self.accuracy, self.timestamp];
+}
+
 @end
 

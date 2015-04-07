@@ -18,4 +18,6 @@
 
 - (instancetype) initWithCoreDataLocationPoint:(POGCoreDataLocationPoint *)coreDataLocationPoint;
 
++ (NSSortDescriptor *) locationPointSortDescriptor;
+
 @end
