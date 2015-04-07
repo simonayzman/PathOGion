@@ -1,0 +1,565 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "subway",
+        "timestamp": "2015-03-11T09:27:11+04"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.97622585296631,
+          40.68257442763073
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "restaurant",
+        "timestamp": "2015-03-11T13:28:10+04"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.0007734298706,
+          40.7358197064762
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "subway",
+        "timestamp": "2015-03-11T09:28:59+04"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.97767424583435,
+          40.68469789670132
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": null,
+        "timestamp": "2015-03-11T08:01:15+04"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.980313539505,
+          40.67639889751853
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": null,
+        "timestamp": "2015-03-11T14:21:18+04"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.99128913879395,
+          40.732413348907244
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "dentist",
+        "timestamp": "2015-03-11T09:16:35+04"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.97872567176819,
+          40.67870156654467
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": null,
+        "timestamp": "2015-03-11T13:24:34+04"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.99951815605164,
+          40.73349462211236
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "dentist",
+        "timestamp": "2015-03-11T09:15:11+04"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.97872567176819,
+          40.67870156654467
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "home",
+        "timestamp": "2015-03-11T08:00:22+04"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.97976636886597,
+          40.67629311929213
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "work",
+        "timestamp": "2015-03-11T09:47:48+04"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.99397134780884,
+          40.72968163306612
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": null,
+        "timestamp": "2015-03-11T09:45:16+04"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.99324178695679,
+          40.729405203191035
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": null,
+        "timestamp": "2015-03-11T19:25:56+04"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.9977478981018,
+          40.725616372117905
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "subway",
+        "timestamp": "2015-03-11T09:37:05+04"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.99779081344604,
+          40.72420973400244
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "restaurant",
+        "timestamp": "2015-03-11T14:14:53+04"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.0007734298706,
+          40.7358197064762
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "work",
+        "timestamp": "2015-03-11T19:17:12+04"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.99397134780884,
+          40.72968163306612
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": null,
+        "timestamp": "2015-03-11T14:25:21+04"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.99328470230103,
+          40.72951902739632
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "dentist",
+        "timestamp": "2015-03-11T08:06:32+04"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.97872567176819,
+          40.67870156654467
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": null,
+        "timestamp": "2015-03-11T19:18:01+04"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.99455070495605,
+          40.7293401607006
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "subway",
+        "timestamp": "2015-03-11T21:53:31+04"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.98624658584595,
+          40.6921091685221
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": null,
+        "timestamp": "2015-03-11T13:24:02+04"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.99990439414977,
+          40.732901143506126
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": null,
+        "timestamp": "2015-03-11T14:21:54+04"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.9914608001709,
+          40.73169791035999
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "pub",
+        "timestamp": "2015-03-11T21:44:31+04"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.99736166000366,
+          40.725356186961804
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "coffeeshop",
+        "timestamp": "2015-03-11T09:45:11+04"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.99519443511963,
+          40.726917282640585
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "work",
+        "timestamp": "2015-03-11T13:17:22+04"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.99397134780884,
+          40.72968163306612
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "work",
+        "timestamp": "2015-03-11T14:26:48+04"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.99397134780884,
+          40.72968163306612
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "subway",
+        "timestamp": "2015-03-11T21:57:11+04"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.99446487426758,
+          40.68097974737569
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "subway",
+        "timestamp": "2015-03-11T22:08:11+04"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.98302793502808,
+          40.677383440651724
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "subway",
+        "timestamp": "2015-03-11T21:47:22+04"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.99620294570923,
+          40.72498216901785
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "subway",
+        "timestamp": "2015-03-11T21:48:12+04"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.99113893508911,
+          40.72363243461086
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "subway",
+        "timestamp": "2015-03-11T21:49:13+04"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.98815631866455,
+          40.718379593199494
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "coffeeshop",
+        "timestamp": "2015-03-11T09:40:01+04"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.99519443511963,
+          40.726917282640585
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "subway",
+        "timestamp": "2015-03-11T21:50:10+04"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.99015188217163,
+          40.7139883550567
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "subway",
+        "timestamp": "2015-03-11T21:52:22+04"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.98667573928833,
+          40.7012521265415
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": null,
+        "timestamp": "2015-03-11T14:15:08+04"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.00111675262451,
+          40.73652697126574
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "subway",
+        "timestamp": "2015-03-11T09:31:32+04"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.98144006729126,
+          40.68996153022321
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "pub",
+        "timestamp": "2015-03-11T19:26:11+04"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.99736166000366,
+          40.725356186961804
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "subway",
+        "timestamp": "2015-03-11T21:54:55+04"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.99051666259766,
+          40.68665858775997
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "subway",
+        "timestamp": "2015-03-11T21:58:28+04"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.9960527420044,
+          40.67357537500427
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "home",
+        "timestamp": "2015-03-11T22:08:30+04"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.97976636886597,
+          40.67629311929213
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "subway",
+        "timestamp": "2015-03-11T21:59:51+04"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.98912191390991,
+          40.66984846769581
+        ]
+      }
+    }
+  ]
+}
