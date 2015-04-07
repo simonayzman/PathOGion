@@ -7,7 +7,7 @@
 //
 
 #import "POGLocationPath.h"
-#import "LocationPoint.h"
+#import "POGLocationPoint.h"
 
 @interface POGLocationPath()
 
@@ -41,14 +41,14 @@
     return self;
 }
 
-- (void) addLocationPoint: (LocationPoint *) locationPoint
+- (void) addLocationPoint: (POGLocationPoint *) locationPoint
 {
     
 }
 
 - (void) addLocationPoints: (NSArray *) locationPoints
 {
-    NSArray *temp = [locationPoints sortedArrayUsingDescriptors:@[[LocationPoint locationPointSortDescriptor]]];
+    NSArray *temp = [locationPoints sortedArrayUsingDescriptors:@[[POGLocationPoint locationPointSortDescriptor]]];
     self.locationPath = [temp mutableCopy];
 }
 

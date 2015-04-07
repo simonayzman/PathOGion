@@ -8,13 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
-@class LocationPoint;
+@class POGLocationPoint;
 
 @interface POGLocationPath : NSObject
 
 - (instancetype) initWithLocationPoints: (NSArray *) locationPoints;
 
-- (void) addLocationPoint: (LocationPoint *) locationPoint;
+- (void) addLocationPoint: (POGLocationPoint *) locationPoint;
 - (void) addLocationPoints: (NSArray *) locationPoints;
 
 @end

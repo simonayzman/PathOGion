@@ -11,21 +11,21 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
-@class LocationPoint;
+@class POGLocationPoint;
 
 #define DISTANCE_FILTER 100.0
 #define ACCURACY_TOLERANCE 100.0
 
 @interface LocationTracker : NSObject <CLLocationManagerDelegate>
 
-@property (strong, nonatomic) LocationPoint *currentLocation;
+@property (strong, nonatomic) POGLocationPoint *currentLocation;
 
 + (instancetype) sharedLocationTracker;
 
 - (void) startLocationTracking;
 - (void) stopLocationTracking;
 
-- (void) saveLocation: (LocationPoint *) location;
+- (void) saveLocation: (POGLocationPoint *) location;
 - (void) printAllSavedLocations;
 - (void) deleteAllSavedLocations;
 

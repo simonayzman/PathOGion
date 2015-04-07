@@ -7,7 +7,7 @@
 //
 
 #import "GeojsonParser.h"
-#import "LocationPoint.h"
+#import "POGLocationPoint.h"
 
 @implementation GeojsonParser
 
@@ -26,7 +26,7 @@
         //NSLog(@"Parsed file %@", unparsedPatientPathArray);
         for (NSDictionary *feature in unparsedPatientPathArray)
         {
-            LocationPoint *point = [self locationPointFromFeature:feature];
+            POGLocationPoint *point = [self locationPointFromFeature:feature];
             [path addObject:point];
         }
     }
@@ -38,9 +38,9 @@
     return [path copy];
 }
 
-- (LocationPoint *) locationPointFromFeature:(NSDictionary *)feature
+- (POGLocationPoint *) locationPointFromFeature:(NSDictionary *)feature
 {
-    LocationPoint *point = [[LocationPoint alloc] init];
+    POGLocationPoint *point = [[POGLocationPoint alloc] init];
     point.latitude = [self getLatitudeFromFeature:feature];
     point.longitude = [self getLongitudeFromFeature:feature];
     point.timestamp = [self getTimestampFromFeature:feature];

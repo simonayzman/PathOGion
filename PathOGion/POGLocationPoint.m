@@ -6,10 +6,10 @@
 //  Copyright (c) 2015 CARSI Lab. All rights reserved.
 //
 
-#import "LocationPoint.h"
+#import "POGLocationPoint.h"
 #import "CoreDataLocationPoint.h"
 
-@implementation LocationPoint
+@implementation POGLocationPoint
 
 - (instancetype) init
 {

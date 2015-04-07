@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 @class CoreDataLocationPoint;
 
-@interface LocationPoint : NSObject
+@interface POGLocationPoint : NSObject
 
 @property (assign, nonatomic) double latitude;
 @property (assign, nonatomic) double longitude;

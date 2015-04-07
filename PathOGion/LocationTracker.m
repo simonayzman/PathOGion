@@ -12,7 +12,7 @@
 #import "CoreDataLocationPoint.h"
 #import "AppDelegate.h"
 #import "BackgroundTaskManager.h"
-#import "LocationPoint.h"
+#import "POGLocationPoint.h"
 
 #define COORDINATE @"user_coordinate"
 #define LATITUDE @"user_latitude"
@@ -25,7 +25,7 @@
 @interface LocationTracker()
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
-@property (strong, nonatomic) LocationPoint *lastLocation;
+@property (strong, nonatomic) POGLocationPoint *lastLocation;
 @property (nonatomic) NSTimer *refreshBackgroundTimer;
 @property (nonatomic) BackgroundTaskManager *bgTask;
 
@@ -73,17 +73,17 @@
 	return _locationManager;
 }
 
-- (LocationPoint *) currentLocation
+- (POGLocationPoint *) currentLocation
 {
     if (!_currentLocation)
-        _currentLocation = [[LocationPoint alloc]init];
+        _currentLocation = [[POGLocationPoint alloc]init];
     return _currentLocation;
 }
 
-- (LocationPoint *) lastLocation
+- (POGLocationPoint *) lastLocation
 {
     if (!_lastLocation)
-        _lastLocation = [[LocationPoint alloc]init];
+        _lastLocation = [[POGLocationPoint alloc]init];
     return _lastLocation;
 }
 
@@ -233,7 +233,7 @@
 }
 
 // Send the location to Server
-- (void) saveLocation: (LocationPoint *) location
+- (void) saveLocation: (POGLocationPoint *) location
 {
     NSLog(@"savingLocation");
     
