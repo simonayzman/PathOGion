@@ -1,0 +1,13 @@
+PODS:
+  - MBCalendarKit (3.0.4)
+  - ODSAccordionView (0.4.4)
+
+DEPENDENCIES:
+  - MBCalendarKit (~> 3.0.4)
+  - ODSAccordionView
+
+SPEC CHECKSUMS:
+  MBCalendarKit: 2a3a60f902162a03bb4957966a4b795af998211f
+  ODSAccordionView: 9635dcbd4baccaab31ef2cd689002ba4b0ffe98a
+
+COCOAPODS: 0.36.0
