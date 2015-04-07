@@ -6,13 +6,13 @@
 //  Copyright (c) 2015 CARSI Lab. All rights reserved.
 //
 
-#import "AppDelegate.h"
+#import "POGAppDelegate.h"
 
-@interface AppDelegate ()
+@interface POGAppDelegate ()
 
 @end
 
-@implementation AppDelegate
+@implementation POGAppDelegate
 
 #pragma mark - UIApplication Delegate Methods
 

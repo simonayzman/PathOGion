@@ -14,7 +14,7 @@
 		022430D51AD444740092F279 /* PathOGion.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 022430D31AD444740092F279 /* PathOGion.xcdatamodeld */; };
 		028343741AA547C8007F33DD /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 028343731AA547C8007F33DD /* CoreData.framework */; };
 		028DFD901A86F47C00C201DE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 028DFD8F1A86F47C00C201DE /* main.m */; };
-		028DFD931A86F47C00C201DE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 028DFD921A86F47C00C201DE /* AppDelegate.m */; };
+		028DFD931A86F47C00C201DE /* POGAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 028DFD921A86F47C00C201DE /* POGAppDelegate.m */; };
 		028DFD9C1A86F47C00C201DE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 028DFD9A1A86F47C00C201DE /* Main.storyboard */; };
 		028DFD9E1A86F47C00C201DE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 028DFD9D1A86F47C00C201DE /* Images.xcassets */; };
 		028DFDA11A86F47C00C201DE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 028DFD9F1A86F47C00C201DE /* LaunchScreen.xib */; };
@@ -52,8 +52,8 @@
 		028DFD8A1A86F47C00C201DE /* PathOGion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PathOGion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		028DFD8E1A86F47C00C201DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		028DFD8F1A86F47C00C201DE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		028DFD911A86F47C00C201DE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		028DFD921A86F47C00C201DE /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		028DFD911A86F47C00C201DE /* POGAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = POGAppDelegate.h; sourceTree = "<group>"; };
+		028DFD921A86F47C00C201DE /* POGAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = POGAppDelegate.m; sourceTree = "<group>"; };
 		028DFD9B1A86F47C00C201DE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		028DFD9D1A86F47C00C201DE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		028DFDA01A86F47C00C201DE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -147,8 +147,8 @@
 		028DFD8C1A86F47C00C201DE /* PathOGion */ = {
 			isa = PBXGroup;
 			children = (
-				028DFD911A86F47C00C201DE /* AppDelegate.h */,
-				028DFD921A86F47C00C201DE /* AppDelegate.m */,
+				028DFD911A86F47C00C201DE /* POGAppDelegate.h */,
+				028DFD921A86F47C00C201DE /* POGAppDelegate.m */,
 				028DFD9A1A86F47C00C201DE /* Main.storyboard */,
 				02D1F1241AC22EA200296402 /* ViewControllers */,
 				020406B71AC21C10008DD0DA /* Models */,
@@ -331,7 +331,7 @@
 				02952B2D1AA52EF5009EF8FC /* POGCoreDataLocationPoint.m in Sources */,
 				02952B291AA52CCD009EF8FC /* POGBackgroundTaskManager.m in Sources */,
 				020406BE1AC22156008DD0DA /* POGMapViewController.m in Sources */,
-				028DFD931A86F47C00C201DE /* AppDelegate.m in Sources */,
+				028DFD931A86F47C00C201DE /* POGAppDelegate.m in Sources */,
 				02DAFD3E1AB9ED9100990298 /* POGGeoJsonParser.m in Sources */,
 				028DFD901A86F47C00C201DE /* main.m in Sources */,
 				022430CF1AD43D6E0092F279 /* POGLocationPath.m in Sources */,

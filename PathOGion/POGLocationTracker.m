@@ -10,7 +10,7 @@
 
 #import "POGLocationTracker.h"
 #import "POGCoreDataLocationPoint.h"
-#import "AppDelegate.h"
+#import "POGAppDelegate.h"
 #import "POGBackgroundTaskManager.h"
 #import "POGLocationPoint.h"
 
@@ -241,7 +241,7 @@
 
     // Saving to Core Data
 
-    AppDelegate *app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    POGAppDelegate *app = (POGAppDelegate*)[[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *managedObjectContext = app.managedObjectContext;
 
     POGCoreDataLocationPoint *coreDataLocationPoint = [NSEntityDescription insertNewObjectForEntityForName:@"CoreDataLocationPoint"
@@ -256,7 +256,7 @@
 
 - (void) printAllSavedLocations
 {
-    AppDelegate *app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    POGAppDelegate *app = (POGAppDelegate*)[[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *managedObjectContext = app.managedObjectContext;
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"CoreDataLocationPoint"];
     [request setReturnsObjectsAsFaults:NO];
@@ -281,7 +281,7 @@
 {
     NSLog(@"deleteAllSavedLocations");
 
-    AppDelegate *app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    POGAppDelegate *app = (POGAppDelegate*)[[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *managedObjectContext = app.managedObjectContext;
 
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"CoreDataLocationPoint"];

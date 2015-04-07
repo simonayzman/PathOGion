@@ -10,7 +10,7 @@
 #import <CoreData/CoreData.h>
 #import "POGLocationTracker.h"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface POGAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) POGLocationTracker *locationTracker;
