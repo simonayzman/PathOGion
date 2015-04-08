@@ -14,7 +14,6 @@
 		021F67721AD4761100E06CDF /* POGInfectedPatientLocationPathTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 021F67711AD4761100E06CDF /* POGInfectedPatientLocationPathTableViewController.m */; };
 		022430C61AD43BD60092F279 /* patient_unsorted.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 022430C51AD43BD60092F279 /* patient_unsorted.geojson */; };
 		022430CF1AD43D6E0092F279 /* POGLocationPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 022430CD1AD43D6E0092F279 /* POGLocationPath.m */; };
-		022430D51AD444740092F279 /* PathOGion.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 022430D31AD444740092F279 /* PathOGion.xcdatamodeld */; };
 		028343741AA547C8007F33DD /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 028343731AA547C8007F33DD /* CoreData.framework */; };
 		028DFD901A86F47C00C201DE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 028DFD8F1A86F47C00C201DE /* main.m */; };
 		028DFD931A86F47C00C201DE /* POGAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 028DFD921A86F47C00C201DE /* POGAppDelegate.m */; };
@@ -29,6 +28,7 @@
 		02952B2D1AA52EF5009EF8FC /* POGCoreDataLocationPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 02952B2C1AA52EF5009EF8FC /* POGCoreDataLocationPoint.m */; };
 		02DAFD3B1AB8ECA600990298 /* patient.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 02DAFD3A1AB8ECA600990298 /* patient.geojson */; };
 		02DAFD3E1AB9ED9100990298 /* POGGeoJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 02DAFD3D1AB9ED9100990298 /* POGGeoJsonParser.m */; };
+		02E5F1281AD4D41900500BF9 /* PathOGion.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 02E5F1261AD4D41900500BF9 /* PathOGion.xcdatamodeld */; };
 		02F297F31ABB96C600386F78 /* POGLocationPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F297F21ABB96C600386F78 /* POGLocationPoint.m */; };
 		A526F7A9579234D4EDCA1947 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C1A5CD899B487EEC4A2A3AC /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -57,7 +57,6 @@
 		022430C51AD43BD60092F279 /* patient_unsorted.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = patient_unsorted.geojson; sourceTree = "<group>"; };
 		022430CC1AD43D6E0092F279 /* POGLocationPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POGLocationPath.h; sourceTree = "<group>"; };
 		022430CD1AD43D6E0092F279 /* POGLocationPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POGLocationPath.m; sourceTree = "<group>"; };
-		022430D41AD444740092F279 /* PathOGion.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PathOGion.xcdatamodel; sourceTree = "<group>"; };
 		028343731AA547C8007F33DD /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		028DFD8A1A86F47C00C201DE /* PathOGion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PathOGion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		028DFD8E1A86F47C00C201DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -81,6 +80,7 @@
 		02DAFD3A1AB8ECA600990298 /* patient.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = patient.geojson; sourceTree = "<group>"; };
 		02DAFD3C1AB9ED9100990298 /* POGGeoJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POGGeoJsonParser.h; sourceTree = "<group>"; };
 		02DAFD3D1AB9ED9100990298 /* POGGeoJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = POGGeoJsonParser.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		02E5F1271AD4D41900500BF9 /* PathOGion.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PathOGion.xcdatamodel; sourceTree = "<group>"; };
 		02F297F11ABB96C600386F78 /* POGLocationPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POGLocationPoint.h; sourceTree = "<group>"; };
 		02F297F21ABB96C600386F78 /* POGLocationPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POGLocationPoint.m; sourceTree = "<group>"; };
 		3BCAAAE5EB138638AE4B3A6B /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -213,9 +213,9 @@
 		02D1F1231AC22E8100296402 /* Other */ = {
 			isa = PBXGroup;
 			children = (
-				022430D31AD444740092F279 /* PathOGion.xcdatamodeld */,
 				028DFD9F1A86F47C00C201DE /* LaunchScreen.xib */,
 				028DFD9D1A86F47C00C201DE /* Images.xcassets */,
+				02E5F1261AD4D41900500BF9 /* PathOGion.xcdatamodeld */,
 			);
 			name = Other;
 			sourceTree = "<group>";
@@ -395,6 +395,7 @@
 				020406C11AC22186008DD0DA /* POGSettingsViewController.m in Sources */,
 				02F297F31ABB96C600386F78 /* POGLocationPoint.m in Sources */,
 				02952B2D1AA52EF5009EF8FC /* POGCoreDataLocationPoint.m in Sources */,
+				02E5F1281AD4D41900500BF9 /* PathOGion.xcdatamodeld in Sources */,
 				02952B291AA52CCD009EF8FC /* POGBackgroundTaskManager.m in Sources */,
 				020406BE1AC22156008DD0DA /* POGMapViewController.m in Sources */,
 				028DFD931A86F47C00C201DE /* POGAppDelegate.m in Sources */,
@@ -403,7 +404,6 @@
 				028DFD901A86F47C00C201DE /* main.m in Sources */,
 				022430CF1AD43D6E0092F279 /* POGLocationPath.m in Sources */,
 				021F67721AD4761100E06CDF /* POGInfectedPatientLocationPathTableViewController.m in Sources */,
-				022430D51AD444740092F279 /* PathOGion.xcdatamodeld in Sources */,
 				021F676F1AD475E100E06CDF /* POGDeleteUserLocationPathViewController.m in Sources */,
 				02952B2A1AA52CCD009EF8FC /* POGLocationTracker.m in Sources */,
 			);
@@ -616,12 +616,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		022430D31AD444740092F279 /* PathOGion.xcdatamodeld */ = {
+		02E5F1261AD4D41900500BF9 /* PathOGion.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				022430D41AD444740092F279 /* PathOGion.xcdatamodel */,
+				02E5F1271AD4D41900500BF9 /* PathOGion.xcdatamodel */,
 			);
-			currentVersion = 022430D41AD444740092F279 /* PathOGion.xcdatamodel */;
+			currentVersion = 02E5F1271AD4D41900500BF9 /* PathOGion.xcdatamodel */;
 			path = PathOGion.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
