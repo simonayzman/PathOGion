@@ -191,6 +191,8 @@
         return _persistentStoreCoordinator;
     }
     
+    //[self reset];
+    
     // Create the coordinator and store
     
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
@@ -216,6 +218,26 @@
     }
     
     return _persistentStoreCoordinator;
+}
+
+- (void)reset
+{
+    // Release CoreData chain
+    _managedObjectContext = nil;
+    _managedObjectModel = nil;
+    _persistentStoreCoordinator = nil;
+    
+    // Delete the sqlite file
+    NSError *error = nil;
+    NSFileManager *fileManager = [[NSFileManager alloc] init];
+    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"PathOGion.sqlite"];
+    if ([fileManager fileExistsAtPath:storeURL.path])
+        [fileManager removeItemAtURL:storeURL error:&error];
+    if (error)
+    {
+        NSLog(@"Error handled in reset");
+        abort();
+    }
 }
 
 
