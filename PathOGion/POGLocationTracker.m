@@ -244,8 +244,8 @@
     POGAppDelegate *app = (POGAppDelegate*)[[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *managedObjectContext = app.managedObjectContext;
 
-    POGCoreDataLocationPoint *coreDataLocationPoint = [NSEntityDescription insertNewObjectForEntityForName:@"CoreDataLocationPoint"
-                                                                         inManagedObjectContext:managedObjectContext];
+    POGCoreDataLocationPoint *coreDataLocationPoint = [NSEntityDescription insertNewObjectForEntityForName:@"POGCoreDataLocationPoint"
+                                                                                    inManagedObjectContext:managedObjectContext];
     coreDataLocationPoint.latitude = location.latitude;
     coreDataLocationPoint.longitude = location.longitude;
     coreDataLocationPoint.accuracy = location.accuracy;
