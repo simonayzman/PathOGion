@@ -17,4 +17,6 @@
 - (void) addLocationPoint: (POGLocationPoint *) locationPoint;
 - (void) addLocationPoints: (NSArray *) locationPoints;
 
+- (NSArray *) getLocationPath;
+
 @end

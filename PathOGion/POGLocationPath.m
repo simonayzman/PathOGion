@@ -23,13 +23,10 @@
         _locationPath = [[NSMutableArray alloc] init];
     return _locationPath;
 }
+
 - (instancetype) init
 {
-    if (self = [super init])
-    {
-        
-    }
-    return self;
+    return [self initWithLocationPoints:nil];
 }
 
 - (instancetype) initWithLocationPoints: (NSArray *) locationPoints
@@ -48,8 +45,16 @@
 
 - (void) addLocationPoints: (NSArray *) locationPoints
 {
-    NSArray *temp = [locationPoints sortedArrayUsingDescriptors:@[[POGLocationPoint locationPointSortDescriptor]]];
-    self.locationPath = [temp mutableCopy];
+    if (locationPoints)
+    {
+        NSArray *temp = [locationPoints sortedArrayUsingDescriptors:@[[POGLocationPoint locationPointSortDescriptor]]];
+        self.locationPath = [temp mutableCopy];
+    }
+}
+
+- (NSArray *) getLocationPath
+{
+    return [self.locationPath copy];
 }
 
 @end
