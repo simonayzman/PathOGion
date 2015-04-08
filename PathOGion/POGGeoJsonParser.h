@@ -8,8 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+@class POGLocationPath;
+
 @interface POGGeoJsonParser : NSObject
 
-- (NSArray *) getLocationPathFromGeoJsonFile:(NSString *) file;
+- (POGLocationPath *) getLocationPathFromGeoJsonFile:(NSString *) file;
 
 @end

@@ -40,7 +40,11 @@
 
 - (void) addLocationPoint: (POGLocationPoint *) locationPoint
 {
-    
+    if (locationPoint)
+    {
+        NSUInteger index = [self.locationPath indexOfObject:locationPoint inSortedRange:NSMakeRange(0, [self.locationPath count]) options:NSBinarySearchingInsertionIndex usingComparator:[POGLocationPoint locationPointComparatorBlock]];
+        [self.locationPath insertObject:locationPoint atIndex:index];
+    }
 }
 
 - (void) addLocationPoints: (NSArray *) locationPoints

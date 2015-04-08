@@ -8,10 +8,11 @@
 
 #import "POGGeoJsonParser.h"
 #import "POGLocationPoint.h"
+#import "POGLocationPath.h"
 
 @implementation POGGeoJsonParser
 
-- (NSArray *) getLocationPathFromGeoJsonFile:(NSString *)patientFilePath
+- (POGLocationPath *) getLocationPathFromGeoJsonFile:(NSString *)patientFilePath
 {
     NSMutableArray *path = [NSMutableArray array];
 
@@ -33,9 +34,9 @@
     else
     {
         NSLog(@"Could not find %@", fullPatientFilePath);
-
+        return nil;
     }
-    return [path copy];
+    return [[POGLocationPath alloc] initWithLocationPoints:[path copy]];
 }
 
 - (POGLocationPoint *) locationPointFromFeature:(NSDictionary *)feature

@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MapKit/Mapkit.h"
+
 @class POGCoreDataLocationPoint;
 
 @interface POGLocationPoint : NSObject
@@ -19,5 +21,6 @@
 - (instancetype) initWithCoreDataLocationPoint:(POGCoreDataLocationPoint *)coreDataLocationPoint;
 
 + (NSSortDescriptor *) locationPointSortDescriptor;
++ (NSComparisonResult (^) (id,id))locationPointComparatorBlock;
 
 @end

@@ -37,7 +37,12 @@
 
 + (NSSortDescriptor *) locationPointSortDescriptor
 {
-    NSSortDescriptor *sd = [NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:NO comparator:^(id loc1, id loc2) {
+    return [NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:NO comparator:[POGLocationPoint locationPointComparatorBlock]];
+}
+
++ (NSComparisonResult (^) (id,id))locationPointComparatorBlock
+{
+    return ^(id loc1, id loc2) {
         NSLog(@"Comparing two locationPoints \n%@\nand\n%@", loc1, loc2);
         if (((POGLocationPoint *)loc1).timestamp > ((POGLocationPoint *)loc2).timestamp) {
             return (NSComparisonResult)NSOrderedDescending;
@@ -47,9 +52,7 @@
             return (NSComparisonResult)NSOrderedAscending;
         }
         return (NSComparisonResult)NSOrderedSame;
-    }];
-                            
-    return sd;
+    };
 }
 
 - (NSString *)description
