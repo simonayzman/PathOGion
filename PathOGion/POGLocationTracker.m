@@ -258,7 +258,7 @@
 {
     POGAppDelegate *app = (POGAppDelegate*)[[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *managedObjectContext = app.managedObjectContext;
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"CoreDataLocationPoint"];
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"POGCoreDataLocationPoint"];
     [request setReturnsObjectsAsFaults:NO];
     request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:NO]];
     NSError *error;
@@ -284,7 +284,7 @@
     POGAppDelegate *app = (POGAppDelegate*)[[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *managedObjectContext = app.managedObjectContext;
 
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"CoreDataLocationPoint"];
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"POGCoreDataLocationPoint"];
     [request setReturnsObjectsAsFaults:NO];
     request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:NO]];
     NSError *error;
