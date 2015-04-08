@@ -14,7 +14,7 @@
 @class POGLocationPoint;
 
 #define DISTANCE_FILTER 100.0
-#define ACCURACY_TOLERANCE 100.0
+#define ACCURACY_TOLERANCE 2000.0
 
 @interface POGLocationTracker : NSObject <CLLocationManagerDelegate>
 
