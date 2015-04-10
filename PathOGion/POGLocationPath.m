@@ -31,7 +31,7 @@
 
 - (instancetype) initWithLocationPoints: (NSArray *) locationPoints
 {
-    if (self = [self init])
+    if (self = [super init])
     {
         [self addLocationPoints:locationPoints];
     }
