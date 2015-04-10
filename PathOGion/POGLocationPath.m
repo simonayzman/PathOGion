@@ -56,6 +56,11 @@
     }
 }
 
+- (POGLocationPoint *) mostRecentLocationPoint
+{
+    return self.locationPath[0];
+}
+
 - (NSArray *) getLocationPath
 {
     return [self.locationPath copy];
