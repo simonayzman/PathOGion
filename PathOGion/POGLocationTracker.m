@@ -38,15 +38,24 @@
     static id _sharedLocationTracker = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _sharedLocationTracker = [[self alloc] init];
+        _sharedLocationTracker = [[self alloc] initPrivate];
     });
     return _sharedLocationTracker;
 }
 
-- (instancetype) init
+- (instancetype) initPrivate
 {
     if (self = [super init])
     {
+        POGAppDelegate *app = (POGAppDelegate*)[[UIApplication sharedApplication] delegate];
+        NSArray *coreDataLocationPoints = [app savedCoreDataLocationPoints];
+        
+        if ([coreDataLocationPoints count] > 0)
+        {
+            _currentLocation = [[POGLocationPoint alloc] initWithCoreDataLocationPoint:coreDataLocationPoints[0]];
+            // Perhaps also implement _lastLocation
+        }
+        
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(applicationDidEnterBackground:)
                                                      name:UIApplicationDidEnterBackgroundNotification
@@ -57,6 +66,12 @@
                                                    object:nil];
     }
     return self;
+}
+
+- (instancetype) init
+{
+    NSLog(@"Cannot use init with singleton class LocationTracker.");
+    return nil;
 }
 
 - (CLLocationManager *) locationManager
