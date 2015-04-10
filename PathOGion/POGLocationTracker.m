@@ -214,7 +214,7 @@
             self.currentLocation.accuracy = locationAccurary;
             self.currentLocation.timestamp = location.timestamp;
 
-            [self saveLocation:self.currentLocation];
+            [self saveLocationPoint:self.currentLocation];
         }
     }
 
@@ -249,11 +249,9 @@
     NSLog(@"locationManager didChangeAuthorizationStatus:%d", status);
 }
 
-// Send the location to Server
-- (void) saveLocation: (POGLocationPoint *) locationPoint
+- (void) saveLocationPoint: (POGLocationPoint *) locationPoint
 {
-    NSLog(@"savingLocation");
-    NSLog(@"%@.", locationPoint);
+    NSLog(@"savingLocation: %@.", locationPoint);
     POGAppDelegate *app = (POGAppDelegate*)[[UIApplication sharedApplication] delegate];
     [app saveLocationPointToCoreData:locationPoint];
 }
