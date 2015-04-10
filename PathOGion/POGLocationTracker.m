@@ -81,7 +81,6 @@
         _locationManager = [[CLLocationManager alloc] init];
         _locationManager.delegate = self;
         _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-        //_locationManager.distanceFilter = kCLDistanceFilterNone;
         _locationManager.distanceFilter = DISTANCE_FILTER;
         _locationManager.pausesLocationUpdatesAutomatically = YES;
     }
@@ -187,7 +186,6 @@
     for (int i=0; i<locations.count; i++)
     {
         CLLocation *location = [locations objectAtIndex:i];
-        
         CLLocationCoordinate2D locationCoordinate = location.coordinate;
         CLLocationAccuracy locationAccurary = location.horizontalAccuracy;
         
@@ -198,7 +196,7 @@
             NSLog(@"Location may not be valid.");
         else if (locationAccurary <= 0)
             NSLog(@"Location accuracy is not valid.");
-        else if (locationAccurary > ACCURACY_TOLERANCE)
+        else if (locationAccurary > ACCURACY_SAVE_TOLERANCE)
             NSLog(@"Location accuracy is too low.");
         else
         {
