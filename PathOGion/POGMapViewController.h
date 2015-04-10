@@ -9,8 +9,12 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 
-@interface POGMapViewController : UIViewController
+@class POGLocationPath;
+
+@interface POGMapViewController : UIViewController <MKMapViewDelegate>
 
 @property (strong, nonatomic) IBOutlet MKMapView *mapView;
+@property (strong, nonatomic) POGLocationPath *userLocationPath;
+@property (strong, nonatomic) POGLocationPath *patientLocationPath;
 
 @end
