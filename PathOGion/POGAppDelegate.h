@@ -10,6 +10,9 @@
 #import <CoreData/CoreData.h>
 #import "POGLocationTracker.h"
 
+@class POGCoreDataLocationPoint;
+@class POGLocationPoint;
+
 @interface POGAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
@@ -20,8 +23,14 @@
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
 - (void)saveContext;
-- (NSURL *)applicationDocumentsDirectory;
 
+- (NSArray *) savedCoreDataLocationPoints;
+
+- (void) displayAllCoreDataLocationPoints;
+- (void) deleteAllCoreDataLocationPoints;
+
+- (void) saveLocationPointToCoreData:(POGLocationPoint *)locationPoint;
+- (void) deleteCoreDataLocationPoint:(POGCoreDataLocationPoint *)coreDataLocationPoint;
 
 @end
 

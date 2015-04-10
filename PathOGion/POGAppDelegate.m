@@ -7,6 +7,8 @@
 //
 
 #import "POGAppDelegate.h"
+#import "POGCoreDataLocationPoint.h"
+#import "POGLocationPoint.h"
 
 @interface POGAppDelegate ()
 
@@ -18,6 +20,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [self coreDataSweepThrough];
     [self initializeLocationServices];
     [self initializeLocalNotificationScheduler];
     return YES;
@@ -108,7 +111,6 @@
     else
     {
         self.locationTracker = [POGLocationTracker sharedLocationTracker];
-        //[self.locationTracker deleteAllSavedLocations];
         [self.locationTracker startLocationTracking];
     }
 }
@@ -220,6 +222,23 @@
     return _persistentStoreCoordinator;
 }
 
+- (NSManagedObjectContext *)managedObjectContext {
+    // Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.)
+    if (_managedObjectContext != nil) {
+        return _managedObjectContext;
+    }
+    
+    NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
+    if (!coordinator) {
+        return nil;
+    }
+    _managedObjectContext = [[NSManagedObjectContext alloc] init];
+    [_managedObjectContext setPersistentStoreCoordinator:coordinator];
+    return _managedObjectContext;
+}
+
+#pragma mark - Core Data Cleanup
+
 - (void)reset
 {
     // Release CoreData chain
@@ -240,21 +259,11 @@
     }
 }
 
-
-- (NSManagedObjectContext *)managedObjectContext {
-    // Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.)
-    if (_managedObjectContext != nil) {
-        return _managedObjectContext;
-    }
+- (void) coreDataSweepThrough
+{
     
-    NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
-    if (!coordinator) {
-        return nil;
-    }
-    _managedObjectContext = [[NSManagedObjectContext alloc] init];
-    [_managedObjectContext setPersistentStoreCoordinator:coordinator];
-    return _managedObjectContext;
 }
+
 
 #pragma mark - Core Data Saving support
 
@@ -269,6 +278,59 @@
             abort();
         }
     }
+}
+
+#pragma mark - Core Data Information Retrieval and Deletion support
+
+- (NSArray *)savedCoreDataLocationPoints
+{
+    NSError *error;
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"POGCoreDataLocationPoint"];
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:NO]];
+    [request setReturnsObjectsAsFaults:NO];
+    NSArray *coreDataLocationPoints = [self.managedObjectContext executeFetchRequest:request error:&error];
+    if (error)
+    {
+        // Replace this implementation with code to handle the error appropriately.
+        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
+    }
+    return coreDataLocationPoints;
+}
+
+- (void) displayAllCoreDataLocationPoints
+{
+    NSArray *coreDataLocationPoints = [self savedCoreDataLocationPoints];
+    for (POGCoreDataLocationPoint *coreDataLocationPoint in coreDataLocationPoints)
+        NSLog(@"[%@]: (%f, %f) within %.2f meters.", coreDataLocationPoint.timestamp, coreDataLocationPoint.latitude, coreDataLocationPoint.longitude, coreDataLocationPoint.accuracy);
+}
+
+- (void) deleteAllCoreDataLocationPoints
+{
+    NSLog(@"deleteAllCoreDataLocationPoints");
+    NSArray *coreDataLocationPoints = [self savedCoreDataLocationPoints];
+    for (POGCoreDataLocationPoint *coreDataLocationPoint in coreDataLocationPoints)
+        [self.managedObjectContext deleteObject:coreDataLocationPoint];
+    [self saveContext];
+}
+
+- (void) saveLocationPointToCoreData:(POGLocationPoint *)locationPoint
+{
+    POGCoreDataLocationPoint *coreDataLocationPoint = [NSEntityDescription insertNewObjectForEntityForName:@"POGCoreDataLocationPoint"
+                                                                                    inManagedObjectContext:self.managedObjectContext];
+    coreDataLocationPoint.latitude = locationPoint.latitude;
+    coreDataLocationPoint.longitude = locationPoint.longitude;
+    coreDataLocationPoint.accuracy = locationPoint.accuracy;
+    coreDataLocationPoint.timestamp = locationPoint.timestamp;
+    [self saveContext];
+}
+
+- (void)deleteCoreDataLocationPoint:(POGCoreDataLocationPoint *)coreDataLocationPoint
+{
+    NSLog(@"deleteCoreDataLocationPoint");
+    [self.managedObjectContext deleteObject:coreDataLocationPoint];
+    [self saveContext];
 }
 
 @end
