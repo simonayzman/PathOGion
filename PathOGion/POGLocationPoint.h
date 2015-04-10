@@ -19,8 +19,10 @@
 @property (strong, nonatomic) NSDate *timestamp;
 
 - (instancetype) initWithCoreDataLocationPoint:(POGCoreDataLocationPoint *)coreDataLocationPoint;
+- (CLLocationCoordinate2D) CLLocationCoordinate2D;
 
 + (NSSortDescriptor *) locationPointSortDescriptor;
 + (NSComparisonResult (^) (id,id))locationPointComparatorBlock;
++ (NSArray *) locationPointsFromCoreDataLocationPoints: (NSArray *) coreDataLocationPoints;
 
 @end

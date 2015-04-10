@@ -35,9 +35,14 @@
     return self;
 }
 
+- (CLLocationCoordinate2D) CLLocationCoordinate2D
+{
+    return CLLocationCoordinate2DMake(self.latitude, self.longitude);
+}
+
 + (NSSortDescriptor *) locationPointSortDescriptor
 {
-    return [NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:NO comparator:[POGLocationPoint locationPointComparatorBlock]];
+    return [NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:NO];
 }
 
 + (NSComparisonResult (^) (id,id))locationPointComparatorBlock
@@ -54,6 +59,17 @@
         return (NSComparisonResult)NSOrderedSame;
     };
 }
+
++ (NSArray *) locationPointsFromCoreDataLocationPoints: (NSArray *) coreDataLocationPoints
+{
+    NSMutableArray *locationPoints = [[NSMutableArray alloc] init];
+    for(POGCoreDataLocationPoint *coreDataLocationPoint in coreDataLocationPoints)
+    {
+        [locationPoints addObject:[[POGLocationPoint alloc] initWithCoreDataLocationPoint:coreDataLocationPoint]];
+    }
+    return [locationPoints copy];
+}
+
 
 - (NSString *)description
 {
