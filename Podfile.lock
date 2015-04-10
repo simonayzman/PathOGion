@@ -1,10 +1,1 @@
-PODS:
-  - MBCalendarKit (3.0.4)
-
-DEPENDENCIES:
-  - MBCalendarKit (~> 3.0.4)
-
-SPEC CHECKSUMS:
-  MBCalendarKit: 2a3a60f902162a03bb4957966a4b795af998211f
-
 COCOAPODS: 0.36.0
