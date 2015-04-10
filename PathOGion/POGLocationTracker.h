@@ -26,8 +26,4 @@
 - (void) startLocationTracking;
 - (void) stopLocationTracking;
 
-- (void) saveLocation: (POGLocationPoint *) location;
-- (void) printAllSavedLocations;
-- (void) deleteAllSavedLocations;
-
 @end

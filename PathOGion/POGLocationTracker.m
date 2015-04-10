@@ -246,75 +246,12 @@
 }
 
 // Send the location to Server
-- (void) saveLocation: (POGLocationPoint *) location
+- (void) saveLocation: (POGLocationPoint *) locationPoint
 {
     NSLog(@"savingLocation");
-    
-    NSLog(@"Saving: (%f, %f) within %+.2f meters. Timestamp: %@.", location.latitude, location.longitude, location.accuracy, location.timestamp);
-
-    // Saving to Core Data
-
+    NSLog(@"%@.", locationPoint);
     POGAppDelegate *app = (POGAppDelegate*)[[UIApplication sharedApplication] delegate];
-    NSManagedObjectContext *managedObjectContext = app.managedObjectContext;
-
-    POGCoreDataLocationPoint *coreDataLocationPoint = [NSEntityDescription insertNewObjectForEntityForName:@"POGCoreDataLocationPoint"
-                                                                                    inManagedObjectContext:managedObjectContext];
-    coreDataLocationPoint.latitude = location.latitude;
-    coreDataLocationPoint.longitude = location.longitude;
-    coreDataLocationPoint.accuracy = location.accuracy;
-    coreDataLocationPoint.timestamp = location.timestamp;
-    [app saveContext];
-    
-}
-
-- (void) printAllSavedLocations
-{
-    POGAppDelegate *app = (POGAppDelegate*)[[UIApplication sharedApplication] delegate];
-    NSManagedObjectContext *managedObjectContext = app.managedObjectContext;
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"POGCoreDataLocationPoint"];
-    [request setReturnsObjectsAsFaults:NO];
-    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:NO]];
-    NSError *error;
-    NSArray *coreDataLocationPoints = [managedObjectContext executeFetchRequest:request error:&error];
-    if (error)
-    {
-        // Replace this implementation with code to handle the error appropriately.
-        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
-    }
-    else
-    {
-        for (POGCoreDataLocationPoint *location in coreDataLocationPoints)
-            NSLog(@"[%@]: (%f, %f) within %.2f meters.", location.timestamp, location.latitude, location.longitude, location.accuracy);
-    }
-}
-
-- (void) deleteAllSavedLocations
-{
-    NSLog(@"deleteAllSavedLocations");
-
-    POGAppDelegate *app = (POGAppDelegate*)[[UIApplication sharedApplication] delegate];
-    NSManagedObjectContext *managedObjectContext = app.managedObjectContext;
-
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"POGCoreDataLocationPoint"];
-    [request setReturnsObjectsAsFaults:NO];
-    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:NO]];
-    NSError *error;
-    NSArray *coreDataLocationPoints = [managedObjectContext executeFetchRequest:request error:&error];
-    if (error)
-    {
-        // Replace this implementation with code to handle the error appropriately.
-        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
-    }
-    else
-    {
-        for (POGCoreDataLocationPoint *location in coreDataLocationPoints)
-             [managedObjectContext deleteObject:location];
-    }
-    [app saveContext];
+    [app saveLocationPointToCoreData:locationPoint];
 }
 
 @end
