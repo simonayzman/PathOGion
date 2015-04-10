@@ -11,28 +11,35 @@
 
 @implementation POGLocationPoint
 
-- (instancetype) init
+- (instancetype) initWithLatitude:(double)latitude
+                        longitude:(double)longitude
+                         accuracy:(double)accuracy
+                        timestamp:(NSDate *)timestamp
 {
     if (self = [super init])
     {
-        self.latitude = 0;
-        self.longitude = 0;
-        self.accuracy = 0;
-        self.timestamp = [NSDate date];
+        self.latitude = latitude;
+        self.longitude = longitude;
+        self.accuracy = accuracy;
+        self.timestamp = timestamp;
     }
     return self;
 }
 
+- (instancetype) init
+{
+    return [self initWithLatitude:0.f
+                        longitude:0.f
+                         accuracy:0.f
+                        timestamp:[NSDate date]];
+}
+
 - (instancetype) initWithCoreDataLocationPoint:(POGCoreDataLocationPoint *)coreDataLocationPoint
 {
-    if (self = [super init])
-    {
-        self.latitude = coreDataLocationPoint.latitude;
-        self.longitude = coreDataLocationPoint.longitude;
-        self.accuracy = coreDataLocationPoint.accuracy;
-        self.timestamp = coreDataLocationPoint.timestamp;
-    }
-    return self;
+    return [self initWithLatitude:coreDataLocationPoint.latitude
+                        longitude:coreDataLocationPoint.longitude
+                         accuracy:coreDataLocationPoint.accuracy
+                        timestamp:coreDataLocationPoint.timestamp];
 }
 
 - (CLLocationCoordinate2D) CLLocationCoordinate2D

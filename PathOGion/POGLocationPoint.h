@@ -18,7 +18,10 @@
 @property (assign, nonatomic) double accuracy;
 @property (strong, nonatomic) NSDate *timestamp;
 
+// Designated initializer
+- (instancetype) initWithLatitude:(double)latitude longitude:(double)longitude accuracy:(double)accuracy timestamp:(NSDate *)timestamp;
 - (instancetype) initWithCoreDataLocationPoint:(POGCoreDataLocationPoint *)coreDataLocationPoint;
+
 - (CLLocationCoordinate2D) CLLocationCoordinate2D;
 
 + (NSSortDescriptor *) locationPointSortDescriptor;
