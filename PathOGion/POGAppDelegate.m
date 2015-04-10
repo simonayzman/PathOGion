@@ -9,6 +9,7 @@
 #import "POGAppDelegate.h"
 #import "POGCoreDataLocationPoint.h"
 #import "POGLocationPoint.h"
+#import "CLLocation+measuring.h"
 
 @interface POGAppDelegate ()
 
@@ -261,7 +262,27 @@
 
 - (void) coreDataSweepThrough
 {
-    
+    NSArray *coreDataLocationPoints = [self savedCoreDataLocationPoints];
+    NSUInteger total = [coreDataLocationPoints count];
+    NSUInteger deletions = 0;
+    for (NSInteger i = total - 1; i > 0; )
+    {
+        POGCoreDataLocationPoint *coreDataLocationPoint = coreDataLocationPoints[i];
+        POGCoreDataLocationPoint *nextCoreDataLocationPoint = coreDataLocationPoints[i-1];
+        
+        CLLocationCoordinate2D locationPointCoordinate = [[[POGLocationPoint alloc] initWithCoreDataLocationPoint: coreDataLocationPoint] CLLocationCoordinate2D];
+        CLLocationCoordinate2D nextLocationPointCoordinate = [[[POGLocationPoint alloc] initWithCoreDataLocationPoint: nextCoreDataLocationPoint] CLLocationCoordinate2D];
+        
+        double distance = [CLLocation distanceFromCoordinate:locationPointCoordinate toCoordinate:nextLocationPointCoordinate];
+        if (distance < DISTANCE_FILTER)
+        {
+            [self deleteCoreDataLocationPoint:nextCoreDataLocationPoint];
+            deletions++;
+        }
+        else
+            --i;
+    }
+    NSLog(@"Total records: %ld\nTotal deletions: %ld", total, deletions);
 }
 
 
@@ -328,7 +349,7 @@
 
 - (void)deleteCoreDataLocationPoint:(POGCoreDataLocationPoint *)coreDataLocationPoint
 {
-    NSLog(@"deleteCoreDataLocationPoint");
+    //NSLog(@"deleteCoreDataLocationPoint");
     [self.managedObjectContext deleteObject:coreDataLocationPoint];
     [self saveContext];
 }
