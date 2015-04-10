@@ -160,6 +160,55 @@
 
 }
 
+-(void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views
+{
+
+}
+
+-(void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
+{
+
+}
+
+-(void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view
+{
+
+}
+*/
+
+-(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
+{
+    if ([annotation isKindOfClass:[MKCircle class]])
+    {
+        MKAnnotationView *annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"circle"];
+        annotationView.canShowCallout = YES;
+        return annotationView;
+    }
+    return nil;
+}
+
+- (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay
+{
+    if ([overlay isKindOfClass:[MKPolyline class]])
+    {
+        MKPolylineRenderer *polylineRenderer = [[MKPolylineRenderer alloc] initWithPolyline:overlay];
+        polylineRenderer.strokeColor = [UIColor blackColor];
+        polylineRenderer.lineWidth = 1.5f;
+        return polylineRenderer;
+    }
+    else if ([overlay isKindOfClass:[MKCircle class]])
+    {
+        MKCircleRenderer *circleRenderer = [[MKCircleRenderer alloc] initWithCircle:overlay];
+        circleRenderer.fillColor = [UIColor colorWithRed:0.0f green:0.0f blue:0.4f alpha:0.3f];
+        circleRenderer.strokeColor = [UIColor colorWithRed:0.0f green:0.0f blue:0.8f alpha:0.3f];
+        circleRenderer.lineWidth = 3.0f;
+        return circleRenderer;
+    }
+    NSLog(@"Overlay type not recognized in rendererForOverlay delegate method: %@", overlay);
+    return [[MKOverlayRenderer alloc] initWithOverlay:overlay];
+}
+
+
 /*
 #pragma mark - Navigation
 
