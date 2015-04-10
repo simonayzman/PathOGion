@@ -21,11 +21,13 @@
 - (void) setUserLocationPath: (POGLocationPath *) locationPath
 {
     _userLocationPath = locationPath;
+    [self redisplayUserLocationPath];
 }
 
 - (void) setPatientLocationPath: (POGLocationPath *) locationPath
 {
     _patientLocationPath = locationPath;
+    [self redisplayPatientLocationPath];
 }
 
 - (void)viewDidLoad {
@@ -101,6 +103,61 @@
 
     }
 }
+
+- (void) redisplayUserLocationPath
+{
+    NSMutableArray *overlays = [NSMutableArray array];
+    NSMutableArray *annotations = [NSMutableArray array];
+    
+    NSArray *locationPointArray = [self.userLocationPath getLocationPath];
+    CLLocationCoordinate2D *locationPointCoordinates = malloc(sizeof(CLLocationCoordinate2D) * [locationPointArray count]);
+    NSUInteger counter = 0;
+    
+    NSDateFormatter *timeFormatter = [[NSDateFormatter alloc] init];
+    timeFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
+    [timeFormatter setDateFormat:@"h:mm a"];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
+    [dateFormatter setDateFormat:@"'('M'/'d'/'yy')'"];
+
+    for (POGLocationPoint *locationPoint in locationPointArray)
+    {
+        MKCircle *circle = [MKCircle circleWithCenterCoordinate:[locationPoint CLLocationCoordinate2D] radius:locationPoint.accuracy];
+
+        circle.title = [timeFormatter stringFromDate:locationPoint.timestamp];
+        circle.subtitle  = [dateFormatter stringFromDate:locationPoint.timestamp];
+
+        [overlays addObject:circle];
+        [annotations addObject:circle];
+        locationPointCoordinates[counter] = [locationPoint CLLocationCoordinate2D];
+
+        counter++;
+    }
+    MKPolyline *polyline = [MKPolyline polylineWithCoordinates:locationPointCoordinates count:[locationPointArray count]];
+
+    [overlays addObject:polyline];
+    
+    [self.mapView addOverlays:[overlays copy]];
+    [self.mapView addAnnotations:[annotations copy]];
+}
+
+- (void) redisplayPatientLocationPath
+{
+
+}
+
+#pragma mark - MapView Delegate
+
+/*
+- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
+{
+    
+}
+
+- (void)mapView:(MKMapView *)mapView didAddOverlayRenderers:(NSArray *)renderers
+{
+
 }
 
 /*
