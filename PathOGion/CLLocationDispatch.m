@@ -24,6 +24,7 @@
 //	THE SOFTWARE.
 //
 
+#import <UIKit/UIKit.h>
 #import "CLLocationDispatch.h"
 #import "CLLocation+measuring.h"
 #import "CLLocationDeadReckoning.h"

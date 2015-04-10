@@ -13,6 +13,7 @@
 #import "POGAppDelegate.h"
 #import "POGBackgroundTaskManager.h"
 #import "POGLocationPoint.h"
+#import "CLLocation+measuring.h"
 
 #define COORDINATE @"user_coordinate"
 #define LATITUDE @"user_latitude"
@@ -198,6 +199,9 @@
             NSLog(@"Location accuracy is not valid.");
         else if (locationAccurary > ACCURACY_SAVE_TOLERANCE)
             NSLog(@"Location accuracy is too low.");
+        else if ([CLLocation distanceFromCoordinate:locationCoordinate
+                                       toCoordinate:[self.currentLocation CLLocationCoordinate2D]] < DISTANCE_FILTER)
+            NSLog(@"Location is too close to the most recently saved location.");
         else
         {
             self.lastLocation.latitude = self.currentLocation.latitude;
