@@ -29,6 +29,7 @@
 @property (strong, nonatomic) POGLocationPoint *lastLocation;
 @property (nonatomic) NSTimer *refreshBackgroundTimer;
 @property (nonatomic) POGBackgroundTaskManager *bgTask;
+@property (assign, nonatomic) double distanceFilter;
 
 @end
 
@@ -57,6 +58,7 @@
             // Perhaps also implement _lastLocation
         }
         
+        _distanceFilter = DISTANCE_FILTER;
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(applicationDidEnterBackground:)
                                                      name:UIApplicationDidEnterBackgroundNotification
@@ -82,7 +84,7 @@
         _locationManager = [[CLLocationManager alloc] init];
         _locationManager.delegate = self;
         _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-        _locationManager.distanceFilter = DISTANCE_FILTER;
+        _locationManager.distanceFilter = self.distanceFilter;
         _locationManager.pausesLocationUpdatesAutomatically = YES;
     }
 	return _locationManager;
@@ -197,10 +199,10 @@
             NSLog(@"Location may not be valid.");
         else if (locationAccurary <= 0)
             NSLog(@"Location accuracy is not valid.");
-        else if (locationAccurary > ACCURACY_SAVE_TOLERANCE)
+        else if (locationAccurary > SAVE_TOLERANCE)
             NSLog(@"Location accuracy is too low.");
         else if ([CLLocation distanceFromCoordinate:locationCoordinate
-                                       toCoordinate:[self.currentLocation CLLocationCoordinate2D]] < DISTANCE_FILTER)
+                                       toCoordinate:[self.currentLocation CLLocationCoordinate2D]] < self.distanceFilter)
             NSLog(@"Location is too close to the most recently saved location.");
         else
         {
@@ -216,8 +218,9 @@
 
             [self saveLocationPoint:self.currentLocation];
         }
+        [self updateDistanceFilterForDeviceSpeed:location.speed];
     }
-
+    
     self.bgTask = [POGBackgroundTaskManager sharedBackgroundTaskManager];
     [self.bgTask beginNewBackgroundTask];
 }
@@ -254,6 +257,22 @@
     NSLog(@"savingLocation: %@.", locationPoint);
     POGAppDelegate *app = (POGAppDelegate*)[[UIApplication sharedApplication] delegate];
     [app saveLocationPointToCoreData:locationPoint];
+}
+
+#pragma mark - Distance Filter mechanics
+
+- (void) updateDistanceFilterForDeviceSpeed: (double) speed
+{
+    // For every 15mph above 10mph, m, the distance
+    // filter is (m x .5) times greater than 40 meters
+    double currentSpeedInMPH = speed * 2.23694;
+    double newDistanceFilter = (currentSpeedInMPH <= 10) ? 40.f : 40.f * (1 + 0.5f * ceil(((currentSpeedInMPH - 10) / 15)));
+    if (abs(self.distanceFilter - newDistanceFilter) < 0.01f)
+    {
+        self.distanceFilter = newDistanceFilter;
+        self.locationManager.distanceFilter = self.distanceFilter;
+        NSLog(@"New distanceFilter: %f meters", self.distanceFilter);
+    }
 }
 
 @end
