@@ -26,9 +26,9 @@
 @interface POGLocationTracker()
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
-@property (strong, nonatomic) POGLocationPoint *lastLocation;
-@property (nonatomic) NSTimer *refreshBackgroundTimer;
-@property (nonatomic) POGBackgroundTaskManager *bgTask;
+@property (strong, nonatomic) POGLocationPoint *previousLocation;
+@property (strong, nonatomic) NSTimer *refreshBackgroundTimer;
+@property (strong, nonatomic) POGBackgroundTaskManager *bgTask;
 @property (assign, nonatomic) double distanceFilter;
 
 @end
@@ -55,9 +55,9 @@
         if ([coreDataLocationPoints count] > 0)
         {
             _currentLocation = [[POGLocationPoint alloc] initWithCoreDataLocationPoint:coreDataLocationPoints[0]];
-            // Perhaps also implement _lastLocation
+            if ([coreDataLocationPoints count] > 1)
+                _previousLocation = [[POGLocationPoint alloc] initWithCoreDataLocationPoint:coreDataLocationPoints[1]];
         }
-        
         _distanceFilter = DISTANCE_FILTER;
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(applicationDidEnterBackground:)
@@ -74,6 +74,7 @@
 - (instancetype) init
 {
     NSLog(@"Cannot use init with singleton class LocationTracker.");
+    abort();
     return nil;
 }
 
@@ -97,11 +98,11 @@
     return _currentLocation;
 }
 
-- (POGLocationPoint *) lastLocation
+- (POGLocationPoint *) previousLocation
 {
-    if (!_lastLocation)
-        _lastLocation = [[POGLocationPoint alloc]init];
-    return _lastLocation;
+    if (!_previousLocation)
+        _previousLocation = [[POGLocationPoint alloc]init];
+    return _previousLocation;
 }
 
 // This function is called whenever LocationTracker receives a
@@ -176,7 +177,6 @@
 - (void) stopLocationTracking
 {
     NSLog(@"stopLocationTracking");
-    
     [self.locationManager stopUpdatingLocation];
 }
 
@@ -184,7 +184,7 @@
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
-    NSLog(@"locationManager didUpdateLocations");
+    NSLog(@"locationManager didUpdateLocations (%lu times)", locations.count);
     
     for (int i=0; i<locations.count; i++)
     {
@@ -206,10 +206,10 @@
             NSLog(@"Location is too close to the most recently saved location.");
         else
         {
-            self.lastLocation.latitude = self.currentLocation.latitude;
-            self.lastLocation.longitude = self.currentLocation.longitude;
-            self.lastLocation.accuracy = self.currentLocation.accuracy;
-            self.lastLocation.timestamp = self.currentLocation.timestamp;
+            self.previousLocation.latitude = self.currentLocation.latitude;
+            self.previousLocation.longitude = self.currentLocation.longitude;
+            self.previousLocation.accuracy = self.currentLocation.accuracy;
+            self.previousLocation.timestamp = self.currentLocation.timestamp;
 
             self.currentLocation.latitude = locationCoordinate.latitude;
             self.currentLocation.longitude = locationCoordinate.longitude;
