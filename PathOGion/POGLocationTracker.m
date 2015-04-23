@@ -218,7 +218,7 @@
 
             [self saveLocationPoint:self.currentLocation];
         }
-        [self updateDistanceFilterForDeviceSpeed:location.speed];
+        //[self updateDistanceFilterForDeviceSpeed:location.speed];
     }
     
     self.bgTask = [POGBackgroundTaskManager sharedBackgroundTaskManager];
@@ -265,9 +265,10 @@
 {
     // For every 15mph above 10mph, m, the distance
     // filter is (m x .5) times greater than 40 meters
-    double currentSpeedInMPH = speed * 2.23694;
+    double adjustedSpeed = (fabs(speed - 0) < 0.01f) ? 0 : fabs(speed);
+    double currentSpeedInMPH = adjustedSpeed * 2.23694;
     double newDistanceFilter = (currentSpeedInMPH <= 10) ? 40.f : 40.f * (1 + 0.5f * ceil(((currentSpeedInMPH - 10) / 15)));
-    if (abs(self.distanceFilter - newDistanceFilter) < 0.01f)
+    if (fabs(self.distanceFilter - newDistanceFilter) < 0.01f)
     {
         self.distanceFilter = newDistanceFilter;
         self.locationManager.distanceFilter = self.distanceFilter;
