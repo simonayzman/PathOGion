@@ -1,6 +1,6 @@
 //
-//  LocationTracker.m
-//  Location
+//  POGLocationTracker.m
+//  PathOGion
 //
 //  Created by Ricky Chea
 //  Copyright (c) 2014 Location. All rights reserved.
@@ -8,11 +8,12 @@
 //  Edited by Simon Ayzman
 //  Copyright (c) 2015 PathOGion. All rights reserved.
 
-#import "LocationTracker.h"
-#import "CoreDataLocationPoint.h"
-#import "AppDelegate.h"
-#import "BackgroundTaskManager.h"
-#import "LocationPoint.h"
+#import "POGLocationTracker.h"
+#import "POGCoreDataLocationPoint.h"
+#import "POGAppDelegate.h"
+#import "POGBackgroundTaskManager.h"
+#import "POGLocationPoint.h"
+#import "CLLocation+measuring.h"
 
 #define COORDINATE @"user_coordinate"
 #define LATITUDE @"user_latitude"
@@ -22,31 +23,42 @@
 
 #define IS_OS_8_OR_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
 
-@interface LocationTracker()
+@interface POGLocationTracker()
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
-@property (strong, nonatomic) LocationPoint *lastLocation;
-@property (nonatomic) NSTimer *refreshBackgroundTimer;
-@property (nonatomic) BackgroundTaskManager *bgTask;
+@property (strong, nonatomic) POGLocationPoint *previousLocation;
+@property (strong, nonatomic) NSTimer *refreshBackgroundTimer;
+@property (strong, nonatomic) POGBackgroundTaskManager *bgTask;
+@property (assign, nonatomic) double distanceFilter;
 
 @end
 
-@implementation LocationTracker
+@implementation POGLocationTracker
 
 + (instancetype) sharedLocationTracker
 {
     static id _sharedLocationTracker = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _sharedLocationTracker = [[self alloc] init];
+        _sharedLocationTracker = [[self alloc] initPrivate];
     });
     return _sharedLocationTracker;
 }
 
-- (instancetype) init
+- (instancetype) initPrivate
 {
     if (self = [super init])
     {
+        POGAppDelegate *app = (POGAppDelegate*)[[UIApplication sharedApplication] delegate];
+        NSArray *coreDataLocationPoints = [app savedCoreDataLocationPoints];
+        
+        if ([coreDataLocationPoints count] > 0)
+        {
+            _currentLocation = [[POGLocationPoint alloc] initWithCoreDataLocationPoint:coreDataLocationPoints[0]];
+            if ([coreDataLocationPoints count] > 1)
+                _previousLocation = [[POGLocationPoint alloc] initWithCoreDataLocationPoint:coreDataLocationPoints[1]];
+        }
+        _distanceFilter = DISTANCE_FILTER;
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(applicationDidEnterBackground:)
                                                      name:UIApplicationDidEnterBackgroundNotification
@@ -59,6 +71,13 @@
     return self;
 }
 
+- (instancetype) init
+{
+    NSLog(@"Cannot use init with singleton class LocationTracker.");
+    abort();
+    return nil;
+}
+
 - (CLLocationManager *) locationManager
 {
     if (!_locationManager)
@@ -66,25 +85,24 @@
         _locationManager = [[CLLocationManager alloc] init];
         _locationManager.delegate = self;
         _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-        //_locationManager.distanceFilter = kCLDistanceFilterNone;
-        _locationManager.distanceFilter = DISTANCE_FILTER;
+        _locationManager.distanceFilter = self.distanceFilter;
         _locationManager.pausesLocationUpdatesAutomatically = YES;
     }
 	return _locationManager;
 }
 
-- (LocationPoint *) currentLocation
+- (POGLocationPoint *) currentLocation
 {
     if (!_currentLocation)
-        _currentLocation = [[LocationPoint alloc]init];
+        _currentLocation = [[POGLocationPoint alloc]init];
     return _currentLocation;
 }
 
-- (LocationPoint *) lastLocation
+- (POGLocationPoint *) previousLocation
 {
-    if (!_lastLocation)
-        _lastLocation = [[LocationPoint alloc]init];
-    return _lastLocation;
+    if (!_previousLocation)
+        _previousLocation = [[POGLocationPoint alloc]init];
+    return _previousLocation;
 }
 
 // This function is called whenever LocationTracker receives a
@@ -104,7 +122,7 @@
                                                                  userInfo:nil
                                                                   repeats:YES];
     
-    self.bgTask = [BackgroundTaskManager sharedBackgroundTaskManager];
+    self.bgTask = [POGBackgroundTaskManager sharedBackgroundTaskManager];
     [self.bgTask beginNewBackgroundTask];
 }
 
@@ -159,7 +177,6 @@
 - (void) stopLocationTracking
 {
     NSLog(@"stopLocationTracking");
-    
     [self.locationManager stopUpdatingLocation];
 }
 
@@ -167,12 +184,11 @@
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
-    NSLog(@"locationManager didUpdateLocations");
+    NSLog(@"locationManager didUpdateLocations (%lu times)", locations.count);
     
     for (int i=0; i<locations.count; i++)
     {
         CLLocation *location = [locations objectAtIndex:i];
-        
         CLLocationCoordinate2D locationCoordinate = location.coordinate;
         CLLocationAccuracy locationAccurary = location.horizontalAccuracy;
         
@@ -183,25 +199,29 @@
             NSLog(@"Location may not be valid.");
         else if (locationAccurary <= 0)
             NSLog(@"Location accuracy is not valid.");
-        else if (locationAccurary > ACCURACY_TOLERANCE)
+        else if (locationAccurary > SAVE_TOLERANCE)
             NSLog(@"Location accuracy is too low.");
+        else if ([CLLocation distanceFromCoordinate:locationCoordinate
+                                       toCoordinate:[self.currentLocation CLLocationCoordinate2D]] < self.distanceFilter)
+            NSLog(@"Location is too close to the most recently saved location.");
         else
         {
-            self.lastLocation.latitude = self.currentLocation.latitude;
-            self.lastLocation.longitude = self.currentLocation.longitude;
-            self.lastLocation.accuracy = self.currentLocation.accuracy;
-            self.lastLocation.timestamp = self.currentLocation.timestamp;
+            self.previousLocation.latitude = self.currentLocation.latitude;
+            self.previousLocation.longitude = self.currentLocation.longitude;
+            self.previousLocation.accuracy = self.currentLocation.accuracy;
+            self.previousLocation.timestamp = self.currentLocation.timestamp;
 
             self.currentLocation.latitude = locationCoordinate.latitude;
             self.currentLocation.longitude = locationCoordinate.longitude;
             self.currentLocation.accuracy = locationAccurary;
             self.currentLocation.timestamp = location.timestamp;
 
-            [self saveLocation:self.currentLocation];
+            [self saveLocationPoint:self.currentLocation];
         }
+        //[self updateDistanceFilterForDeviceSpeed:location.speed];
     }
-
-    self.bgTask = [BackgroundTaskManager sharedBackgroundTaskManager];
+    
+    self.bgTask = [POGBackgroundTaskManager sharedBackgroundTaskManager];
     [self.bgTask beginNewBackgroundTask];
 }
 
@@ -232,76 +252,28 @@
     NSLog(@"locationManager didChangeAuthorizationStatus:%d", status);
 }
 
-// Send the location to Server
-- (void) saveLocation: (LocationPoint *) location
+- (void) saveLocationPoint: (POGLocationPoint *) locationPoint
 {
-    NSLog(@"savingLocation");
-    
-    NSLog(@"Saving: (%f, %f) within %+.2f meters. Timestamp: %@.", location.latitude, location.longitude, location.accuracy, location.timestamp);
-
-    // Saving to Core Data
-
-    AppDelegate *app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-    NSManagedObjectContext *managedObjectContext = app.managedObjectContext;
-
-    CoreDataLocationPoint *coreDataLocationPoint = [NSEntityDescription insertNewObjectForEntityForName:@"CoreDataLocationPoint"
-                                                                         inManagedObjectContext:managedObjectContext];
-    coreDataLocationPoint.latitude = location.latitude;
-    coreDataLocationPoint.longitude = location.longitude;
-    coreDataLocationPoint.accuracy = location.accuracy;
-    coreDataLocationPoint.timestamp = location.timestamp;
-    [app saveContext];
-    
+    NSLog(@"savingLocation: %@.", locationPoint);
+    POGAppDelegate *app = (POGAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [app saveLocationPointToCoreData:locationPoint];
 }
 
-- (void) printAllSavedLocations
+#pragma mark - Distance Filter mechanics
+
+- (void) updateDistanceFilterForDeviceSpeed: (double) speed
 {
-    AppDelegate *app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-    NSManagedObjectContext *managedObjectContext = app.managedObjectContext;
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"CoreDataLocationPoint"];
-    [request setReturnsObjectsAsFaults:NO];
-    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:NO]];
-    NSError *error;
-    NSArray *coreDataLocationPoints = [managedObjectContext executeFetchRequest:request error:&error];
-    if (error)
+    // For every 15mph above 10mph, m, the distance
+    // filter is (m x .5) times greater than 40 meters
+    double adjustedSpeed = (fabs(speed - 0) < 0.01f) ? 0 : fabs(speed);
+    double currentSpeedInMPH = adjustedSpeed * 2.23694;
+    double newDistanceFilter = (currentSpeedInMPH <= 10) ? 40.f : 40.f * (1 + 0.5f * ceil(((currentSpeedInMPH - 10) / 15)));
+    if (fabs(self.distanceFilter - newDistanceFilter) < 0.01f)
     {
-        // Replace this implementation with code to handle the error appropriately.
-        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
+        self.distanceFilter = newDistanceFilter;
+        self.locationManager.distanceFilter = self.distanceFilter;
+        NSLog(@"New distanceFilter: %f meters", self.distanceFilter);
     }
-    else
-    {
-        for (CoreDataLocationPoint *location in coreDataLocationPoints)
-            NSLog(@"[%@]: (%f, %f) within %.2f meters.", location.timestamp, location.latitude, location.longitude, location.accuracy);
-    }
-}
-
-- (void) deleteAllSavedLocations
-{
-    NSLog(@"deleteLocations");
-
-    AppDelegate *app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-    NSManagedObjectContext *managedObjectContext = app.managedObjectContext;
-
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"CoreDataLocationPoint"];
-    [request setReturnsObjectsAsFaults:NO];
-    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:NO]];
-    NSError *error;
-    NSArray *coreDataLocationPoints = [managedObjectContext executeFetchRequest:request error:&error];
-    if (error)
-    {
-        // Replace this implementation with code to handle the error appropriately.
-        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
-    }
-    else
-    {
-        for (CoreDataLocationPoint *location in coreDataLocationPoints)
-             [managedObjectContext deleteObject:location];
-    }
-    [app saveContext];
 }
 
 @end

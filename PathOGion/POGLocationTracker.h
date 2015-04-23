@@ -1,6 +1,6 @@
 //
-//  LocationTracker.h
-//  Location
+//  POGLocationTracker.h
+//  PathOGion
 //
 //  Created by Ricky Chea
 //  Copyright (c) 2014 Location. All rights reserved.
@@ -11,22 +11,19 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
-@class LocationPoint;
+@class POGLocationPoint;
 
-#define DISTANCE_FILTER 10.0
+#define DISTANCE_FILTER 40.0
 #define ACCURACY_TOLERANCE 100.0
+#define SAVE_TOLERANCE 500.0
 
-@interface LocationTracker : NSObject <CLLocationManagerDelegate>
+@interface POGLocationTracker : NSObject <CLLocationManagerDelegate>
 
-@property (strong, nonatomic) LocationPoint *currentLocation;
+@property (strong, nonatomic) POGLocationPoint *currentLocation;
 
 + (instancetype) sharedLocationTracker;
 
 - (void) startLocationTracking;
 - (void) stopLocationTracking;
-
-- (void) saveLocation: (LocationPoint *) location;
-- (void) printAllSavedLocations;
-- (void) deleteAllSavedLocations;
 
 @end

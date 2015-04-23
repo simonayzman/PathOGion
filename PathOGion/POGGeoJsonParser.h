@@ -1,5 +1,5 @@
 //
-//  GeojsonParser.h
+//  POGGeoJsonParser.h
 //  PathOGion
 //
 //  Created by Simon Ayzman on 3/18/15.
@@ -8,8 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@interface GeojsonParser : NSObject
+@class POGLocationPath;
 
-- (NSArray *) getLocationPathFromGeoJsonFile:(NSString *) file;
+@interface POGGeoJsonParser : NSObject
+
+- (POGLocationPath *) getLocationPathFromGeoJsonFile:(NSString *) file;
 
 @end

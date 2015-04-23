@@ -1,17 +1,18 @@
 //
-//  GeojsonParser.m
+//  POGGeoJsonParser.m
 //  PathOGion
 //
 //  Created by Simon Ayzman on 3/18/15.
 //  Copyright (c) 2015 CARSI Lab. All rights reserved.
 //
 
-#import "GeojsonParser.h"
-#import "LocationPoint.h"
+#import "POGGeoJsonParser.h"
+#import "POGLocationPoint.h"
+#import "POGLocationPath.h"
 
-@implementation GeojsonParser
+@implementation POGGeoJsonParser
 
-- (NSArray *) getLocationPathFromGeoJsonFile:(NSString *)patientFilePath
+- (POGLocationPath *) getLocationPathFromGeoJsonFile:(NSString *)patientFilePath
 {
     NSMutableArray *path = [NSMutableArray array];
 
@@ -26,21 +27,21 @@
         //NSLog(@"Parsed file %@", unparsedPatientPathArray);
         for (NSDictionary *feature in unparsedPatientPathArray)
         {
-            LocationPoint *point = [self locationPointFromFeature:feature];
+            POGLocationPoint *point = [self locationPointFromFeature:feature];
             [path addObject:point];
         }
     }
     else
     {
         NSLog(@"Could not find %@", fullPatientFilePath);
-
+        return nil;
     }
-    return [path copy];
+    return [[POGLocationPath alloc] initWithLocationPoints:[path copy]];
 }
 
-- (LocationPoint *) locationPointFromFeature:(NSDictionary *)feature
+- (POGLocationPoint *) locationPointFromFeature:(NSDictionary *)feature
 {
-    LocationPoint *point = [[LocationPoint alloc] init];
+    POGLocationPoint *point = [[POGLocationPoint alloc] init];
     point.latitude = [self getLatitudeFromFeature:feature];
     point.longitude = [self getLongitudeFromFeature:feature];
     point.timestamp = [self getTimestampFromFeature:feature];

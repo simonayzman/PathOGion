@@ -1,5 +1,5 @@
 //
-//  BackgroundTaskManager.h
+//  POGBackgroundTaskManager.h
 //
 //  Created by Puru Shukla on 20/02/13.
 //  Copyright (c) 2013 Puru Shukla. All rights reserved.
@@ -8,7 +8,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIApplication.h>
 
-@interface BackgroundTaskManager : NSObject
+@interface POGBackgroundTaskManager : NSObject
 
 + (instancetype) sharedBackgroundTaskManager;
 
