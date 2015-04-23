@@ -21,7 +21,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [self coreDataSweepThrough];
+    //[self coreDataSweepThrough];
     [self initializeLocationServices];
     [self initializeLocalNotificationScheduler];
     return YES;
