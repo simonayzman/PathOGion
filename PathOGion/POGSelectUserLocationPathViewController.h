@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol POGSelectUserLocationPathDelegate <NSObject>
+
+@optional
+- (void) lowerValueDateUpdated:(NSDate *) updatedLowerDate;
+- (void) upperValueDateUpdated:(NSDate *) updatedUpperDate;
+
+@end
+
 @interface POGSelectUserLocationPathViewController : UIViewController
 
 @end
