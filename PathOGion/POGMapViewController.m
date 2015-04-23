@@ -103,6 +103,11 @@
 
 - (void) redisplayUserLocationPath
 {
+    // TO DO
+    // IMPLEMENT VERSION WHERE INACCURATE LOCATIONS
+    // APPEAR DIFFERENTLY AS MKPOLYGONS OR MKCIRCLES
+    // WITH MUCH SMALLER RADII (TO SHOW INACCURACY)
+    
     NSMutableArray *overlays = [NSMutableArray array];
     NSMutableArray *annotations = [NSMutableArray array];
     
@@ -116,27 +121,37 @@
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
-    [dateFormatter setDateFormat:@"'('M'/'d'/'yy')'"];
+    [dateFormatter setDateFormat:@"M'/'d'/'yy"];
 
     for (POGLocationPoint *locationPoint in locationPointArray)
     {
-        MKCircle *circle = [MKCircle circleWithCenterCoordinate:[locationPoint CLLocationCoordinate2D] radius:locationPoint.accuracy];
-
-        circle.title = [timeFormatter stringFromDate:locationPoint.timestamp];
-        circle.subtitle  = [dateFormatter stringFromDate:locationPoint.timestamp];
-
-        [overlays addObject:circle];
-        [annotations addObject:circle];
-        locationPointCoordinates[counter] = [locationPoint CLLocationCoordinate2D];
-
-        counter++;
+        if (locationPoint.accuracy <= ACCURACY_TOLERANCE)
+        {
+            MKCircle *circle = [MKCircle circleWithCenterCoordinate:[locationPoint CLLocationCoordinate2D] radius:locationPoint.accuracy];
+            
+            circle.title = [NSString stringWithFormat:@"%@ (%@)", [timeFormatter stringFromDate:locationPoint.timestamp], [dateFormatter stringFromDate:locationPoint.timestamp]];
+            circle.subtitle  = [NSString stringWithFormat:@"Within %.0f meters", locationPoint.accuracy];
+            //circle.title = [NSString stringWithFormat:@"Within %.0f meters", locationPoint.accuracy];
+            //circle.subtitle  = [NSString stringWithFormat:@"%@ (%@)", [timeFormatter stringFromDate:locationPoint.timestamp], [dateFormatter stringFromDate:locationPoint.timestamp]];
+            //circle.title = [timeFormatter stringFromDate:locationPoint.timestamp];
+            //circle.subtitle  = [NSString stringWithFormat:@"%@ - %.0f m", [dateFormatter stringFromDate:locationPoint.timestamp], locationPoint.accuracy];
+            
+            [overlays addObject:circle];
+            [annotations addObject:circle];
+            locationPointCoordinates[counter] = [locationPoint CLLocationCoordinate2D];
+            
+            counter++;
+        }
     }
-    MKPolyline *polyline = [MKPolyline polylineWithCoordinates:locationPointCoordinates count:[locationPointArray count]];
+    MKPolyline *polyline = [MKPolyline polylineWithCoordinates:locationPointCoordinates count:counter];
 
     [overlays addObject:polyline];
     
     [self.mapView addOverlays:[overlays copy]];
     [self.mapView addAnnotations:[annotations copy]];
+    
+    realloc(locationPointCoordinates,0);
+    locationPointCoordinates = nil;
 }
 
 - (void) redisplayPatientLocationPath
@@ -196,8 +211,17 @@
     else if ([overlay isKindOfClass:[MKCircle class]])
     {
         MKCircleRenderer *circleRenderer = [[MKCircleRenderer alloc] initWithCircle:overlay];
-        circleRenderer.fillColor = [UIColor colorWithRed:0.0f green:0.0f blue:0.4f alpha:0.3f];
-        circleRenderer.strokeColor = [UIColor colorWithRed:0.0f green:0.0f blue:0.8f alpha:0.3f];
+        
+        if (((MKCircle *)overlay).radius > ACCURACY_TOLERANCE)
+        {
+            circleRenderer.fillColor = [UIColor colorWithRed:0.f green:1.f blue:0.f alpha:0.05f];
+            circleRenderer.strokeColor = [UIColor colorWithRed:0.f green:1.f blue:0.f alpha:0.3f];
+        }
+        else
+        {
+            circleRenderer.fillColor = [UIColor colorWithRed:0.0f green:0.0f blue:0.4f alpha:0.15f];
+            circleRenderer.strokeColor = [UIColor colorWithRed:0.0f green:0.0f blue:0.8f alpha:0.3f];
+        }
         circleRenderer.lineWidth = 3.0f;
         return circleRenderer;
     }
