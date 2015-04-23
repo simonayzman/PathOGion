@@ -58,7 +58,7 @@
 
 - (POGLocationPoint *) mostRecentLocationPoint
 {
-    return self.locationPath[0];
+    return ([self.locationPath count]) ? self.locationPath[0] : nil;
 }
 
 - (NSArray *) getLocationPath
