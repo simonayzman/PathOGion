@@ -40,6 +40,19 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    POGAppDelegate *app = (POGAppDelegate*)[[UIApplication sharedApplication] delegate];
+    NSArray *coreDataLocationPoints = [app savedCoreDataLocationPointsFromDate:self.lowerTimeBound toDate:self.upperTimeBound];
+    POGLocationPath *locationPath = [[POGLocationPath alloc] initWithLocationPoints:
+                                     [POGLocationPoint locationPointsFromCoreDataLocationPoints:coreDataLocationPoints]];
+    self.userLocationPath = locationPath;
+    
+    POGLocationPoint *lastKnownLocation = [self.userLocationPath mostRecentLocationPoint];
+    [self.mapView setRegion:MKCoordinateRegionMake([lastKnownLocation CLLocationCoordinate2D], MKCoordinateSpanMake(0.1f, 0.1f))
+                   animated:YES];
+    
+}
 
 /*
 -(void)viewWillAppear:(BOOL)animated{
@@ -86,32 +99,6 @@
     self.mapView.showsUserLocation = true;
     self.mapView.zoomEnabled = true;
     self.mapView.scrollEnabled = true;
-    POGAppDelegate *app = (POGAppDelegate*)[[UIApplication sharedApplication] delegate];
-    
-    NSManagedObjectContext *managedObjectContext = app.managedObjectContext;
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"POGCoreDataLocationPoint"];
-    [request setReturnsObjectsAsFaults:NO];
-    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:NO]];
-    NSError *error;
-    NSArray *coreDataLocationPoints = [managedObjectContext executeFetchRequest:request error:&error];
-    if (error)
-    {
-        // Replace this implementation with code to handle the error appropriately.
-        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
-    }
-    else
-    {
-        POGLocationPath *locationPath = [[POGLocationPath alloc] initWithLocationPoints:
-                                         [POGLocationPoint locationPointsFromCoreDataLocationPoints:coreDataLocationPoints]];
-        self.userLocationPath = locationPath;
-        
-        POGLocationPoint *lastKnownLocation = [locationPath mostRecentLocationPoint];
-        [self.mapView setRegion:MKCoordinateRegionMake([lastKnownLocation CLLocationCoordinate2D], MKCoordinateSpanMake(0.1f, 0.1f))
-                       animated:YES];
-
-    }
 }
 
 - (void) redisplayUserLocationPath
