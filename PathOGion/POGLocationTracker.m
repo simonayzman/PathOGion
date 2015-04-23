@@ -50,6 +50,7 @@
 {
     if (self = [super init])
     {
+        _distanceFilter = DISTANCE_FILTER;
         _coreDataManager = [POGCoreDataManager sharedCoreDataManager];
         NSArray *coreDataLocationPoints = [_coreDataManager savedCoreDataLocationPoints];
         if ([coreDataLocationPoints count] > 0)
@@ -58,7 +59,6 @@
             if ([coreDataLocationPoints count] > 1)
                 _previousLocation = [[POGLocationPoint alloc] initWithCoreDataLocationPoint:coreDataLocationPoints[1]];
         }
-        _distanceFilter = DISTANCE_FILTER;
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(applicationDidEnterBackground:)
                                                      name:UIApplicationDidEnterBackgroundNotification
@@ -73,7 +73,7 @@
 
 - (instancetype) init
 {
-    NSLog(@"Cannot use init with singleton class LocationTracker.");
+    NSLog(@"Cannot use init with singleton class POGLocationTracker.");
     abort();
     return nil;
 }
@@ -184,7 +184,7 @@
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
-    NSLog(@"locationManager didUpdateLocations (%lu times)", locations.count);
+    NSLog(@"locationManager didUpdateLocations (%lu locations)", locations.count);
     
     for (int i=0; i<locations.count; i++)
     {
