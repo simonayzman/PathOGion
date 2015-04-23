@@ -18,4 +18,8 @@
 
 @interface POGSelectUserLocationPathViewController : UIViewController
 
+@property (weak, nonatomic) id<POGSelectUserLocationPathDelegate> delegate;
+@property (weak, nonatomic) NSDate *lowerTimeBound;
+@property (weak, nonatomic) NSDate *upperTimeBound;
+
 @end
