@@ -305,9 +305,41 @@
 
 - (NSArray *)savedCoreDataLocationPoints
 {
+    return [self savedCoreDataLocationPointsFromDate:[NSDate distantPast] toDate:[NSDate distantFuture]];
+    /*
     NSError *error;
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"POGCoreDataLocationPoint"];
     request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:NO]];
+    [request setReturnsObjectsAsFaults:NO];
+    NSArray *coreDataLocationPoints = [self.managedObjectContext executeFetchRequest:request error:&error];
+    if (error)
+    {
+        // Replace this implementation with code to handle the error appropriately.
+        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
+    }
+    return coreDataLocationPoints;
+     */
+}
+
+- (NSArray *) savedCoreDataLocationPointsFromDate:(NSDate *) date
+{
+    return [self savedCoreDataLocationPointsFromDate:date toDate:[NSDate distantFuture]];
+}
+
+- (NSArray *) savedCoreDataLocationPointsToDate:(NSDate *) date
+{
+    return [self savedCoreDataLocationPointsFromDate:[NSDate distantPast] toDate:date];
+}
+
+- (NSArray *) savedCoreDataLocationPointsFromDate:(NSDate *)fromDate toDate:(NSDate *) toDate
+{
+    NSError *error;
+    NSString *timestamp = @"timestamp";
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"POGCoreDataLocationPoint"];
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:timestamp ascending:NO]];
+    request.predicate = [NSPredicate predicateWithFormat:@"(%K >= %@) AND (%K <= %@)", timestamp, fromDate, timestamp, toDate];
     [request setReturnsObjectsAsFaults:NO];
     NSArray *coreDataLocationPoints = [self.managedObjectContext executeFetchRequest:request error:&error];
     if (error)

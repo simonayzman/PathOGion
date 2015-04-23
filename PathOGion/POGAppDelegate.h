@@ -25,6 +25,9 @@
 - (void)saveContext;
 
 - (NSArray *) savedCoreDataLocationPoints;
+- (NSArray *) savedCoreDataLocationPointsFromDate:(NSDate *) date;
+- (NSArray *) savedCoreDataLocationPointsToDate:(NSDate *) date;
+- (NSArray *) savedCoreDataLocationPointsFromDate:(NSDate *)fromDate toDate:(NSDate *) toDate;
 
 - (void) displayAllCoreDataLocationPoints;
 - (void) deleteAllCoreDataLocationPoints;
