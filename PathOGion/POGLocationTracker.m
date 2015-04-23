@@ -10,9 +10,9 @@
 
 #import "POGLocationTracker.h"
 #import "POGCoreDataLocationPoint.h"
-#import "POGAppDelegate.h"
 #import "POGBackgroundTaskManager.h"
 #import "POGLocationPoint.h"
+#import "POGCoreDataManager.h"
 #import "CLLocation+measuring.h"
 
 #define COORDINATE @"user_coordinate"
@@ -29,6 +29,7 @@
 @property (strong, nonatomic) POGLocationPoint *previousLocation;
 @property (strong, nonatomic) NSTimer *refreshBackgroundTimer;
 @property (strong, nonatomic) POGBackgroundTaskManager *bgTask;
+@property (weak, nonatomic) POGCoreDataManager *coreDataManager;
 @property (assign, nonatomic) double distanceFilter;
 
 @end
@@ -49,9 +50,8 @@
 {
     if (self = [super init])
     {
-        POGAppDelegate *app = (POGAppDelegate*)[[UIApplication sharedApplication] delegate];
-        NSArray *coreDataLocationPoints = [app savedCoreDataLocationPoints];
-        
+        _coreDataManager = [POGCoreDataManager sharedCoreDataManager];
+        NSArray *coreDataLocationPoints = [_coreDataManager savedCoreDataLocationPoints];
         if ([coreDataLocationPoints count] > 0)
         {
             _currentLocation = [[POGLocationPoint alloc] initWithCoreDataLocationPoint:coreDataLocationPoints[0]];
@@ -255,8 +255,7 @@
 - (void) saveLocationPoint: (POGLocationPoint *) locationPoint
 {
     NSLog(@"savingLocation: %@.", locationPoint);
-    POGAppDelegate *app = (POGAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [app saveLocationPointToCoreData:locationPoint];
+    [self.coreDataManager saveLocationPointToCoreData:locationPoint];
 }
 
 #pragma mark - Distance Filter mechanics
