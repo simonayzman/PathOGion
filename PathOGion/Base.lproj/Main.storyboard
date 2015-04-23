@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="13F1066" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Dbe-Lg-gWL">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Dbe-Lg-gWL">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Map View Controller-->
@@ -16,9 +17,9 @@
                         <rect key="frame" x="0.0" y="64" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="kD5-Ee-yYR">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="kD5-Ee-yYR">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                <variation key="heightClass=regular-widthClass=compact" ambiguous="YES" misplaced="YES">
                                     <rect key="frame" x="0.0" y="64" width="400" height="736"/>
                                 </variation>
                                 <connections>
@@ -27,6 +28,12 @@
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="kD5-Ee-yYR" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="DTf-ey-31b"/>
+                            <constraint firstItem="kD5-Ee-yYR" firstAttribute="bottom" secondItem="2fi-mo-0CV" secondAttribute="top" id="QLb-7T-Ajy"/>
+                            <constraint firstItem="kD5-Ee-yYR" firstAttribute="centerY" secondItem="kh9-bI-dsS" secondAttribute="centerY" id="hh9-pv-KTm"/>
+                            <constraint firstItem="kD5-Ee-yYR" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="oIP-kz-9oa"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="HUZ-hQ-lGu">
                         <barButtonItem key="rightBarButtonItem" image="cog_02" id="rls-m1-L9t">
@@ -41,7 +48,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1152" y="-362.25"/>
+            <point key="canvasLocation" x="1154" y="-363"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="fKD-29-hIU">
@@ -56,16 +63,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yeh-GG-bK7">
-                                <rect key="frame" x="150" y="390" width="300" height="45"/>
+                                <rect key="frame" x="150" y="391" width="300" height="45"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <state key="normal" title="Delete your location data">
+                                <state key="normal" title="Delete Data">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <variation key="heightClass=compact-widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="56" y="178" width="288" height="44"/>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="63" y="370" width="300" height="59"/>
                                 </variation>
                                 <connections>
                                     <segue destination="1kl-65-k8r" kind="show" identifier="deleteUserLocationPathSetting" id="P2u-fL-YK8"/>
@@ -80,24 +84,18 @@
                                 <variation key="heightClass=compact-widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="74" y="270" width="252" height="54"/>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="78" y="294" width="257" height="55"/>
-                                </variation>
                                 <connections>
                                     <segue destination="PRx-7M-vFi" kind="show" identifier="showInfectedPatientPaths" id="8yY-Zn-BvE"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Crk-Wu-Zuu">
-                                <rect key="frame" x="150" y="280" width="300" height="40"/>
+                                <rect key="frame" x="150" y="279" width="300" height="42"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <state key="normal" title="Location data to show">
+                                <state key="normal" title="Display Data">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <variation key="heightClass=compact-widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="59" y="82" width="282" height="43"/>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="68" y="174" width="290" height="54"/>
                                 </variation>
                                 <connections>
                                     <segue destination="XaY-2Z-yeN" kind="show" identifier="selectUserLocationPathSetting" id="1aY-KQ-FSz"/>
@@ -165,10 +163,10 @@
             </objects>
             <point key="canvasLocation" x="2978" y="-1044"/>
         </scene>
-        <!--Select User Location Path View Controller-->
+        <!--Display Data-->
         <scene sceneID="fZg-gZ-NFW">
             <objects>
-                <viewController id="XaY-2Z-yeN" customClass="POGSelectUserLocationPathViewController" sceneMemberID="viewController">
+                <viewController title="Display Data" id="XaY-2Z-yeN" customClass="POGSelectUserLocationPathViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="t7X-ed-qbC"/>
                         <viewControllerLayoutGuide type="bottom" id="oCJ-Ru-JEE"/>
@@ -176,14 +174,68 @@
                     <view key="view" contentMode="scaleToFill" id="eae-Ab-DMy">
                         <rect key="frame" x="0.0" y="64" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="tm5-JV-aVg">
+                                <rect key="frame" x="16" y="119" width="568" height="162"/>
+                                <date key="date" timeIntervalSinceReferenceDate="450583875.164859">
+                                    <!--2015-04-13 02:11:15 +0000-->
+                                </date>
+                                <connections>
+                                    <action selector="lowerValueDatePickerValueChanged:forEvent:" destination="XaY-2Z-yeN" eventType="valueChanged" id="zcb-r3-21A"/>
+                                </connections>
+                            </datePicker>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="rg4-D3-Nb3">
+                                <rect key="frame" x="290" y="495" width="20" height="20"/>
+                            </activityIndicatorView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date does not exist" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sD6-64-TEm">
+                                <rect key="frame" x="226" y="495" width="149" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="through" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jhE-KH-8cq">
+                                <rect key="frame" x="270" y="289" width="60" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="9bs-8W-Gns">
+                                <rect key="frame" x="16" y="318" width="568" height="162"/>
+                                <date key="date" timeIntervalSinceReferenceDate="450911496.38204497">
+                                    <!--2015-04-16 21:11:36 +0000-->
+                                </date>
+                                <connections>
+                                    <action selector="upperValueDatePickerValueChanged:forEvent:" destination="XaY-2Z-yeN" eventType="valueChanged" id="7sW-Ot-iLK"/>
+                                </connections>
+                            </datePicker>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="tm5-JV-aVg" firstAttribute="trailing" secondItem="eae-Ab-DMy" secondAttribute="trailingMargin" id="7mi-zC-vLm"/>
+                            <constraint firstItem="tm5-JV-aVg" firstAttribute="leading" secondItem="eae-Ab-DMy" secondAttribute="leadingMargin" id="DiQ-jE-Ohu"/>
+                            <constraint firstItem="rg4-D3-Nb3" firstAttribute="top" secondItem="9bs-8W-Gns" secondAttribute="bottom" constant="15" id="IVs-Bt-fQs"/>
+                            <constraint firstItem="9bs-8W-Gns" firstAttribute="trailing" secondItem="eae-Ab-DMy" secondAttribute="trailingMargin" id="K8l-Fw-XN6"/>
+                            <constraint firstItem="jhE-KH-8cq" firstAttribute="top" secondItem="tm5-JV-aVg" secondAttribute="bottom" constant="8" id="MuP-4J-Ka7"/>
+                            <constraint firstAttribute="centerX" secondItem="sD6-64-TEm" secondAttribute="centerX" id="NUd-dM-1Vh"/>
+                            <constraint firstAttribute="centerX" secondItem="rg4-D3-Nb3" secondAttribute="centerX" id="atQ-dn-WUy"/>
+                            <constraint firstItem="sD6-64-TEm" firstAttribute="top" secondItem="9bs-8W-Gns" secondAttribute="bottom" constant="15" id="qBV-i9-cjz"/>
+                            <constraint firstAttribute="centerX" secondItem="jhE-KH-8cq" secondAttribute="centerX" id="rCB-ql-hxA"/>
+                            <constraint firstItem="9bs-8W-Gns" firstAttribute="top" secondItem="jhE-KH-8cq" secondAttribute="bottom" constant="8" id="rg3-ba-BHe"/>
+                            <constraint firstItem="9bs-8W-Gns" firstAttribute="leading" secondItem="eae-Ab-DMy" secondAttribute="leadingMargin" id="vNk-a9-OsY"/>
+                            <constraint firstAttribute="centerY" secondItem="jhE-KH-8cq" secondAttribute="centerY" id="yrb-l0-5q6"/>
+                        </constraints>
                     </view>
                     <toolbarItems/>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="activityIndicator" destination="rg4-D3-Nb3" id="Ga9-hO-FUc"/>
+                        <outlet property="dateExistsLabel" destination="sD6-64-TEm" id="JnV-ox-vpP"/>
+                        <outlet property="lowerValueDatePicker" destination="tm5-JV-aVg" id="XWo-Ra-qkG"/>
+                        <outlet property="upperValueDatePicker" destination="9bs-8W-Gns" id="2II-UM-KGw"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fbi-n8-dMQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2978" y="-363"/>
+            <point key="canvasLocation" x="2984" y="-363"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="XCb-aD-XYb">
