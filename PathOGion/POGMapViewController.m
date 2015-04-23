@@ -55,8 +55,18 @@
 
 - (void) setup
 {
+    [self timeBoundsSetup];
     [self navigationBarSetup];
     [self mapViewSetup];
+}
+
+- (void) timeBoundsSetup
+{
+    NSCalendar *calendar = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
+    NSDate *now = [NSDate date];
+    NSDate *yesterday = [calendar dateByAddingUnit:NSCalendarUnitDay value:-1 toDate:now options:0];
+    self.lowerTimeBound = yesterday;
+    self.upperTimeBound = now;
 }
 
 - (void) navigationBarSetup
@@ -218,6 +228,18 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+#pragma mark - SelectViewController Protocol
+
+- (void)lowerValueDateUpdated:(NSDate *)updatedLowerDate
+{
+    self.lowerTimeBound = updatedLowerDate;
+}
+
+- (void)upperValueDateUpdated:(NSDate *)updatedUpperDate
+{
+    self.upperTimeBound = updatedUpperDate;
+}
 
 #pragma mark - Application Properties
 
