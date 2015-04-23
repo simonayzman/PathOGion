@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 CARSI Lab. All rights reserved.
 //
 
+#import "POGMapViewController.h"
 #import "POGSettingsViewController.h"
 #import "POGSelectUserLocationPathViewController.h"
 #import "POGDeleteUserLocationPathViewController.h"
@@ -42,16 +43,22 @@
     
     if ([[segue identifier] isEqualToString:@"selectUserLocationPathSetting"])
     {
-        POGSelectUserLocationPathViewController *svc = [segue destinationViewController];
+        POGSelectUserLocationPathViewController *svc = (POGSelectUserLocationPathViewController *)[segue destinationViewController];
+        POGMapViewController *pvc = self.parentViewController.childViewControllers[0];
+        svc.delegate = pvc;
+        svc.lowerTimeBound = pvc.lowerTimeBound;
+        svc.upperTimeBound = pvc.upperTimeBound;
+        //[svc setDateOfLowerValueDatePicker:pvc.lowerTimeBound];
+        //[svc setDateOfUpperValueDatePicker:pvc.upperTimeBound];
     }
     else if ([[segue identifier] isEqualToString:@"deleteUserLocationPathSetting"])
     {
-        POGDeleteUserLocationPathViewController *dvc = [segue destinationViewController];
+        //POGDeleteUserLocationPathViewController *dvc = [segue destinationViewController];
 
     }
     else if ([[segue identifier] isEqualToString:@"showInfectedPatientPaths"])
     {
-        POGInfectedPatientLocationPathTableViewController *ptvc = [segue destinationViewController];
+        //POGInfectedPatientLocationPathTableViewController *ptvc = [segue destinationViewController];
     }
     else
     {
