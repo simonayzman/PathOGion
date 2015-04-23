@@ -1,26 +1,24 @@
 //
-//  POGAppDelegate.h
+//  POGCoreDataManager.h
 //  PathOGion
 //
-//  Created by Simon Ayzman on 2/7/15.
+//  Created by Simon Ayzman on 4/23/15.
 //  Copyright (c) 2015 CARSI Lab. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
-#import "POGLocationTracker.h"
 
 @class POGCoreDataLocationPoint;
 @class POGLocationPoint;
 
-@interface POGAppDelegate : UIResponder <UIApplicationDelegate>
-
-@property (strong, nonatomic) UIWindow *window;
-@property (strong, nonatomic) POGLocationTracker *locationTracker;
+@interface POGCoreDataManager : NSObject
 
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+
++ (instancetype) sharedCoreDataManager;
 
 - (void)saveContext;
 
@@ -35,5 +33,5 @@
 - (void) saveLocationPointToCoreData:(POGLocationPoint *)locationPoint;
 - (void) deleteCoreDataLocationPoint:(POGCoreDataLocationPoint *)coreDataLocationPoint;
 
-@end
 
+@end

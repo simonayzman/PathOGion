@@ -27,6 +27,7 @@
 		028DFDAD1A86F47C00C201DE /* PathOGionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 028DFDAC1A86F47C00C201DE /* PathOGionTests.m */; };
 		028DFDB71A86F49C00C201DE /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 028DFDB61A86F49C00C201DE /* MapKit.framework */; };
 		028DFDB91A86F4C600C201DE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 028DFDB81A86F4C600C201DE /* CoreLocation.framework */; };
+		0293E6C81AE955B50055D674 /* POGCoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0293E6C71AE955B50055D674 /* POGCoreDataManager.m */; };
 		02952B291AA52CCD009EF8FC /* POGBackgroundTaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 02952B261AA52CCD009EF8FC /* POGBackgroundTaskManager.m */; };
 		02952B2A1AA52CCD009EF8FC /* POGLocationTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 02952B281AA52CCD009EF8FC /* POGLocationTracker.m */; };
 		02952B2D1AA52EF5009EF8FC /* POGCoreDataLocationPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 02952B2C1AA52EF5009EF8FC /* POGCoreDataLocationPoint.m */; };
@@ -83,6 +84,8 @@
 		028DFDAC1A86F47C00C201DE /* PathOGionTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PathOGionTests.m; sourceTree = "<group>"; };
 		028DFDB61A86F49C00C201DE /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		028DFDB81A86F4C600C201DE /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		0293E6C61AE955B50055D674 /* POGCoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POGCoreDataManager.h; sourceTree = "<group>"; };
+		0293E6C71AE955B50055D674 /* POGCoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POGCoreDataManager.m; sourceTree = "<group>"; };
 		02952B251AA52CCD009EF8FC /* POGBackgroundTaskManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POGBackgroundTaskManager.h; sourceTree = "<group>"; };
 		02952B261AA52CCD009EF8FC /* POGBackgroundTaskManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POGBackgroundTaskManager.m; sourceTree = "<group>"; };
 		02952B271AA52CCD009EF8FC /* POGLocationTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POGLocationTracker.h; sourceTree = "<group>"; };
@@ -133,6 +136,8 @@
 				02DAFD3D1AB9ED9100990298 /* POGGeoJsonParser.m */,
 				02952B251AA52CCD009EF8FC /* POGBackgroundTaskManager.h */,
 				02952B261AA52CCD009EF8FC /* POGBackgroundTaskManager.m */,
+				0293E6C61AE955B50055D674 /* POGCoreDataManager.h */,
+				0293E6C71AE955B50055D674 /* POGCoreDataManager.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -388,6 +393,7 @@
 				021F67721AD4761100E06CDF /* POGInfectedPatientLocationPathTableViewController.m in Sources */,
 				021F676F1AD475E100E06CDF /* POGDeleteUserLocationPathViewController.m in Sources */,
 				02952B2A1AA52CCD009EF8FC /* POGLocationTracker.m in Sources */,
+				0293E6C81AE955B50055D674 /* POGCoreDataManager.m in Sources */,
 				028AC2301AD7B48C0023F36C /* CLLocation+routeInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
