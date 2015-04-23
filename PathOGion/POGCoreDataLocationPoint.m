@@ -16,4 +16,9 @@
 @dynamic accuracy;
 @dynamic timestamp;
 
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"(%f, %f) within %+.2f meters. Timestamp: %@.", self.latitude, self.longitude, self.accuracy, self.timestamp];
+}
+
 @end
