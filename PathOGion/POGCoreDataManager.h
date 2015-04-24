@@ -22,13 +22,18 @@
 
 - (void)saveContext;
 
+- (POGCoreDataLocationPoint *) mostRecentSavedCoreDataLocationPoint;
 - (NSArray *) savedCoreDataLocationPoints;
 - (NSArray *) savedCoreDataLocationPointsFromDate:(NSDate *) date;
 - (NSArray *) savedCoreDataLocationPointsToDate:(NSDate *) date;
 - (NSArray *) savedCoreDataLocationPointsFromDate:(NSDate *)fromDate toDate:(NSDate *) toDate;
 
-- (void) displayAllCoreDataLocationPoints;
 - (void) deleteAllCoreDataLocationPoints;
+- (void) deleteCoreDataLocationPointsFromDate:(NSDate *) date;
+- (void) deleteCoreDataLocationPointsToDate:(NSDate *) date;
+- (void) deleteCoreDataLocationPointsFromDate:(NSDate *)fromDate toDate:(NSDate *) toDate;
+
+- (void) displayAllCoreDataLocationPoints;
 
 - (void) saveLocationPointToCoreData:(POGLocationPoint *)locationPoint;
 - (void) deleteCoreDataLocationPoint:(POGCoreDataLocationPoint *)coreDataLocationPoint;

@@ -177,6 +177,24 @@
 
 #pragma mark - Core Data Information Retrieval and Deletion support
 
+- (POGCoreDataLocationPoint *) mostRecentSavedCoreDataLocationPoint
+{
+    NSError *error;
+    NSString *timestamp = @"timestamp";
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"POGCoreDataLocationPoint"];
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:timestamp ascending:NO]];
+    request.fetchBatchSize = 1;
+    NSArray *coreDataLocationPoints = [self.managedObjectContext executeFetchRequest:request error:&error];
+    if (error)
+    {
+        // Replace this implementation with code to handle the error appropriately.
+        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
+    }
+    return coreDataLocationPoints[0];
+}
+
 - (NSArray *)savedCoreDataLocationPoints
 {
     return [self savedCoreDataLocationPointsFromDate:[NSDate distantPast] toDate:[NSDate distantFuture]];
@@ -226,20 +244,34 @@
     return coreDataLocationPoints;
 }
 
+- (void) deleteAllCoreDataLocationPoints
+{
+    [self deleteCoreDataLocationPointsFromDate:[NSDate distantPast] toDate:[NSDate distantFuture]];
+}
+
+- (void) deleteCoreDataLocationPointsFromDate:(NSDate *) date
+{
+    [self deleteCoreDataLocationPointsFromDate:date toDate:[NSDate distantFuture]];
+}
+
+- (void) deleteCoreDataLocationPointsToDate:(NSDate *) date
+{
+    [self deleteCoreDataLocationPointsFromDate:[NSDate distantPast] toDate:date];
+}
+
+- (void) deleteCoreDataLocationPointsFromDate:(NSDate *)fromDate toDate:(NSDate *) toDate
+{
+    NSArray *coreDataLocationPoints = [self savedCoreDataLocationPointsFromDate:fromDate toDate:toDate];
+    for (POGCoreDataLocationPoint *coreDataLocationPoint in coreDataLocationPoints)
+        [self.managedObjectContext deleteObject:coreDataLocationPoint];
+    [self saveContext];
+}
+
 - (void) displayAllCoreDataLocationPoints
 {
     NSArray *coreDataLocationPoints = [self savedCoreDataLocationPoints];
     for (POGCoreDataLocationPoint *coreDataLocationPoint in coreDataLocationPoints)
         NSLog(@"[%@]: (%f, %f) within %.2f meters.", coreDataLocationPoint.timestamp, coreDataLocationPoint.latitude, coreDataLocationPoint.longitude, coreDataLocationPoint.accuracy);
-}
-
-- (void) deleteAllCoreDataLocationPoints
-{
-    NSLog(@"deleteAllCoreDataLocationPoints");
-    NSArray *coreDataLocationPoints = [self savedCoreDataLocationPoints];
-    for (POGCoreDataLocationPoint *coreDataLocationPoint in coreDataLocationPoints)
-        [self.managedObjectContext deleteObject:coreDataLocationPoint];
-    [self saveContext];
 }
 
 - (void) saveLocationPointToCoreData:(POGLocationPoint *)locationPoint
