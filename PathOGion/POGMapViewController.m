@@ -9,11 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "POGMapViewController.h"
 #import "POGLocationPath.h"
-#import "POGAppDelegate.h"
+#import "POGCoreDataManager.h"
 #import "POGLocationPoint.h"
+#import "POGLocationTracker.h"
 
 @interface POGMapViewController ()
 
+@property (weak, nonatomic) POGCoreDataManager *coreDataManager;
+@property (weak, nonatomic) POGLocationTracker *locationTracker;
 @end
 
 @implementation POGMapViewController
@@ -42,11 +45,13 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    POGAppDelegate *app = (POGAppDelegate*)[[UIApplication sharedApplication] delegate];
-    NSArray *coreDataLocationPoints = [app savedCoreDataLocationPointsFromDate:self.lowerTimeBound toDate:self.upperTimeBound];
-    POGLocationPath *locationPath = [[POGLocationPath alloc] initWithLocationPoints:
-                                     [POGLocationPoint locationPointsFromCoreDataLocationPoints:coreDataLocationPoints]];
-    self.userLocationPath = locationPath;
+    if (self.boundsChanged)
+    {
+        NSArray *coreDataLocationPoints = [self.coreDataManager savedCoreDataLocationPointsFromDate:self.lowerTimeBound toDate:self.upperTimeBound];
+        POGLocationPath *locationPath = [[POGLocationPath alloc] initWithLocationPoints:
+                                         [POGLocationPoint locationPointsFromCoreDataLocationPoints:coreDataLocationPoints]];
+        self.userLocationPath = locationPath;
+    }
 }
 
 /*
