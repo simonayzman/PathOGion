@@ -140,18 +140,18 @@
         if (locationPoint.accuracy <= ACCURACY_TOLERANCE)
         {
             MKCircle *circle = [MKCircle circleWithCenterCoordinate:[locationPoint CLLocationCoordinate2D] radius:locationPoint.accuracy];
-            
-            circle.title = [NSString stringWithFormat:@"%@ (%@)", [timeFormatter stringFromDate:locationPoint.timestamp], [dateFormatter stringFromDate:locationPoint.timestamp]];
-            circle.subtitle  = [NSString stringWithFormat:@"Within %.0f meters", locationPoint.accuracy];
-            //circle.title = [NSString stringWithFormat:@"Within %.0f meters", locationPoint.accuracy];
-            //circle.subtitle  = [NSString stringWithFormat:@"%@ (%@)", [timeFormatter stringFromDate:locationPoint.timestamp], [dateFormatter stringFromDate:locationPoint.timestamp]];
-            //circle.title = [timeFormatter stringFromDate:locationPoint.timestamp];
-            //circle.subtitle  = [NSString stringWithFormat:@"%@ - %.0f m", [dateFormatter stringFromDate:locationPoint.timestamp], locationPoint.accuracy];
-            
+            //circle.title = [NSString stringWithFormat:@"%@ (%@)", [timeFormatter stringFromDate:locationPoint.timestamp], [dateFormatter stringFromDate:locationPoint.timestamp]];
+            //circle.subtitle  = [NSString stringWithFormat:@"Within %.0f meters", locationPoint.accuracy];
             [overlays addObject:circle];
-            [annotations addObject:circle];
-            locationPointCoordinates[counter] = [locationPoint CLLocationCoordinate2D];
+            //[annotations addObject:circle];
+
+            MKPointAnnotation *pin = [[MKPointAnnotation alloc] init];
+            pin.coordinate = [locationPoint CLLocationCoordinate2D];
+            pin.title = [NSString stringWithFormat:@"%@ (%@)", [timeFormatter stringFromDate:locationPoint.timestamp], [dateFormatter stringFromDate:locationPoint.timestamp]];
+            pin.subtitle  = [NSString stringWithFormat:@"Within %.0f meters", locationPoint.accuracy];
+            [annotations addObject:pin];
             
+            locationPointCoordinates[counter] = [locationPoint CLLocationCoordinate2D];
             counter++;
         }
     }
@@ -186,7 +186,7 @@
 
 -(void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views
 {
-
+ 
 }
 
 -(void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
@@ -202,13 +202,35 @@
 
 -(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
 {
+    MKAnnotationView *annotationView = nil;
     if ([annotation isKindOfClass:[MKCircle class]])
     {
-        MKAnnotationView *annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"circle"];
-        annotationView.canShowCallout = YES;
-        return annotationView;
+        annotationView = (MKAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:@"circle"];
+        if (!annotationView)
+        {
+            annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"circle"];
+            annotationView.canShowCallout = YES;
+        }
     }
-    return nil;
+    else if ([annotation isKindOfClass:[MKPointAnnotation class]])
+    {
+        annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:@"pin"];
+        if (!annotationView)
+        {
+            MKPinAnnotationView *pinView = (MKPinAnnotationView *) [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"pin"];
+            pinView.pinColor = MKPinAnnotationColorGreen;
+            pinView.animatesDrop = YES;
+            pinView.canShowCallout = YES;
+            //pinView.image = [UIImage imageNamed:@"user_pin"];
+            return pinView;
+            /*
+            annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"pin"];
+            annotationView.canShowCallout = YES;
+            annotationView.image = [UIImage imageNamed:@"user_pin"];
+            */
+        }
+    }
+    return annotationView;
 }
 
 - (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay
