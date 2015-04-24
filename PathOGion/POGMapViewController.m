@@ -17,6 +17,7 @@
 
 @property (weak, nonatomic) POGCoreDataManager *coreDataManager;
 @property (weak, nonatomic) POGLocationTracker *locationTracker;
+@property (assign, nonatomic) BOOL boundsChanged;
 @end
 
 @implementation POGMapViewController
@@ -51,6 +52,7 @@
         POGLocationPath *locationPath = [[POGLocationPath alloc] initWithLocationPoints:
                                          [POGLocationPoint locationPointsFromCoreDataLocationPoints:coreDataLocationPoints]];
         self.userLocationPath = locationPath;
+        self.boundsChanged = NO;
     }
 }
 
@@ -255,11 +257,13 @@
 - (void)lowerValueDateUpdated:(NSDate *)updatedLowerDate
 {
     self.lowerTimeBound = updatedLowerDate;
+    self.boundsChanged = YES;
 }
 
 - (void)upperValueDateUpdated:(NSDate *)updatedUpperDate
 {
     self.upperTimeBound = updatedUpperDate;
+    self.boundsChanged = YES;
 }
 
 #pragma mark - Application Properties
