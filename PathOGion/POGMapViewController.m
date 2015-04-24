@@ -47,11 +47,6 @@
     POGLocationPath *locationPath = [[POGLocationPath alloc] initWithLocationPoints:
                                      [POGLocationPoint locationPointsFromCoreDataLocationPoints:coreDataLocationPoints]];
     self.userLocationPath = locationPath;
-    
-    POGLocationPoint *lastKnownLocation = [self.userLocationPath mostRecentLocationPoint];
-    [self.mapView setRegion:MKCoordinateRegionMake([lastKnownLocation CLLocationCoordinate2D], MKCoordinateSpanMake(0.1f, 0.1f))
-                   animated:YES];
-    
 }
 
 /*
@@ -68,9 +63,17 @@
 
 - (void) setup
 {
+    [self dataSetup];
     [self timeBoundsSetup];
     [self navigationBarSetup];
     [self mapViewSetup];
+}
+
+- (void) dataSetup
+{
+    self.boundsChanged = YES;
+    self.coreDataManager = [POGCoreDataManager sharedCoreDataManager];
+    self.locationTracker = [POGLocationTracker sharedLocationTracker];
 }
 
 - (void) timeBoundsSetup
@@ -99,6 +102,8 @@
     self.mapView.showsUserLocation = true;
     self.mapView.zoomEnabled = true;
     self.mapView.scrollEnabled = true;
+    [self.mapView setRegion:MKCoordinateRegionMake([self.locationTracker.currentLocation CLLocationCoordinate2D], MKCoordinateSpanMake(0.02f, 0.05f))
+                   animated:YES];
 }
 
 - (void) redisplayUserLocationPath

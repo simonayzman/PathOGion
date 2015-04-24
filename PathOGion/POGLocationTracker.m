@@ -52,13 +52,7 @@
     {
         _distanceFilter = DISTANCE_FILTER;
         _coreDataManager = [POGCoreDataManager sharedCoreDataManager];
-        NSArray *coreDataLocationPoints = [_coreDataManager savedCoreDataLocationPoints];
-        if ([coreDataLocationPoints count] > 0)
-        {
-            _currentLocation = [[POGLocationPoint alloc] initWithCoreDataLocationPoint:coreDataLocationPoints[0]];
-            if ([coreDataLocationPoints count] > 1)
-                _previousLocation = [[POGLocationPoint alloc] initWithCoreDataLocationPoint:coreDataLocationPoints[1]];
-        }
+        _currentLocation = [[POGLocationPoint alloc] initWithCoreDataLocationPoint:[_coreDataManager mostRecentSavedCoreDataLocationPoint]];
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(applicationDidEnterBackground:)
                                                      name:UIApplicationDidEnterBackgroundNotification
