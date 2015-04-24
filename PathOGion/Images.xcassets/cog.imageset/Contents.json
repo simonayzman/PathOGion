@@ -3,11 +3,12 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "PathOGion_AppIcon_v1.png"
+      "filename" : "cog.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "cog@2x.png"
     },
     {
       "idiom" : "universal",
