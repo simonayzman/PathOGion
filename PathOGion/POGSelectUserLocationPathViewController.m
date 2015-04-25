@@ -39,8 +39,6 @@
 
 - (void) setDatesOfDatePickers
 {
-    //[self setDateOfLowerValueDatePicker:self.lowerTimeBound];
-    //[self setDateOfUpperValueDatePicker:self.upperTimeBound];
     [self setDatesOfLowerDatePicker:self.lowerTimeBound upperDatePicker:self.upperTimeBound];
 }
 
@@ -60,40 +58,6 @@
     NSDate *maximumLowerValueDate = [calendar dateByAddingUnit:NSCalendarUnitHour value:-1 toDate:self.upperValueDatePicker.date options:0];
     self.lowerValueDatePicker.maximumDate = maximumLowerValueDate;
 }
-
-/*
-- (void) setDateOfLowerValueDatePicker: (NSDate *) lowerTimeBound
-{
-    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-    
-    // Update the date of the lowerValueDatePicker
-    NSDate *maximumLowerValueDate = [calendar dateByAddingUnit:NSCalendarUnitHour value:-1 toDate:self.upperValueDatePicker.date options:0];
-    if (lowerTimeBound > maximumLowerValueDate)
-        self.lowerValueDatePicker.date = maximumLowerValueDate;
-    else
-        self.lowerValueDatePicker.date = lowerTimeBound;
-    
-    // Update the minimum of the upperValueDatePicker
-    NSDate *minimumUpperValueDate = [calendar dateByAddingUnit:NSCalendarUnitHour value:1 toDate:self.lowerValueDatePicker.date options:0];
-    self.upperValueDatePicker.minimumDate = minimumUpperValueDate;
-}
-
-- (void) setDateOfUpperValueDatePicker: (NSDate *) upperTimeBound
-{
-    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-    
-    // Update the date of the upperValueDatePicker
-    NSDate *minimumUpperValueDate = [calendar dateByAddingUnit:NSCalendarUnitHour value:1 toDate:self.lowerValueDatePicker.date options:0];
-    if (upperTimeBound < minimumUpperValueDate)
-        self.upperValueDatePicker.date = minimumUpperValueDate;
-    else
-        self.upperValueDatePicker.date = upperTimeBound;
-    
-    // Update the maximum of the lowerValueDatePicker
-    NSDate *maximumLowerValueDate = [calendar dateByAddingUnit:NSCalendarUnitHour value:-1 toDate:self.upperValueDatePicker.date options:0];
-    self.lowerValueDatePicker.maximumDate = maximumLowerValueDate;
-}
-*/
 
 // AFTER THE BELOW WORKS CONSIDER REFACTORING SO THAT THE SETTING
 // OF THE DATES CAN SIMPLY OCCUR INSIDE SOME SORT OF WRAPPER FUNCTION
