@@ -18,6 +18,9 @@
 @property (weak, nonatomic) POGCoreDataManager *coreDataManager;
 @property (weak, nonatomic) POGLocationTracker *locationTracker;
 @property (assign, nonatomic) BOOL boundsChanged;
+@property (strong, nonatomic) NSMutableArray *userLocationAnnotations;
+@property (strong, nonatomic) NSMutableArray *userLocationOverlays;
+
 @end
 
 @implementation POGMapViewController
@@ -72,9 +75,11 @@
 
 - (void) dataSetup
 {
-    self.boundsChanged = YES;
-    self.coreDataManager = [POGCoreDataManager sharedCoreDataManager];
-    self.locationTracker = [POGLocationTracker sharedLocationTracker];
+    _boundsChanged = YES;
+    _coreDataManager = [POGCoreDataManager sharedCoreDataManager];
+    _locationTracker = [POGLocationTracker sharedLocationTracker];
+    _userLocationAnnotations = [NSMutableArray array];
+    _userLocationOverlays = [NSMutableArray array];
 }
 
 - (void) timeBoundsSetup
@@ -82,19 +87,17 @@
     NSCalendar *calendar = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
     NSDate *now = [NSDate date];
     NSDate *yesterday = [calendar dateByAddingUnit:NSCalendarUnitDay value:-1 toDate:now options:0];
-    self.lowerTimeBound = yesterday;
-    self.upperTimeBound = now;
+    _lowerTimeBound = yesterday;
+    _upperTimeBound = now;
 }
 
 - (void) navigationBarSetup
 {
-    self.navigationController.navigationBar.translucent = YES;
-    /*
+    //self.navigationController.navigationBar.translucent = YES;
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.shadowImage = [UIImage new];
     self.navigationController.navigationBar.translucent = YES;
     self.navigationController.view.backgroundColor = [UIColor clearColor];
-     */
 }
 
 - (void) mapViewSetup
