@@ -22,6 +22,8 @@
 
 @implementation POGMapViewController
 
+#pragma mark - Custom setters
+
 - (void) setUserLocationPath: (POGLocationPath *) locationPath
 {
     _userLocationPath = locationPath;
@@ -33,6 +35,8 @@
     _patientLocationPath = locationPath;
     [self redisplayPatientLocationPath];
 }
+
+#pragma mark - View controller lifecycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -56,17 +60,7 @@
     }
 }
 
-/*
--(void)viewWillAppear:(BOOL)animated{
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
-}
-
--(void)viewWillDisappear:(BOOL)animated{
-    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setShadowImage:nil];
-}
-*/
+#pragma mark - Setup functions
 
 - (void) setup
 {
@@ -189,33 +183,21 @@
 
 }
 
+#pragma mark - Patient location path functions
+
+- (void) redisplayPatientLocationPath
+{
+
+}
+
 #pragma mark - MapView Delegate
 
 /*
-- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
-{
-    
-}
-
-- (void)mapView:(MKMapView *)mapView didAddOverlayRenderers:(NSArray *)renderers
-{
-
-}
-
--(void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views
-{
- 
-}
-
--(void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
-{
-
-}
-
--(void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view
-{
-
-}
+-(void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {}
+-(void)mapView:(MKMapView *)mapView didAddOverlayRenderers:(NSArray *)renderers {}
+-(void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views {}
+-(void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {}
+-(void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view {}
 */
 
 -(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
@@ -312,6 +294,8 @@
 //{
 //    return YES;
 //}
+
+#pragma mark - Misc.
 
 
 @end
