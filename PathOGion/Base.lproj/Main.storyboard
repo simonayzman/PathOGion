@@ -17,7 +17,7 @@
                         <rect key="frame" x="0.0" y="64" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="kD5-Ee-yYR">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="kD5-Ee-yYR">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <variation key="heightClass=regular-widthClass=compact" ambiguous="YES" misplaced="YES">
                                     <rect key="frame" x="0.0" y="64" width="400" height="736"/>
@@ -36,12 +36,18 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="HUZ-hQ-lGu">
-                        <barButtonItem key="rightBarButtonItem" image="cog_02" id="rls-m1-L9t">
+                        <barButtonItem key="leftBarButtonItem" image="refresh" id="g07-Uy-BWb">
+                            <connections>
+                                <action selector="refresh:" destination="vXZ-lx-hvc" id="hee-Az-wZg"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="cog" id="rls-m1-L9t">
                             <connections>
                                 <segue destination="9jH-Ju-pBY" kind="show" id="yta-K1-PYq"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="mapView" destination="kD5-Ee-yYR" id="VRB-8C-r4P"/>
                     </connections>
@@ -68,9 +74,6 @@
                                 <state key="normal" title="Delete Data">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <variation key="heightClass=compact-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="56" y="178" width="288" height="44"/>
-                                </variation>
                                 <connections>
                                     <segue destination="1kl-65-k8r" kind="show" identifier="deleteUserLocationPathSetting" id="P2u-fL-YK8"/>
                                 </connections>
@@ -81,9 +84,6 @@
                                 <state key="normal" title="Infected patient paths">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <variation key="heightClass=compact-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="74" y="270" width="252" height="54"/>
-                                </variation>
                                 <connections>
                                     <segue destination="PRx-7M-vFi" kind="show" identifier="showInfectedPatientPaths" id="8yY-Zn-BvE"/>
                                 </connections>
@@ -94,9 +94,6 @@
                                 <state key="normal" title="Display Data">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <variation key="heightClass=compact-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="59" y="82" width="282" height="43"/>
-                                </variation>
                                 <connections>
                                     <segue destination="XaY-2Z-yeN" kind="show" identifier="selectUserLocationPathSetting" id="1aY-KQ-FSz"/>
                                 </connections>
@@ -260,6 +257,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="cog_02" width="26" height="26"/>
+        <image name="cog" width="26" height="26"/>
+        <image name="refresh" width="26" height="26"/>
     </resources>
 </document>

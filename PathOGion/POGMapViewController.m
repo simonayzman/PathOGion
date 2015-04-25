@@ -113,6 +113,24 @@
                    animated:YES];
 }
 
+#pragma mark - View Targets
+
+- (IBAction)refresh:(UIBarButtonItem *)sender
+{
+    [self refreshMapView];
+}
+
+#pragma mark - User location path functions
+
+- (void) refreshMapView
+{
+    self.upperTimeBound = [NSDate date];
+    NSArray *coreDataLocationPoints = [self.coreDataManager savedCoreDataLocationPointsFromDate:self.lowerTimeBound toDate:self.upperTimeBound];
+    POGLocationPath *locationPath = [[POGLocationPath alloc] initWithLocationPoints:
+                                     [POGLocationPoint locationPointsFromCoreDataLocationPoints:coreDataLocationPoints]];
+    self.userLocationPath = locationPath;
+}
+
 - (void) redisplayUserLocationPath
 {
     // TO DO
