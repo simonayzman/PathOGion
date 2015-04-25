@@ -127,8 +127,75 @@
                     <view key="view" contentMode="scaleToFill" id="kYM-Mi-wWL">
                         <rect key="frame" x="0.0" y="64" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="Jck-6Z-2Nx">
+                                <rect key="frame" x="16" y="120" width="568" height="162"/>
+                                <date key="date" timeIntervalSinceReferenceDate="450583875.164859">
+                                    <!--2015-04-13 02:11:15 +0000-->
+                                </date>
+                                <connections>
+                                    <action selector="lowerValueDatePickerValueChanged:forEvent:" destination="1kl-65-k8r" eventType="valueChanged" id="Nsj-Vq-fRR"/>
+                                    <action selector="lowerValueDatePickerValueChanged:forEvent:" destination="XaY-2Z-yeN" eventType="valueChanged" id="lTY-Cv-i3F"/>
+                                </connections>
+                            </datePicker>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Success!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P1f-X7-H1U">
+                                <rect key="frame" x="226" y="489" width="149" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="through" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GxT-St-ESz">
+                                <rect key="frame" x="270" y="290" width="60" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="mwD-wY-bhx">
+                                <rect key="frame" x="16" y="319" width="568" height="162"/>
+                                <date key="date" timeIntervalSinceReferenceDate="450911496.38204497">
+                                    <!--2015-04-16 21:11:36 +0000-->
+                                </date>
+                                <connections>
+                                    <action selector="upperValueDatePickerValueChanged:forEvent:" destination="XaY-2Z-yeN" eventType="valueChanged" id="2iT-Q4-LKa"/>
+                                    <action selector="upperValueDatePickerValueChanged:forEvent:" destination="1kl-65-k8r" eventType="valueChanged" id="sq9-yT-OuT"/>
+                                </connections>
+                            </datePicker>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t8I-nn-aJy">
+                                <rect key="frame" x="277" y="518" width="46" height="30"/>
+                                <state key="normal" title="Delete">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="deleteLocations" destination="1kl-65-k8r" eventType="touchUpInside" id="ddI-gO-nzg"/>
+                                </connections>
+                            </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="whT-ow-ANH">
+                                <rect key="frame" x="290" y="490" width="20" height="20"/>
+                            </activityIndicatorView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="mwD-wY-bhx" firstAttribute="trailing" secondItem="kYM-Mi-wWL" secondAttribute="trailingMargin" id="DOH-aE-dBv"/>
+                            <constraint firstItem="P1f-X7-H1U" firstAttribute="top" secondItem="mwD-wY-bhx" secondAttribute="bottom" constant="8" id="GWb-eK-oLe"/>
+                            <constraint firstItem="Jck-6Z-2Nx" firstAttribute="trailing" secondItem="kYM-Mi-wWL" secondAttribute="trailingMargin" id="IFL-od-9Hw"/>
+                            <constraint firstAttribute="centerX" secondItem="P1f-X7-H1U" secondAttribute="centerX" constant="-0.5" id="MBE-TY-Imv"/>
+                            <constraint firstItem="mwD-wY-bhx" firstAttribute="top" secondItem="GxT-St-ESz" secondAttribute="bottom" constant="8" id="NR2-zK-8CU"/>
+                            <constraint firstAttribute="centerX" secondItem="GxT-St-ESz" secondAttribute="centerX" id="Njh-j6-mVM"/>
+                            <constraint firstAttribute="centerX" secondItem="t8I-nn-aJy" secondAttribute="centerX" id="Wsu-ZL-XtH"/>
+                            <constraint firstItem="t8I-nn-aJy" firstAttribute="top" secondItem="P1f-X7-H1U" secondAttribute="bottom" constant="8" id="c7W-aA-iLk"/>
+                            <constraint firstItem="Jck-6Z-2Nx" firstAttribute="leading" secondItem="kYM-Mi-wWL" secondAttribute="leadingMargin" id="j9G-7J-cfy"/>
+                            <constraint firstAttribute="centerY" secondItem="GxT-St-ESz" secondAttribute="centerY" id="o0i-29-jkD"/>
+                            <constraint firstItem="GxT-St-ESz" firstAttribute="top" secondItem="Jck-6Z-2Nx" secondAttribute="bottom" constant="8" id="rvK-RJ-qcq"/>
+                            <constraint firstAttribute="centerX" secondItem="Jck-6Z-2Nx" secondAttribute="centerX" id="swA-pU-QDY"/>
+                            <constraint firstItem="mwD-wY-bhx" firstAttribute="leading" secondItem="kYM-Mi-wWL" secondAttribute="leadingMargin" id="ue5-KS-sKK"/>
+                            <constraint firstAttribute="centerX" secondItem="mwD-wY-bhx" secondAttribute="centerX" id="v4m-yw-NU7"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="activityIndicator" destination="whT-ow-ANH" id="RyZ-il-x9p"/>
+                        <outlet property="lowerValueDatePicker" destination="Jck-6Z-2Nx" id="NMA-9X-dID"/>
+                        <outlet property="upperValueDatePicker" destination="mwD-wY-bhx" id="oyi-hJ-55t"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5UQ-EK-wHA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -9,7 +9,9 @@
 #import "POGDeleteUserLocationPathViewController.h"
 
 @interface POGDeleteUserLocationPathViewController ()
-
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (strong, nonatomic) IBOutlet UIDatePicker *lowerValueDatePicker;
+@property (strong, nonatomic) IBOutlet UIDatePicker *upperValueDatePicker;
 @end
 
 @implementation POGDeleteUserLocationPathViewController
@@ -22,6 +24,20 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)deleteLocations
+{
+    
+}
+
+- (IBAction)lowerValueDatePickerValueChanged:(UIDatePicker *)sender forEvent:(UIEvent *)event
+{
+    self.lowerValueDatePicker.maximumDate = self.upperValueDatePicker.date;
+}
+- (IBAction)upperValueDatePickerValueChanged:(UIDatePicker *)sender forEvent:(UIEvent *)event
+{
+    self.upperValueDatePicker.minimumDate = self.lowerValueDatePicker.date;
 }
 
 /*
