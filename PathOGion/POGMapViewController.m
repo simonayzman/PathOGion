@@ -12,6 +12,7 @@
 #import "POGCoreDataManager.h"
 #import "POGLocationPoint.h"
 #import "POGLocationTracker.h"
+#import "CLLocation+measuring.h"
 
 @interface POGMapViewController ()
 
@@ -130,60 +131,77 @@
 
 - (void) redisplayUserLocationPath
 {
-    // TO DO
-    // IMPLEMENT VERSION WHERE INACCURATE LOCATIONS
-    // APPEAR DIFFERENTLY AS MKPOLYGONS OR MKCIRCLES
-    // WITH MUCH SMALLER RADII (TO SHOW INACCURACY)
-    
+    [self resetUserLocationsOnMapView];
     NSMutableArray *overlays = [NSMutableArray array];
     NSMutableArray *annotations = [NSMutableArray array];
     
+    NSDateFormatter *timeFormatter = [self preferredTimeFormatter];
+    NSDateFormatter *dateFormatter = [self preferredDateFormatter];
+    
     NSArray *locationPointArray = [self.userLocationPath getLocationPath];
+    
     CLLocationCoordinate2D *locationPointCoordinates = malloc(sizeof(CLLocationCoordinate2D) * [locationPointArray count]);
-    NSUInteger counter = 0;
-    
-    NSDateFormatter *timeFormatter = [[NSDateFormatter alloc] init];
-    timeFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
-    [timeFormatter setDateFormat:@"h:mm a"];
-    
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
-    [dateFormatter setDateFormat:@"M'/'d'/'yy"];
+    NSUInteger locationPointCoordinatesCounter = 0;
 
+    CLLocationCoordinate2D *beginningIndexOfCurrentPolylineInLocationPointCoordinates = locationPointCoordinates;
+    NSUInteger numberOfCoordinatesOnCurrentPolyline = 0;
+    POGLocationPoint *previousLocationPoint;
+    
     for (POGLocationPoint *locationPoint in locationPointArray)
     {
         if (locationPoint.accuracy <= ACCURACY_TOLERANCE)
         {
+            // Addition of circle overlay to temporary overlay container
             MKCircle *circle = [MKCircle circleWithCenterCoordinate:[locationPoint CLLocationCoordinate2D] radius:locationPoint.accuracy];
-            //circle.title = [NSString stringWithFormat:@"%@ (%@)", [timeFormatter stringFromDate:locationPoint.timestamp], [dateFormatter stringFromDate:locationPoint.timestamp]];
-            //circle.subtitle  = [NSString stringWithFormat:@"Within %.0f meters", locationPoint.accuracy];
             [overlays addObject:circle];
-            //[annotations addObject:circle];
 
+            // Addition of point annotation to temporary annotation container
             MKPointAnnotation *pin = [[MKPointAnnotation alloc] init];
             pin.coordinate = [locationPoint CLLocationCoordinate2D];
-            pin.title = [NSString stringWithFormat:@"%@ (%@)", [timeFormatter stringFromDate:locationPoint.timestamp], [dateFormatter stringFromDate:locationPoint.timestamp]];
+            pin.title = [NSString stringWithFormat:@"%@ (%@)",
+                         [timeFormatter stringFromDate:locationPoint.timestamp],
+                         [dateFormatter stringFromDate:locationPoint.timestamp]];
             pin.subtitle  = [NSString stringWithFormat:@"Within %.0f meters", locationPoint.accuracy];
             [annotations addObject:pin];
             
-            locationPointCoordinates[counter] = [locationPoint CLLocationCoordinate2D];
-            counter++;
+            // Polyline calculation
+            locationPointCoordinatesCounter++;
+            locationPointCoordinates[locationPointCoordinatesCounter-1] = [locationPoint CLLocationCoordinate2D];
+            if (previousLocationPoint && [CLLocation distanceFromCoordinate:[locationPoint CLLocationCoordinate2D] toCoordinate:[previousLocationPoint CLLocationCoordinate2D]] > locationPoint.accuracy + previousLocationPoint.accuracy + 2 * DISTANCE_FILTER)
+            {
+                // Finish off the first polyline
+                MKPolyline *polyline = [MKPolyline polylineWithCoordinates:beginningIndexOfCurrentPolylineInLocationPointCoordinates
+                                                                     count:numberOfCoordinatesOnCurrentPolyline];
+                [overlays addObject:polyline];
+                beginningIndexOfCurrentPolylineInLocationPointCoordinates = &(locationPointCoordinates[locationPointCoordinatesCounter-1]);
+
+                // Create the second polyline: TO DO
+                numberOfCoordinatesOnCurrentPolyline = 0;
+            }
+            numberOfCoordinatesOnCurrentPolyline++;
+            previousLocationPoint = locationPoint;
         }
     }
-    MKPolyline *polyline = [MKPolyline polylineWithCoordinates:locationPointCoordinates count:counter];
 
+    // Addition of polyline to temporary overlay container
+    MKPolyline *polyline = [MKPolyline polylineWithCoordinates:beginningIndexOfCurrentPolylineInLocationPointCoordinates count:numberOfCoordinatesOnCurrentPolyline];
     [overlays addObject:polyline];
     
+    // Actual addition of overlays/annotations to mapView
     [self.mapView addOverlays:[overlays copy]];
+    [self.userLocationOverlays addObjectsFromArray:[overlays copy]];
     [self.mapView addAnnotations:[annotations copy]];
-    
+    [self.userLocationAnnotations addObjectsFromArray:[annotations copy]];
+
+    // Final memory cleanup
     realloc(locationPointCoordinates,0);
     locationPointCoordinates = nil;
 }
 
-- (void) redisplayPatientLocationPath
+- (void) resetUserLocationsOnMapView
 {
-
+    [self.mapView removeOverlays:[self.userLocationOverlays copy]];
+    [self.mapView removeAnnotations:[self.userLocationAnnotations copy]];
 }
 
 #pragma mark - Patient location path functions
@@ -300,5 +318,20 @@
 
 #pragma mark - Misc.
 
+- (NSDateFormatter *) preferredDateFormatter
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
+    [dateFormatter setDateFormat:@"M'/'d'/'yy"];
+    return dateFormatter;
+}
+
+- (NSDateFormatter *) preferredTimeFormatter
+{
+    NSDateFormatter *timeFormatter = [[NSDateFormatter alloc] init];
+    timeFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
+    [timeFormatter setDateFormat:@"h:mm a"];
+    return timeFormatter;
+}
 
 @end
