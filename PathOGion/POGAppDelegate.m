@@ -87,7 +87,6 @@
 {
     NSLog(@"initializeCoreData");
     self.coreDataManager = [POGCoreDataManager sharedCoreDataManager];
-
 }
 
 - (void) initializeLocationServices

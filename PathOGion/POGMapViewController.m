@@ -21,6 +21,8 @@
 @property (assign, nonatomic) BOOL boundsChanged;
 @property (strong, nonatomic) NSMutableArray *userLocationAnnotations;
 @property (strong, nonatomic) NSMutableArray *userLocationOverlays;
+@property (strong, nonatomic) NSMutableArray *patientLocationAnnotations;
+@property (strong, nonatomic) NSMutableArray *patientLocationOverlays;
 
 @end
 
@@ -81,6 +83,8 @@
     _locationTracker = [POGLocationTracker sharedLocationTracker];
     _userLocationAnnotations = [NSMutableArray array];
     _userLocationOverlays = [NSMutableArray array];
+    _patientLocationAnnotations = [NSMutableArray array];
+    _patientLocationOverlays = [NSMutableArray array];
 }
 
 - (void) timeBoundsSetup
@@ -94,7 +98,6 @@
 
 - (void) navigationBarSetup
 {
-    //self.navigationController.navigationBar.translucent = YES;
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.shadowImage = [UIImage new];
     self.navigationController.navigationBar.translucent = YES;
@@ -127,75 +130,81 @@
     POGLocationPath *locationPath = [[POGLocationPath alloc] initWithLocationPoints:
                                      [POGLocationPoint locationPointsFromCoreDataLocationPoints:coreDataLocationPoints]];
     self.userLocationPath = locationPath;
+    [self.mapView setRegion:MKCoordinateRegionMake([self.locationTracker.currentLocation CLLocationCoordinate2D], MKCoordinateSpanMake(0.02f, 0.05f))
+                   animated:YES];
 }
 
 - (void) redisplayUserLocationPath
 {
-    [self resetUserLocationsOnMapView];
-    NSMutableArray *overlays = [NSMutableArray array];
-    NSMutableArray *annotations = [NSMutableArray array];
-    
-    NSDateFormatter *timeFormatter = [self preferredTimeFormatter];
-    NSDateFormatter *dateFormatter = [self preferredDateFormatter];
-    
-    NSArray *locationPointArray = [self.userLocationPath getLocationPath];
-    
-    CLLocationCoordinate2D *locationPointCoordinates = malloc(sizeof(CLLocationCoordinate2D) * [locationPointArray count]);
-    NSUInteger locationPointCoordinatesCounter = 0;
-
-    CLLocationCoordinate2D *beginningIndexOfCurrentPolylineInLocationPointCoordinates = locationPointCoordinates;
-    NSUInteger numberOfCoordinatesOnCurrentPolyline = 0;
-    POGLocationPoint *previousLocationPoint;
-    
-    for (POGLocationPoint *locationPoint in locationPointArray)
+    if (self.userLocationPath)
     {
-        if (locationPoint.accuracy <= ACCURACY_TOLERANCE)
+
+        [self resetUserLocationsOnMapView];
+        NSMutableArray *overlays = [NSMutableArray array];
+        NSMutableArray *annotations = [NSMutableArray array];
+        
+        NSDateFormatter *timeFormatter = [self preferredTimeFormatter];
+        NSDateFormatter *dateFormatter = [self preferredDateFormatter];
+        
+        NSArray *locationPointArray = [self.userLocationPath getLocationPath];
+        
+        CLLocationCoordinate2D *locationPointCoordinates = malloc(sizeof(CLLocationCoordinate2D) * [locationPointArray count]);
+        NSUInteger locationPointCoordinatesCounter = 0;
+
+        CLLocationCoordinate2D *beginningIndexOfCurrentPolylineInLocationPointCoordinates = locationPointCoordinates;
+        NSUInteger numberOfCoordinatesOnCurrentPolyline = 0;
+        POGLocationPoint *previousLocationPoint;
+        
+        for (POGLocationPoint *locationPoint in locationPointArray)
         {
-            // Addition of circle overlay to temporary overlay container
-            MKCircle *circle = [MKCircle circleWithCenterCoordinate:[locationPoint CLLocationCoordinate2D] radius:locationPoint.accuracy];
-            [overlays addObject:circle];
-
-            // Addition of point annotation to temporary annotation container
-            MKPointAnnotation *pin = [[MKPointAnnotation alloc] init];
-            pin.coordinate = [locationPoint CLLocationCoordinate2D];
-            pin.title = [NSString stringWithFormat:@"%@ (%@)",
-                         [timeFormatter stringFromDate:locationPoint.timestamp],
-                         [dateFormatter stringFromDate:locationPoint.timestamp]];
-            pin.subtitle  = [NSString stringWithFormat:@"Within %.0f meters", locationPoint.accuracy];
-            [annotations addObject:pin];
-            
-            // Polyline calculation
-            locationPointCoordinatesCounter++;
-            locationPointCoordinates[locationPointCoordinatesCounter-1] = [locationPoint CLLocationCoordinate2D];
-            if (previousLocationPoint && [CLLocation distanceFromCoordinate:[locationPoint CLLocationCoordinate2D] toCoordinate:[previousLocationPoint CLLocationCoordinate2D]] > locationPoint.accuracy + previousLocationPoint.accuracy + 2 * DISTANCE_FILTER)
+            if (locationPoint.accuracy <= ACCURACY_TOLERANCE)
             {
-                // Finish off the first polyline
-                MKPolyline *polyline = [MKPolyline polylineWithCoordinates:beginningIndexOfCurrentPolylineInLocationPointCoordinates
-                                                                     count:numberOfCoordinatesOnCurrentPolyline];
-                [overlays addObject:polyline];
-                beginningIndexOfCurrentPolylineInLocationPointCoordinates = &(locationPointCoordinates[locationPointCoordinatesCounter-1]);
+                // Addition of circle overlay to temporary overlay container
+                MKCircle *circle = [MKCircle circleWithCenterCoordinate:[locationPoint CLLocationCoordinate2D] radius:locationPoint.accuracy];
+                [overlays addObject:circle];
 
-                // Create the second polyline: TO DO
-                numberOfCoordinatesOnCurrentPolyline = 0;
+                // Addition of point annotation to temporary annotation container
+                MKPointAnnotation *pin = [[MKPointAnnotation alloc] init];
+                pin.coordinate = [locationPoint CLLocationCoordinate2D];
+                pin.title = [NSString stringWithFormat:@"%@ (%@)",
+                             [timeFormatter stringFromDate:locationPoint.timestamp],
+                             [dateFormatter stringFromDate:locationPoint.timestamp]];
+                pin.subtitle  = [NSString stringWithFormat:@"Within %.0f meters", locationPoint.accuracy];
+                [annotations addObject:pin];
+                
+                // Polyline calculation
+                locationPointCoordinatesCounter++;
+                locationPointCoordinates[locationPointCoordinatesCounter-1] = [locationPoint CLLocationCoordinate2D];
+                if (previousLocationPoint && [CLLocation distanceFromCoordinate:[locationPoint CLLocationCoordinate2D] toCoordinate:[previousLocationPoint CLLocationCoordinate2D]] > locationPoint.accuracy + previousLocationPoint.accuracy + 2 * DISTANCE_FILTER)
+                {
+                    // Finish off the first polyline
+                    MKPolyline *polyline = [MKPolyline polylineWithCoordinates:beginningIndexOfCurrentPolylineInLocationPointCoordinates
+                                                                         count:numberOfCoordinatesOnCurrentPolyline];
+                    [overlays addObject:polyline];
+                    beginningIndexOfCurrentPolylineInLocationPointCoordinates = &(locationPointCoordinates[locationPointCoordinatesCounter-1]);
+
+                    // Create the second polyline: TO DO
+                    numberOfCoordinatesOnCurrentPolyline = 0;
+                }
+                numberOfCoordinatesOnCurrentPolyline++;
+                previousLocationPoint = locationPoint;
             }
-            numberOfCoordinatesOnCurrentPolyline++;
-            previousLocationPoint = locationPoint;
         }
+
+        // Addition of polyline to temporary overlay container
+        MKPolyline *polyline = [MKPolyline polylineWithCoordinates:beginningIndexOfCurrentPolylineInLocationPointCoordinates count:numberOfCoordinatesOnCurrentPolyline];
+        [overlays addObject:polyline];
+        
+        // Actual addition of overlays/annotations to mapView
+        [self.mapView addOverlays:[overlays copy]];
+        [self.userLocationOverlays addObjectsFromArray:[overlays copy]];
+        [self.mapView addAnnotations:[annotations copy]];
+        [self.userLocationAnnotations addObjectsFromArray:[annotations copy]];
+
+        // Final memory cleanup
+        realloc(locationPointCoordinates,0);
+        locationPointCoordinates = nil;
     }
-
-    // Addition of polyline to temporary overlay container
-    MKPolyline *polyline = [MKPolyline polylineWithCoordinates:beginningIndexOfCurrentPolylineInLocationPointCoordinates count:numberOfCoordinatesOnCurrentPolyline];
-    [overlays addObject:polyline];
-    
-    // Actual addition of overlays/annotations to mapView
-    [self.mapView addOverlays:[overlays copy]];
-    [self.userLocationOverlays addObjectsFromArray:[overlays copy]];
-    [self.mapView addAnnotations:[annotations copy]];
-    [self.userLocationAnnotations addObjectsFromArray:[annotations copy]];
-
-    // Final memory cleanup
-    realloc(locationPointCoordinates,0);
-    locationPointCoordinates = nil;
 }
 
 - (void) resetUserLocationsOnMapView
@@ -208,8 +217,91 @@
 
 - (void) redisplayPatientLocationPath
 {
+    if (self.patientLocationPath)
+    {
+        [self resetPatientLocationsOnMapView];
+        NSMutableArray *overlays = [NSMutableArray array];
+        NSMutableArray *annotations = [NSMutableArray array];
+        
+        NSDateFormatter *timeFormatter = [self preferredTimeFormatter];
+        NSDateFormatter *dateFormatter = [self preferredDateFormatter];
+        
+        NSArray *locationPointArray = [self.patientLocationPath getLocationPath];
+        
+        CLLocationCoordinate2D *locationPointCoordinates = malloc(sizeof(CLLocationCoordinate2D) * [locationPointArray count]);
+        NSUInteger locationPointCoordinatesCounter = 0;
+        
+        CLLocationCoordinate2D *beginningIndexOfCurrentPolylineInLocationPointCoordinates = locationPointCoordinates;
+        NSUInteger numberOfCoordinatesOnCurrentPolyline = 0;
+        POGLocationPoint *previousLocationPoint;
+        
+        for (POGLocationPoint *locationPoint in locationPointArray)
+        {
+            locationPoint.accuracy = 10.0;
+            if (locationPoint.accuracy <= ACCURACY_TOLERANCE)
+            {
+                // Addition of circle overlay to temporary overlay container
+                MKCircle *circle = [MKCircle circleWithCenterCoordinate:[locationPoint CLLocationCoordinate2D] radius:locationPoint.accuracy];
+                [overlays addObject:circle];
+                
+                // Addition of point annotation to temporary annotation container
+                MKPointAnnotation *pin = [[MKPointAnnotation alloc] init];
+                pin.coordinate = [locationPoint CLLocationCoordinate2D];
+                pin.title = [NSString stringWithFormat:@"%@ (%@)*",
+                             [timeFormatter stringFromDate:locationPoint.timestamp],
+                             [dateFormatter stringFromDate:locationPoint.timestamp]];
+                pin.subtitle  = [NSString stringWithFormat:@"Within %.0f meters", locationPoint.accuracy];
+                [annotations addObject:pin];
+                [self.mapView addAnnotation:pin];
+                
+                
+                // Polyline calculation
+                
+                locationPointCoordinates[locationPointCoordinatesCounter++] = [locationPoint CLLocationCoordinate2D];
 
+                /*
+                locationPointCoordinatesCounter++;
+                locationPointCoordinates[locationPointCoordinatesCounter-1] = [locationPoint CLLocationCoordinate2D];
+                if (previousLocationPoint && [CLLocation distanceFromCoordinate:[locationPoint CLLocationCoordinate2D] toCoordinate:[previousLocationPoint CLLocationCoordinate2D]] > locationPoint.accuracy + previousLocationPoint.accuracy + 2 * DISTANCE_FILTER)
+                {
+                    // Finish off the first polyline
+                    MKPolyline *polyline = [MKPolyline polylineWithCoordinates:beginningIndexOfCurrentPolylineInLocationPointCoordinates
+                                                                         count:numberOfCoordinatesOnCurrentPolyline];
+                    [overlays addObject:polyline];
+                    beginningIndexOfCurrentPolylineInLocationPointCoordinates = &(locationPointCoordinates[locationPointCoordinatesCounter-1]);
+                    
+                    // Create the second polyline: TO DO
+                    numberOfCoordinatesOnCurrentPolyline = 0;
+                }
+                numberOfCoordinatesOnCurrentPolyline++;
+                previousLocationPoint = locationPoint;
+                 */
+            }
+        }
+        
+        // Addition of polyline to temporary overlay container
+        //MKPolyline *polyline = [MKPolyline polylineWithCoordinates:beginningIndexOfCurrentPolylineInLocationPointCoordinates count:numberOfCoordinatesOnCurrentPolyline];
+        MKPolyline *polyline = [MKPolyline polylineWithCoordinates:locationPointCoordinates count:locationPointCoordinatesCounter];
+        [overlays addObject:polyline];
+        
+        // Actual addition of overlays/annotations to mapView
+        [self.mapView addOverlays:[overlays copy]];
+        [self.patientLocationOverlays addObjectsFromArray:[overlays copy]];
+        [self.mapView addAnnotations:[annotations copy]];
+        [self.patientLocationAnnotations addObjectsFromArray:[annotations copy]];
+        
+        // Final memory cleanup
+        realloc(locationPointCoordinates,0);
+        locationPointCoordinates = nil;
+    }
 }
+
+- (void) resetPatientLocationsOnMapView
+{
+    [self.mapView removeOverlays:[self.patientLocationOverlays copy]];
+    [self.mapView removeAnnotations:[self.patientLocationAnnotations copy]];
+}
+
 
 #pragma mark - MapView Delegate
 
@@ -221,9 +313,16 @@
 -(void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view {}
 */
 
+-(void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views
+{
+    
+}
+
 -(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
 {
     MKAnnotationView *annotationView = nil;
+    NSString *title = [annotation title];
+    NSString *lastCharacter = [title substringWithRange:NSMakeRange([title length]-1, 1)];
     if ([annotation isKindOfClass:[MKCircle class]])
     {
         annotationView = (MKAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:@"circle"];
@@ -235,21 +334,29 @@
     }
     else if ([annotation isKindOfClass:[MKPointAnnotation class]])
     {
-        annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:@"pin"];
-        if (!annotationView)
+        if ([lastCharacter isEqualToString: @"*"])
         {
-            MKPinAnnotationView *pinView = (MKPinAnnotationView *) [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"pin"];
-            pinView.pinColor = MKPinAnnotationColorGreen;
-            pinView.animatesDrop = YES;
-            pinView.canShowCallout = YES;
-            //pinView.image = [UIImage imageNamed:@"user_pin"];
-            return pinView;
-            /*
-            annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"pin"];
-            annotationView.canShowCallout = YES;
-            annotationView.image = [UIImage imageNamed:@"user_pin"];
-            */
+            annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:@"patientpin"];
+            if (!annotationView)
+            {
+                MKPinAnnotationView *pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"patientpin"];
+                pinView.pinColor = MKPinAnnotationColorRed;
+                pinView.animatesDrop = YES;
+                annotationView = pinView;
+            }
         }
+        else
+        {
+            annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:@"userpin"];
+            if (!annotationView)
+            {
+                MKPinAnnotationView *pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"userpin"];
+                pinView.pinColor = MKPinAnnotationColorGreen;
+                pinView.animatesDrop = YES;
+                annotationView = pinView;
+            }
+        }
+        annotationView.canShowCallout = YES;
     }
     return annotationView;
 }
@@ -266,8 +373,12 @@
     else if ([overlay isKindOfClass:[MKCircle class]])
     {
         MKCircleRenderer *circleRenderer = [[MKCircleRenderer alloc] initWithCircle:overlay];
-        
-        if (((MKCircle *)overlay).radius > ACCURACY_TOLERANCE)
+        if (((MKCircle *)overlay).radius == 0)
+        {
+            circleRenderer.fillColor = [UIColor colorWithRed:0.4f green:0.0f blue:0.f alpha:0.15f];
+            circleRenderer.strokeColor = [UIColor colorWithRed:0.8f green:0.0f blue:0.f alpha:0.3f];
+        }
+        else if (((MKCircle *)overlay).radius > ACCURACY_TOLERANCE)
         {
             circleRenderer.fillColor = [UIColor colorWithRed:0.f green:1.f blue:0.f alpha:0.05f];
             circleRenderer.strokeColor = [UIColor colorWithRed:0.f green:1.f blue:0.f alpha:0.3f];
@@ -295,7 +406,7 @@
 }
 */
 
-#pragma mark - SelectViewController Protocol
+#pragma mark - Select User Path Date Protocol
 
 - (void)lowerValueDateUpdated:(NSDate *)updatedLowerDate
 {
@@ -309,12 +420,12 @@
     self.boundsChanged = YES;
 }
 
-#pragma mark - Application Properties
+#pragma mark - Select Infected Patient Location Path Protocol
 
-//-(BOOL)prefersStatusBarHidden
-//{
-//    return YES;
-//}
+- (void) infectedPatientLocationPathUpdated:(POGLocationPath *) infectedPatientLocationPath
+{
+    self.patientLocationPath = infectedPatientLocationPath;
+}
 
 #pragma mark - Misc.
 
@@ -333,5 +444,7 @@
     [timeFormatter setDateFormat:@"h:mm a"];
     return timeFormatter;
 }
+
+
 
 @end

@@ -47,6 +47,7 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <nil key="simulatedStatusBarMetrics"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="mapView" destination="kD5-Ee-yYR" id="VRB-8C-r4P"/>
@@ -111,6 +112,7 @@
                             <constraint firstItem="Yeh-GG-bK7" firstAttribute="leading" secondItem="Crk-Wu-Zuu" secondAttribute="leading" id="wbV-kl-hcc"/>
                         </constraints>
                     </view>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tkc-cA-Ejg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -181,8 +183,10 @@
                             <constraint firstAttribute="centerX" secondItem="P1f-X7-H1U" secondAttribute="centerX" constant="-0.5" id="MBE-TY-Imv"/>
                             <constraint firstItem="mwD-wY-bhx" firstAttribute="top" secondItem="GxT-St-ESz" secondAttribute="bottom" constant="8" id="NR2-zK-8CU"/>
                             <constraint firstAttribute="centerX" secondItem="GxT-St-ESz" secondAttribute="centerX" id="Njh-j6-mVM"/>
+                            <constraint firstItem="whT-ow-ANH" firstAttribute="top" secondItem="mwD-wY-bhx" secondAttribute="bottom" constant="9" id="Ub7-8S-veY"/>
                             <constraint firstAttribute="centerX" secondItem="t8I-nn-aJy" secondAttribute="centerX" id="Wsu-ZL-XtH"/>
                             <constraint firstItem="t8I-nn-aJy" firstAttribute="top" secondItem="P1f-X7-H1U" secondAttribute="bottom" constant="8" id="c7W-aA-iLk"/>
+                            <constraint firstAttribute="centerX" secondItem="whT-ow-ANH" secondAttribute="centerX" id="i7R-Tg-5Yh"/>
                             <constraint firstItem="Jck-6Z-2Nx" firstAttribute="leading" secondItem="kYM-Mi-wWL" secondAttribute="leadingMargin" id="j9G-7J-cfy"/>
                             <constraint firstAttribute="centerY" secondItem="GxT-St-ESz" secondAttribute="centerY" id="o0i-29-jkD"/>
                             <constraint firstItem="GxT-St-ESz" firstAttribute="top" secondItem="Jck-6Z-2Nx" secondAttribute="bottom" constant="8" id="rvK-RJ-qcq"/>
@@ -190,6 +194,18 @@
                             <constraint firstItem="mwD-wY-bhx" firstAttribute="leading" secondItem="kYM-Mi-wWL" secondAttribute="leadingMargin" id="ue5-KS-sKK"/>
                             <constraint firstAttribute="centerX" secondItem="mwD-wY-bhx" secondAttribute="centerX" id="v4m-yw-NU7"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Ub7-8S-veY"/>
+                                <exclude reference="i7R-Tg-5Yh"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="constraints">
+                                <include reference="Ub7-8S-veY"/>
+                                <include reference="i7R-Tg-5Yh"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="activityIndicator" destination="whT-ow-ANH" id="RyZ-il-x9p"/>
@@ -210,7 +226,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="oN3-ca-She">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="infectedPatientPath" id="oN3-ca-She">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oN3-ca-She" id="WTu-q9-SOl">
                                     <autoresizingMask key="autoresizingMask"/>

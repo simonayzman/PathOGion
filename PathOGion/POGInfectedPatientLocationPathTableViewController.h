@@ -8,6 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
+@class POGLocationPath;
+
+@protocol POGSelectInfectedPatientLocationPathDelegate <NSObject>
+
+@optional
+- (void) infectedPatientLocationPathUpdated:(POGLocationPath *) infectedPatientLocationPath;
+
+@end
+
+
 @interface POGInfectedPatientLocationPathTableViewController : UITableViewController
+
+@property (weak, nonatomic) id<POGSelectInfectedPatientLocationPathDelegate> delegate;
 
 @end
