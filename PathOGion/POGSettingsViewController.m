@@ -58,7 +58,9 @@
     }
     else if ([[segue identifier] isEqualToString:@"showInfectedPatientPaths"])
     {
-        //POGInfectedPatientLocationPathTableViewController *ptvc = [segue destinationViewController];
+        POGInfectedPatientLocationPathTableViewController *ivc = (POGInfectedPatientLocationPathTableViewController *)[segue destinationViewController];
+        POGMapViewController *pvc = self.parentViewController.childViewControllers[0];
+        ivc.delegate = pvc;
     }
     else
     {
