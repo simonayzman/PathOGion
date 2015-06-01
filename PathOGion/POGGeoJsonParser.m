@@ -51,12 +51,12 @@
 
 - (double) getLatitudeFromFeature:(NSDictionary *)feature
 {
-    return [feature[@"geometry"][@"coordinates"][0] doubleValue];
+    return [feature[@"geometry"][@"coordinates"][1] doubleValue];
 }
 
 - (double) getLongitudeFromFeature:(NSDictionary *)feature
 {
-    return [feature[@"geometry"][@"coordinates"][1] doubleValue];
+    return [feature[@"geometry"][@"coordinates"][0] doubleValue];
 }
 
 - (NSDate *) getTimestampFromFeature:(NSDictionary *)feature

@@ -192,7 +192,7 @@
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }
-    return coreDataLocationPoints[0];
+    return ([coreDataLocationPoints count] > 0 ? coreDataLocationPoints[0] : nil);
 }
 
 - (NSArray *)savedCoreDataLocationPoints
